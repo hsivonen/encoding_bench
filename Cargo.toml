@@ -1,0 +1,9 @@
+[package]
+name = "encoding_bench"
+version = "0.1.0"
+authors = ["Henri Sivonen <hsivonen@hsivonen.fi>"]
+
+[dependencies]
+encoding_rs = { path = "../encoding_rs/" }
+encoding = "0.2.33"
+
