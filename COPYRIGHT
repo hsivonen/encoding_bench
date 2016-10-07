@@ -7,6 +7,6 @@ according to those terms.
 
 The test content originating from Wikipedia is licensed under the Creative
 Commons Attribution-ShareAlike 3.0 Unported license <LICENSE-CC-BY-SA or
-https://creativecommons.org/licenses/by-sa/3.0/legalcode>.
-
-
+https://creativecommons.org/licenses/by-sa/3.0/legalcode>. See the file
+wikipedia/sources.txt for a mapping from the file names (without .html) to
+Wikipedia URLs.
