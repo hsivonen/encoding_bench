@@ -25,8 +25,7 @@ macro_rules! decode_bench_impl {
         output.resize(out_len, 0);
         b.bytes = input.len() as u64;
         b.iter(|| {
-            decoder = encoding.new_decoder_without_bom_handling();
-            let (result, _, _, _) = decoder.$decode(test::black_box(&input[..]), &mut output[..], true);
+            let (result, _, _, _) = decoder.$decode(test::black_box(&input[..]), &mut output[..], false);
             match result {
                 encoding_rs::CoderResult::InputEmpty => {}
                 encoding_rs::CoderResult::OutputFull => {
@@ -119,13 +118,10 @@ macro_rules! decode_bench_iconv {
         output.resize(out_len, 0);
         let from_label = CString::new(encoding.name()).unwrap();
         let to_label = CString::new("UTF-8").unwrap();
+        let cd = unsafe { iconv_open(to_label.as_ptr(), from_label.as_ptr()) };
         b.bytes = input.len() as u64;
         b.iter(|| {
       		unsafe {
-	     		// Unfortunately, with iconv, label resolution has to be 
-	       		// inside the measured loop if we want to start with fresh
-	       		// state on each iteration.
-	       		let cd = iconv_open(to_label.as_ptr(), from_label.as_ptr());
 	       		// Black boxing input doesn't work, but iconv isn't in the
 	       		// view of the optimizer anyway.
 	       		let mut input_ptr = input.as_mut_ptr();
@@ -137,11 +133,13 @@ macro_rules! decode_bench_iconv {
 	       		let input_left_ptr = &mut input_left as *mut usize;
 	       		let output_left_ptr = &mut output_left as *mut usize;
 	       		iconv(cd, input_ptr_ptr, input_left_ptr, output_ptr_ptr, output_left_ptr);
-	       		iconv_close(cd);
 	       		assert_eq!(input_left, 0usize);
 	            test::black_box(&output);
       		}
         });
+  		unsafe {
+  			iconv_close(cd);
+  		}
     });
 }
 
@@ -193,56 +191,57 @@ macro_rules! decode_bench_icu {
 
 // uconv
 
-#[link(name = "xul")]
-extern "C" {
-    fn NS_InitMinimalXPCOM() -> libc::c_int;
-    fn NS_CreateUnicodeDecoder(name: *const u8, name_len: usize) -> *mut libc::c_void;
-    fn NS_ReleaseUnicodeDecoder(dec: *mut libc::c_void);
-    fn NS_DecodeWithUnicodeDecoder(dec: *mut libc::c_void,
-                                   src: *const u8,
-                                   src_len: i32,
-                                   dst: *mut u16,
-                                   dst_len: i32);
-}
-
-static mut XPCOM_INITIALIZED: bool = false;
-
-fn init_xpcom() {
-    unsafe {
-        if !XPCOM_INITIALIZED {
-            XPCOM_INITIALIZED = true;
-            NS_InitMinimalXPCOM();
-        }
-    }
-}
+// #[link(name = "xul")]
+// extern "C" {
+//    fn NS_InitMinimalXPCOM() -> libc::c_int;
+//    fn NS_CreateUnicodeDecoder(name: *const u8, name_len: usize) -> *mut libc::c_void;
+//    fn NS_ReleaseUnicodeDecoder(dec: *mut libc::c_void);
+//    fn NS_DecodeWithUnicodeDecoder(dec: *mut libc::c_void,
+//                                   src: *const u8,
+//                                   src_len: i32,
+//                                   dst: *mut u16,
+//                                   dst_len: i32);
+// }
+//
+// static mut XPCOM_INITIALIZED: bool = false;
+//
+// fn init_xpcom() {
+//    unsafe {
+//        if !XPCOM_INITIALIZED {
+//            XPCOM_INITIALIZED = true;
+//             NS_InitMinimalXPCOM();
+//        }
+//    }
+// }
 
 macro_rules! decode_bench_uconv {
 	($name:ident,
      $encoding:ident,
      $data:expr) => (
-    #[bench]
-    fn $name(b: &mut Bencher) {
-    	init_xpcom();
-        let encoding = encoding_rs::$encoding;
-        let utf8 = include_str!($data);
-        let (input, _, _) = encoding.encode(utf8);
-        let decoder = encoding.new_decoder_without_bom_handling();
-        let out_len = decoder.max_utf16_buffer_length(input.len());
-        let mut output: Vec<u16> = Vec::with_capacity(out_len);
-        output.resize(out_len, 0);
-        let name = encoding.name();
-        let dec = unsafe { NS_CreateUnicodeDecoder(name.as_ptr(), name.len()) };
-        b.bytes = input.len() as u64;
-        b.iter(|| {
-      		unsafe {
-      			NS_DecodeWithUnicodeDecoder(dec, input.as_ptr(), input.len() as i32, output.as_mut_ptr(), output.len() as i32);
-      		}
-            test::black_box(&output);
-        });
-        unsafe {
-        	NS_ReleaseUnicodeDecoder(dec);
-        }
-    });
+//    #[bench]
+//    fn $name(b: &mut Bencher) {
+//        init_xpcom();
+//        let encoding = encoding_rs::$encoding;
+//        let utf8 = include_str!($data);
+//        let (input, _, _) = encoding.encode(utf8);
+//        let decoder = encoding.new_decoder_without_bom_handling();
+//        let out_len = decoder.max_utf16_buffer_length(input.len());
+//        let mut output: Vec<u16> = Vec::with_capacity(out_len);
+//        output.resize(out_len, 0);
+//        let name = encoding.name();
+//        let dec = unsafe { NS_CreateUnicodeDecoder(name.as_ptr(), name.len()) };
+//        b.bytes = input.len() as u64;
+//        b.iter(|| {
+//       		unsafe {
+//       			NS_DecodeWithUnicodeDecoder(dec, input.as_ptr(), input.len() as i32, output.as_mut_ptr(), output.len() as i32);
+//       		}
+//            test::black_box(&output);
+//        });
+//        unsafe {
+//            NS_ReleaseUnicodeDecoder(dec);
+//        }
+//    }
+);
 }
 
 macro_rules! decode_bench {
