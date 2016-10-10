@@ -147,6 +147,50 @@ macro_rules! decode_bench_iconv {
 
 // ICU
 
+#[link(name = "icuuc")]
+extern "C" {
+    fn ucnv_open_55(label: *const std::os::raw::c_char,
+                    error: *mut libc::c_int)
+                    -> *mut libc::c_void;
+    fn ucnv_close_55(cnv: *mut libc::c_void);
+    fn ucnv_toUChars_55(cnv: *mut libc::c_void,
+                        dst: *mut u16,
+                        dst_len: i32,
+                        src: *const u8,
+                        src_len: i32,
+                        error: *mut libc::c_int)
+                        -> i32;
+}
+
+macro_rules! decode_bench_icu {
+	($name:ident,
+     $encoding:ident,
+     $data:expr) => (
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let encoding = encoding_rs::$encoding;
+        let utf8 = include_str!($data);
+        let (input, _, _) = encoding.encode(utf8);
+        let decoder = encoding.new_decoder_without_bom_handling();
+        let out_len = decoder.max_utf16_buffer_length(input.len());
+        let mut output: Vec<u16> = Vec::with_capacity(out_len);
+        output.resize(out_len, 0);
+        let label = CString::new(encoding.name()).unwrap();
+        let mut error: libc::c_int = 0;
+        let cnv = unsafe { ucnv_open_55(label.as_ptr(), &mut error) };
+        b.bytes = input.len() as u64;
+        b.iter(|| {
+      		unsafe {
+      			ucnv_toUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
+      		}
+            test::black_box(&output);
+        });
+        unsafe {
+        	ucnv_close_55(cnv);
+        }
+    });
+}
+
 // uconv
 
 macro_rules! decode_bench {
@@ -155,11 +199,13 @@ macro_rules! decode_bench {
      $string_name:ident,
      $rust_name:ident,
      $iconv_name:ident,
+     $icu_name:ident,
      $legacy_name8:ident,
      $legacy_name16:ident,
      $legacy_string_name:ident,
      $legacy_rust_name:ident,
      $legacy_iconv_name:ident,
+     $legacy_icu_name:ident,
      $encoding:ident,
      $data:expr) => (
     decode_bench_utf8!($name8, UTF_8, $data);
@@ -167,11 +213,13 @@ macro_rules! decode_bench {
     decode_bench_string!($string_name, UTF_8, $data);
     decode_bench_rust!($rust_name, UTF_8, $data);
     decode_bench_iconv!($iconv_name, UTF_8, $data);
+    decode_bench_icu!($icu_name, UTF_8, $data);
     decode_bench_utf8!($legacy_name8, $encoding, $data);
     decode_bench_utf16!($legacy_name16, $encoding, $data);
     decode_bench_string!($legacy_string_name, $encoding, $data);
     decode_bench_rust!($legacy_rust_name, $encoding, $data);
     decode_bench_iconv!($legacy_iconv_name, $encoding, $data);
+    decode_bench_icu!($legacy_icu_name, $encoding, $data);
      );
 }
 
@@ -180,11 +228,13 @@ decode_bench!(bench_decode_to_utf8_ar,
               bench_decode_to_string_ar,
               bench_rust_to_string_ar,
               bench_iconv_to_utf8_ar,
+              bench_icu_to_utf16_ar,
               bench_decode_to_utf8_windows_1256,
               bench_decode_to_utf16_windows_1256,
               bench_decode_to_string_windows_1256,
               bench_rust_to_string_windows_1256,
               bench_iconv_to_utf8_windows_1256,
+              bench_icu_to_utf16_windows_1256,
               WINDOWS_1256,
               "wikipedia/ar.html");
 // decode_bench!(bench_decode_to_utf8_el,
