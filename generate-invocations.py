@@ -20,7 +20,7 @@ languages = [
   ("ko", "euc_kr"),
   ("ru", "windows_1251"),
   ("zh_cn", "gb18030"),
-#  ("zh_tw", "big5"),
+  ("zh_tw", "big5"),
 ]
 
 def read_non_generated(path):

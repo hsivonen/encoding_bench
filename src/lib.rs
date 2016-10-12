@@ -446,5 +446,22 @@ decode_bench!(bench_decode_to_utf8_zh_cn,
               bench_uconv_to_utf16_gb18030,
               GB18030,
               "wikipedia/zh_cn.html");
+decode_bench!(bench_decode_to_utf8_zh_tw,
+              bench_decode_to_utf16_zh_tw,
+              bench_decode_to_string_zh_tw,
+              bench_rust_to_string_zh_tw,
+              bench_std_to_string_zh_tw,
+              bench_iconv_to_utf8_zh_tw,
+              bench_icu_to_utf16_zh_tw,
+              bench_uconv_to_utf16_zh_tw,
+              bench_decode_to_utf8_big5,
+              bench_decode_to_utf16_big5,
+              bench_decode_to_string_big5,
+              bench_rust_to_string_big5,
+              bench_iconv_to_utf8_big5,
+              bench_icu_to_utf16_big5,
+              bench_uconv_to_utf16_big5,
+              BIG5,
+              "wikipedia/zh_tw.html");
 
 // END GENERATED CODE
