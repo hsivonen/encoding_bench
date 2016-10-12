@@ -15,7 +15,7 @@ fn iana(encoding: &'static encoding_rs::Encoding) -> &'static str {
         "windows-31j"
     } else if encoding_rs::EUC_KR == encoding {
         "windows-949"
-    } else  {
+    } else {
         encoding.name()
     }
 }
@@ -95,6 +95,21 @@ macro_rules! decode_bench_rust {
         b.bytes = input.len() as u64;
         b.iter(|| {
             let output = rust_encoding.decode(test::black_box(&input[..]), encoding::DecoderTrap::Replace);
+            test::black_box(&output);
+        });
+    });
+}
+
+macro_rules! decode_bench_std {
+    ($name:ident,
+     $data:expr) => (
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let mut input = Vec::new();
+        input.extend_from_slice(include_bytes!($data));
+        b.bytes = input.len() as u64;
+        b.iter(|| {
+            let output = String::from_utf8_lossy(input).to_owned();
             test::black_box(&output);
         });
     });
@@ -261,6 +276,7 @@ macro_rules! decode_bench {
      $name16:ident,
      $string_name:ident,
      $rust_name:ident,
+     $std_name:ident,
      $iconv_name:ident,
      $icu_name:ident,
      $uconv_name:ident,
@@ -277,6 +293,7 @@ macro_rules! decode_bench {
     decode_bench_utf16!($name16, UTF_8, $data);
     decode_bench_string!($string_name, UTF_8, $data);
     decode_bench_rust!($rust_name, UTF_8, $data);
+    decode_bench_std!($std_name, $data);
     decode_bench_iconv!($iconv_name, UTF_8, $data);
     decode_bench_icu!($icu_name, UTF_8, $data);
     decode_bench_uconv!($uconv_name, UTF_8, $data);
@@ -297,6 +314,7 @@ decode_bench!(bench_decode_to_utf8_ar,
               bench_decode_to_utf16_ar,
               bench_decode_to_string_ar,
               bench_rust_to_string_ar,
+              bench_std_to_string_ar,
               bench_iconv_to_utf8_ar,
               bench_icu_to_utf16_ar,
               bench_uconv_to_utf16_ar,
@@ -313,6 +331,7 @@ decode_bench!(bench_decode_to_utf8_el,
               bench_decode_to_utf16_el,
               bench_decode_to_string_el,
               bench_rust_to_string_el,
+              bench_std_to_string_el,
               bench_iconv_to_utf8_el,
               bench_icu_to_utf16_el,
               bench_uconv_to_utf16_el,
@@ -329,6 +348,7 @@ decode_bench!(bench_decode_to_utf8_en,
               bench_decode_to_utf16_en,
               bench_decode_to_string_en,
               bench_rust_to_string_en,
+              bench_std_to_string_en,
               bench_iconv_to_utf8_en,
               bench_icu_to_utf16_en,
               bench_uconv_to_utf16_en,
@@ -345,6 +365,7 @@ decode_bench!(bench_decode_to_utf8_he,
               bench_decode_to_utf16_he,
               bench_decode_to_string_he,
               bench_rust_to_string_he,
+              bench_std_to_string_he,
               bench_iconv_to_utf8_he,
               bench_icu_to_utf16_he,
               bench_uconv_to_utf16_he,
@@ -361,6 +382,7 @@ decode_bench!(bench_decode_to_utf8_ja,
               bench_decode_to_utf16_ja,
               bench_decode_to_string_ja,
               bench_rust_to_string_ja,
+              bench_std_to_string_ja,
               bench_iconv_to_utf8_ja,
               bench_icu_to_utf16_ja,
               bench_uconv_to_utf16_ja,
@@ -377,6 +399,7 @@ decode_bench!(bench_decode_to_utf8_ko,
               bench_decode_to_utf16_ko,
               bench_decode_to_string_ko,
               bench_rust_to_string_ko,
+              bench_std_to_string_ko,
               bench_iconv_to_utf8_ko,
               bench_icu_to_utf16_ko,
               bench_uconv_to_utf16_ko,
@@ -393,6 +416,7 @@ decode_bench!(bench_decode_to_utf8_ru,
               bench_decode_to_utf16_ru,
               bench_decode_to_string_ru,
               bench_rust_to_string_ru,
+              bench_std_to_string_ru,
               bench_iconv_to_utf8_ru,
               bench_icu_to_utf16_ru,
               bench_uconv_to_utf16_ru,
@@ -409,6 +433,7 @@ decode_bench!(bench_decode_to_utf8_zh_cn,
               bench_decode_to_utf16_zh_cn,
               bench_decode_to_string_zh_cn,
               bench_rust_to_string_zh_cn,
+              bench_std_to_string_zh_cn,
               bench_iconv_to_utf8_zh_cn,
               bench_icu_to_utf16_zh_cn,
               bench_uconv_to_utf16_zh_cn,

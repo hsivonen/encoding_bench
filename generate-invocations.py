@@ -58,6 +58,7 @@ for (lang, enc) in languages:
               bench_decode_to_utf16_%s,
               bench_decode_to_string_%s,
               bench_rust_to_string_%s,
+              bench_std_to_string_%s,
               bench_iconv_to_utf8_%s,
               bench_icu_to_utf16_%s,
               bench_uconv_to_utf16_%s,
@@ -70,7 +71,7 @@ for (lang, enc) in languages:
               bench_uconv_to_utf16_%s,
               %s,
               "wikipedia/%s.html");
-''' % (lang, lang, lang, lang, lang, lang, lang, enc, enc, enc, enc, enc, enc, enc, enc.upper(), lang))
+''' % (lang, lang, lang, lang, lang, lang, lang, lang, enc, enc, enc, enc, enc, enc, enc, enc.upper(), lang))
 
 lib_file.write('''
 ''')
