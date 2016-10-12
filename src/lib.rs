@@ -109,7 +109,7 @@ macro_rules! decode_bench_std {
         input.extend_from_slice(include_bytes!($data));
         b.bytes = input.len() as u64;
         b.iter(|| {
-            let output = String::from_utf8_lossy(input).to_owned();
+            let output = String::from_utf8_lossy(&input[..]).to_owned();
             test::black_box(&output);
         });
     });
