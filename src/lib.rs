@@ -8,18 +8,6 @@ extern crate libc;
 use test::Bencher;
 use std::ffi::CString;
 
-fn iana(encoding: &'static encoding_rs::Encoding) -> &'static str {
-    if encoding_rs::BIG5 == encoding {
-        "big5-hkscs"
-    } else if encoding_rs::SHIFT_JIS == encoding {
-        "windows-31j"
-    } else if encoding_rs::EUC_KR == encoding {
-        "windows-949"
-    } else {
-        encoding.name()
-    }
-}
-
 macro_rules! decode_bench_impl {
     ($name:ident,
      $encoding:ident,
@@ -130,6 +118,18 @@ extern "C" {
              -> usize;
 }
 
+fn iconv_name(encoding: &'static encoding_rs::Encoding) -> &'static str {
+    if encoding_rs::BIG5 == encoding {
+        "big5-hkscs"
+    } else if encoding_rs::SHIFT_JIS == encoding {
+        "windows-31j"
+    } else if encoding_rs::EUC_KR == encoding {
+        "cp949"
+    } else {
+        encoding.name()
+    }
+}
+
 macro_rules! decode_bench_iconv {
     ($name:ident,
      $encoding:ident,
@@ -143,7 +143,7 @@ macro_rules! decode_bench_iconv {
         let out_len = decoder.max_utf8_buffer_length(input.len());
         let mut output: Vec<u8> = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
-        let from_label = CString::new(iana(encoding)).unwrap();
+        let from_label = CString::new(iconv_name(encoding)).unwrap();
         let to_label = CString::new("UTF-8").unwrap();
         let cd = unsafe { iconv_open(to_label.as_ptr(), from_label.as_ptr()) };
         b.bytes = input.len() as u64;
@@ -187,6 +187,18 @@ extern "C" {
                         -> i32;
 }
 
+fn icu_name(encoding: &'static encoding_rs::Encoding) -> &'static str {
+    if encoding_rs::BIG5 == encoding {
+        "big5-hkscs"
+    } else if encoding_rs::SHIFT_JIS == encoding {
+        "windows-31j"
+    } else if encoding_rs::EUC_KR == encoding {
+        "windows-949"
+    } else {
+        encoding.name()
+    }
+}
+
 macro_rules! decode_bench_icu {
     ($name:ident,
      $encoding:ident,
@@ -200,7 +212,7 @@ macro_rules! decode_bench_icu {
         let out_len = decoder.max_utf16_buffer_length(input.len());
         let mut output: Vec<u16> = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
-        let label = CString::new(iana(encoding)).unwrap();
+        let label = CString::new(icu_name(encoding)).unwrap();
         let mut error: libc::c_int = 0;
         let cnv = unsafe { ucnv_open_55(label.as_ptr(), &mut error) };
         b.bytes = input.len() as u64;
