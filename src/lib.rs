@@ -218,6 +218,12 @@ macro_rules! decode_bench_icu {
 
 // uconv
 
+#[link(name = "stdc++" )]
+extern "C" {}
+
+#[link(name = "mozglue", kind = "static" )]
+extern "C" {}
+
 #[link(name = "xul")]
 extern "C" {
     fn NS_InitMinimalXPCOM() -> libc::c_int;
