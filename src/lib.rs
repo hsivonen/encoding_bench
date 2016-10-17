@@ -103,6 +103,24 @@ macro_rules! decode_bench_std {
     });
 }
 
+macro_rules! copy_bench {
+    ($name:ident,
+     $data:expr) => (
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let mut input = Vec::new();
+        input.extend_from_slice(include_bytes!($data));
+        let mut output = Vec::with_capacity(input.len());
+        b.bytes = input.len() as u64;
+        b.iter(|| {
+            unsafe {
+                std::ptr::copy_nonoverlapping(test::black_box(input.as_slice().as_ptr()), output.as_mut_slice().as_mut_ptr(), input.len());
+            }
+            test::black_box(&output);
+        });
+    });
+}
+
 // iconv
 
 extern "C" {
@@ -238,7 +256,10 @@ extern "C" {}
 
 #[link(name = "xul")]
 extern "C" {
-    fn NS_InitXPCOM2(manager: *mut *mut libc::c_void, bin_dir: *mut libc::c_void, provider: *mut libc::c_void) -> libc::c_int;
+    fn NS_InitXPCOM2(manager: *mut *mut libc::c_void,
+                     bin_dir: *mut libc::c_void,
+                     provider: *mut libc::c_void)
+                     -> libc::c_int;
     fn NS_CreateUnicodeDecoder(name: *const u8, name_len: usize) -> *mut libc::c_void;
     fn NS_ReleaseUnicodeDecoder(dec: *mut libc::c_void);
     fn NS_DecodeWithUnicodeDecoder(dec: *mut libc::c_void,
@@ -254,7 +275,9 @@ fn init_xpcom() {
     unsafe {
         if !XPCOM_INITIALIZED {
             XPCOM_INITIALIZED = true;
-            NS_InitXPCOM2(std::ptr::null_mut(), std::ptr::null_mut(), std::ptr::null_mut());
+            NS_InitXPCOM2(std::ptr::null_mut(),
+                          std::ptr::null_mut(),
+                          std::ptr::null_mut());
         }
     }
 }
@@ -290,7 +313,8 @@ macro_rules! decode_bench_uconv {
 }
 
 macro_rules! decode_bench {
-    ($name8:ident,
+    ($copy_name:ident,
+     $name8:ident,
      $name16:ident,
      $string_name:ident,
      $rust_name:ident,
@@ -307,6 +331,7 @@ macro_rules! decode_bench {
      $legacy_uconv_name:ident,
      $encoding:ident,
      $data:expr) => (
+    copy_bench!($copy_name, $data);
     decode_bench_utf8!($name8, UTF_8, $data);
     decode_bench_utf16!($name16, UTF_8, $data);
     decode_bench_string!($string_name, UTF_8, $data);
@@ -328,7 +353,8 @@ macro_rules! decode_bench {
 // BEGIN GENERATED CODE. PLEASE DO NOT EDIT.
 // Instead, please regenerate using generate-encoding-data.py
 
-decode_bench!(bench_decode_to_utf8_ar,
+decode_bench!(bench_copy_ar,
+              bench_decode_to_utf8_ar,
               bench_decode_to_utf16_ar,
               bench_decode_to_string_ar,
               bench_rust_to_string_ar,
@@ -345,7 +371,8 @@ decode_bench!(bench_decode_to_utf8_ar,
               bench_uconv_to_utf16_windows_1256,
               WINDOWS_1256,
               "wikipedia/ar.html");
-decode_bench!(bench_decode_to_utf8_el,
+decode_bench!(bench_copy_el,
+              bench_decode_to_utf8_el,
               bench_decode_to_utf16_el,
               bench_decode_to_string_el,
               bench_rust_to_string_el,
@@ -362,7 +389,8 @@ decode_bench!(bench_decode_to_utf8_el,
               bench_uconv_to_utf16_windows_1253,
               WINDOWS_1253,
               "wikipedia/el.html");
-decode_bench!(bench_decode_to_utf8_en,
+decode_bench!(bench_copy_en,
+              bench_decode_to_utf8_en,
               bench_decode_to_utf16_en,
               bench_decode_to_string_en,
               bench_rust_to_string_en,
@@ -379,7 +407,8 @@ decode_bench!(bench_decode_to_utf8_en,
               bench_uconv_to_utf16_windows_1252,
               WINDOWS_1252,
               "wikipedia/en.html");
-decode_bench!(bench_decode_to_utf8_he,
+decode_bench!(bench_copy_he,
+              bench_decode_to_utf8_he,
               bench_decode_to_utf16_he,
               bench_decode_to_string_he,
               bench_rust_to_string_he,
@@ -396,7 +425,8 @@ decode_bench!(bench_decode_to_utf8_he,
               bench_uconv_to_utf16_windows_1255,
               WINDOWS_1255,
               "wikipedia/he.html");
-decode_bench!(bench_decode_to_utf8_ja,
+decode_bench!(bench_copy_ja,
+              bench_decode_to_utf8_ja,
               bench_decode_to_utf16_ja,
               bench_decode_to_string_ja,
               bench_rust_to_string_ja,
@@ -413,7 +443,8 @@ decode_bench!(bench_decode_to_utf8_ja,
               bench_uconv_to_utf16_shift_jis,
               SHIFT_JIS,
               "wikipedia/ja.html");
-decode_bench!(bench_decode_to_utf8_ko,
+decode_bench!(bench_copy_ko,
+              bench_decode_to_utf8_ko,
               bench_decode_to_utf16_ko,
               bench_decode_to_string_ko,
               bench_rust_to_string_ko,
@@ -430,7 +461,8 @@ decode_bench!(bench_decode_to_utf8_ko,
               bench_uconv_to_utf16_euc_kr,
               EUC_KR,
               "wikipedia/ko.html");
-decode_bench!(bench_decode_to_utf8_ru,
+decode_bench!(bench_copy_ru,
+              bench_decode_to_utf8_ru,
               bench_decode_to_utf16_ru,
               bench_decode_to_string_ru,
               bench_rust_to_string_ru,
@@ -447,7 +479,8 @@ decode_bench!(bench_decode_to_utf8_ru,
               bench_uconv_to_utf16_windows_1251,
               WINDOWS_1251,
               "wikipedia/ru.html");
-decode_bench!(bench_decode_to_utf8_zh_cn,
+decode_bench!(bench_copy_zh_cn,
+              bench_decode_to_utf8_zh_cn,
               bench_decode_to_utf16_zh_cn,
               bench_decode_to_string_zh_cn,
               bench_rust_to_string_zh_cn,
@@ -464,7 +497,8 @@ decode_bench!(bench_decode_to_utf8_zh_cn,
               bench_uconv_to_utf16_gb18030,
               GB18030,
               "wikipedia/zh_cn.html");
-decode_bench!(bench_decode_to_utf8_zh_tw,
+decode_bench!(bench_copy_zh_tw,
+              bench_decode_to_utf8_zh_tw,
               bench_decode_to_utf16_zh_tw,
               bench_decode_to_string_zh_tw,
               bench_rust_to_string_zh_tw,
