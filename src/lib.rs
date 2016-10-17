@@ -238,7 +238,7 @@ extern "C" {}
 
 #[link(name = "xul")]
 extern "C" {
-    fn NS_InitMinimalXPCOM() -> libc::c_int;
+    fn NS_InitXPCOM2(manager: *mut *mut libc::c_void, bin_dir: *mut libc::c_void, provider: *mut libc::c_void) -> libc::c_int;
     fn NS_CreateUnicodeDecoder(name: *const u8, name_len: usize) -> *mut libc::c_void;
     fn NS_ReleaseUnicodeDecoder(dec: *mut libc::c_void);
     fn NS_DecodeWithUnicodeDecoder(dec: *mut libc::c_void,
@@ -254,7 +254,7 @@ fn init_xpcom() {
     unsafe {
         if !XPCOM_INITIALIZED {
             XPCOM_INITIALIZED = true;
-            NS_InitMinimalXPCOM();
+            NS_InitXPCOM2(std::ptr::null_mut(), std::ptr::null_mut(), std::ptr::null_mut());
         }
     }
 }
