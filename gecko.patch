@@ -1,0 +1,243 @@
+# HG changeset patch
+# User Henri Sivonen <hsivonen@hsivonen.fi>
+# Date 1476099337 -10800
+#      Mon Oct 10 14:35:37 2016 +0300
+# Node ID cb131626eb88b687ee5fb73b98b64f7b97a1e14a
+# Parent  db8832148270b2512d18fcb8451e7a629183da06
+Export uconv testing functions and disable various unnecessary things that could interfere.
+
+MozReview-Commit-ID: 5eqyV0DpTI6
+
+diff --git a/intl/uconv/nsUConvModule.cpp b/intl/uconv/nsUConvModule.cpp
+--- a/intl/uconv/nsUConvModule.cpp
++++ b/intl/uconv/nsUConvModule.cpp
+@@ -575,8 +575,36 @@ static const mozilla::Module::ContractID
+ static const mozilla::Module kUConvModule = {
+   mozilla::Module::kVersion,
+   kUConvCIDs,
+   kUConvContracts,
+   kUConvCategories
+ };
+ 
+ NSMODULE_DEFN(nsUConvModule) = &kUConvModule;
++
++EXPORT_XPCOM_API(nsIUnicodeDecoder*)
++NS_CreateUnicodeDecoder(const char* aName, size_t aNameLen)
++{
++  nsDependentCSubstring encoding(aName, aNameLen);
++  nsAutoCString contractId(NS_UNICODEDECODER_CONTRACTID_BASE);
++  contractId.Append(encoding);
++
++  nsCOMPtr<nsIUnicodeDecoder> decoder = do_CreateInstance(contractId.get());
++  MOZ_RELEASE_ASSERT(decoder, "Tried to create decoder for unknown encoding.");
++  return decoder.forget().take();
++}
++
++EXPORT_XPCOM_API(void)
++NS_ReleaseUnicodeDecoder(nsIUnicodeDecoder* aDecoder)
++{
++  NS_RELEASE(aDecoder);
++}
++
++EXPORT_XPCOM_API(void)
++NS_DecodeWithUnicodeDecoder(nsIUnicodeDecoder* aDecoder, const char* aSrc, int32_t aSrcLength,
++    char16_t* aDest, int32_t aDestLength)
++{
++  int32_t oldLen = aSrcLength;
++  MOZ_RELEASE_ASSERT(aDecoder->Convert(aSrc, &aSrcLength, aDest, &aDestLength) == NS_OK);
++  MOZ_RELEASE_ASSERT(aSrcLength == oldLen);
++  aDecoder->Reset();
++}
+diff --git a/xpcom/build/XPCOMInit.cpp b/xpcom/build/XPCOMInit.cpp
+--- a/xpcom/build/XPCOMInit.cpp
++++ b/xpcom/build/XPCOMInit.cpp
+@@ -651,53 +651,53 @@ NS_InitXPCOM2(nsIServiceManager** aResul
+   nsCycleCollector_startup();
+ 
+   // Register ICU memory functions.  This really shouldn't be necessary: the
+   // JS engine should do this on its own inside JS_Init, and memory-reporting
+   // code should call a JSAPI function to observe ICU memory usage.  But we
+   // can't define the alloc/free functions in the JS engine, because it can't
+   // depend on the XPCOM-based memory reporting goop.  So for now, we have
+   // this oddness.
+-  mozilla::SetICUMemoryFunctions();
++//  mozilla::SetICUMemoryFunctions();
+ 
+   // Do the same for libogg.
+-  ogg_set_mem_functions(OggReporter::CountingMalloc,
+-                        OggReporter::CountingCalloc,
+-                        OggReporter::CountingRealloc,
+-                        OggReporter::CountingFree);
+-
+-#if defined(MOZ_VPX) && !defined(MOZ_VPX_NO_MEM_REPORTING)
+-  // And for VPX.
+-  vpx_mem_set_functions(VPXReporter::CountingMalloc,
+-                        VPXReporter::CountingCalloc,
+-                        VPXReporter::CountingRealloc,
+-                        VPXReporter::CountingFree,
+-                        memcpy,
+-                        memset,
+-                        memmove);
+-#endif
+-
+-#if EXPOSE_INTL_API && defined(MOZ_ICU_DATA_ARCHIVE)
+-  nsCOMPtr<nsIFile> greDir;
+-  nsDirectoryService::gService->Get(NS_GRE_DIR,
+-                                    NS_GET_IID(nsIFile),
+-                                    getter_AddRefs(greDir));
+-  MOZ_ASSERT(greDir);
+-  nsAutoCString nativeGREPath;
+-  greDir->GetNativePath(nativeGREPath);
+-  u_setDataDirectory(nativeGREPath.get());
+-#endif
+-
+-  // Initialize the JS engine.
+-  const char* jsInitFailureReason = JS_InitWithFailureDiagnostic();
+-  if (jsInitFailureReason) {
+-    NS_RUNTIMEABORT(jsInitFailureReason);
+-  }
+-  sInitializedJS = true;
+-  
++//  ogg_set_mem_functions(OggReporter::CountingMalloc,
++//                        OggReporter::CountingCalloc,
++//                        OggReporter::CountingRealloc,
++//                        OggReporter::CountingFree);
++//
++//#if defined(MOZ_VPX) && !defined(MOZ_VPX_NO_MEM_REPORTING)
++//  // And for VPX.
++//  vpx_mem_set_functions(VPXReporter::CountingMalloc,
++//                        VPXReporter::CountingCalloc,
++//                        VPXReporter::CountingRealloc,
++//                        VPXReporter::CountingFree,
++//                        memcpy,
++//                        memset,
++//                        memmove);
++//#endif
++//
++//#if EXPOSE_INTL_API && defined(MOZ_ICU_DATA_ARCHIVE)
++//  nsCOMPtr<nsIFile> greDir;
++//  nsDirectoryService::gService->Get(NS_GRE_DIR,
++//                                    NS_GET_IID(nsIFile),
++//                                    getter_AddRefs(greDir));
++//  MOZ_ASSERT(greDir);
++//  nsAutoCString nativeGREPath;
++//  greDir->GetNativePath(nativeGREPath);
++//  u_setDataDirectory(nativeGREPath.get());
++//#endif
++//
++//  // Initialize the JS engine.
++//  const char* jsInitFailureReason = JS_InitWithFailureDiagnostic();
++//  if (jsInitFailureReason) {
++//    NS_RUNTIMEABORT(jsInitFailureReason);
++//  }
++//  sInitializedJS = true;
++//
+   // Init AbstractThread.
+   AbstractThread::InitStatics();
+ 
+   rv = nsComponentManagerImpl::gComponentManager->Init();
+   if (NS_FAILED(rv)) {
+     NS_RELEASE(nsComponentManagerImpl::gComponentManager);
+     return rv;
+   }
+@@ -715,18 +715,18 @@ NS_InitXPCOM2(nsIServiceManager** aResul
+   // to the directory service.
+   nsDirectoryService::gService->RegisterCategoryProviders();
+ 
+   // Init SharedThreadPool (which needs the service manager).
+   SharedThreadPool::InitStatics();
+ 
+   // Force layout to spin up so that nsContentUtils is available for cx stack
+   // munging.
+-  nsCOMPtr<nsISupports> componentLoader =
+-    do_GetService("@mozilla.org/moz/jsloader;1");
++//  nsCOMPtr<nsISupports> componentLoader =
++//    do_GetService("@mozilla.org/moz/jsloader;1");
+ 
+   mozilla::scache::StartupCache::GetSingleton();
+   mozilla::AvailableMemoryTracker::Activate();
+ 
+   // Notify observers of xpcom autoregistration start
+   NS_CreateServicesFromCategory(NS_XPCOM_STARTUP_CATEGORY,
+                                 nullptr,
+                                 NS_XPCOM_STARTUP_OBSERVER_ID);
+diff --git a/xpcom/io/nsDirectoryService.cpp b/xpcom/io/nsDirectoryService.cpp
+--- a/xpcom/io/nsDirectoryService.cpp
++++ b/xpcom/io/nsDirectoryService.cpp
+@@ -169,17 +169,17 @@ nsDirectoryService::GetCurrentProcessDir
+       return NS_OK;
+     }
+   }
+ #if defined(DEBUG)
+   static bool firstWarning = true;
+ 
+   if ((!moz5 || !*moz5) && firstWarning) {
+     // Warn that MOZILLA_FIVE_HOME not set, once.
+-    printf("Warning: MOZILLA_FIVE_HOME not set.\n");
++//    printf("Warning: MOZILLA_FIVE_HOME not set.\n");
+     firstWarning = false;
+   }
+ #endif /* DEBUG */
+ 
+   // Fall back to current directory.
+   if (getcwd(buf, sizeof(buf))) {
+     localFile->InitWithNativePath(nsDependentCString(buf));
+     localFile.forget(aFile);
+diff --git a/xpcom/string/nsSubstring.cpp b/xpcom/string/nsSubstring.cpp
+--- a/xpcom/string/nsSubstring.cpp
++++ b/xpcom/string/nsSubstring.cpp
+@@ -65,35 +65,35 @@ public:
+   {
+     // this is a hack to suppress duplicate string stats printing
+     // in seamonkey as a result of the string code being linked
+     // into seamonkey and libxpcom! :-(
+     if (!mAllocCount && !mAdoptCount) {
+       return;
+     }
+ 
+-    printf("nsStringStats\n");
+-    printf(" => mAllocCount:     % 10d\n", int(mAllocCount));
+-    printf(" => mReallocCount:   % 10d\n", int(mReallocCount));
+-    printf(" => mFreeCount:      % 10d", int(mFreeCount));
+-    if (mAllocCount > mFreeCount) {
+-      printf("  --  LEAKED %d !!!\n", mAllocCount - mFreeCount);
+-    } else {
+-      printf("\n");
+-    }
+-    printf(" => mShareCount:     % 10d\n", int(mShareCount));
+-    printf(" => mAdoptCount:     % 10d\n", int(mAdoptCount));
+-    printf(" => mAdoptFreeCount: % 10d", int(mAdoptFreeCount));
+-    if (mAdoptCount > mAdoptFreeCount) {
+-      printf("  --  LEAKED %d !!!\n", mAdoptCount - mAdoptFreeCount);
+-    } else {
+-      printf("\n");
+-    }
+-    printf(" => Process ID: %" PRIuPTR ", Thread ID: %" PRIuPTR "\n",
+-           uintptr_t(getpid()), uintptr_t(pthread_self()));
++//    printf("nsStringStats\n");
++//    printf(" => mAllocCount:     % 10d\n", int(mAllocCount));
++//    printf(" => mReallocCount:   % 10d\n", int(mReallocCount));
++//    printf(" => mFreeCount:      % 10d", int(mFreeCount));
++//    if (mAllocCount > mFreeCount) {
++//      printf("  --  LEAKED %d !!!\n", mAllocCount - mFreeCount);
++//    } else {
++//      printf("\n");
++//    }
++//    printf(" => mShareCount:     % 10d\n", int(mShareCount));
++//    printf(" => mAdoptCount:     % 10d\n", int(mAdoptCount));
++//    printf(" => mAdoptFreeCount: % 10d", int(mAdoptFreeCount));
++//    if (mAdoptCount > mAdoptFreeCount) {
++//      printf("  --  LEAKED %d !!!\n", mAdoptCount - mAdoptFreeCount);
++//    } else {
++//      printf("\n");
++//    }
++//    printf(" => Process ID: %" PRIuPTR ", Thread ID: %" PRIuPTR "\n",
++//           uintptr_t(getpid()), uintptr_t(pthread_self()));
+   }
+ 
+   Atomic<int32_t> mAllocCount;
+   Atomic<int32_t> mReallocCount;
+   Atomic<int32_t> mFreeCount;
+   Atomic<int32_t> mShareCount;
+   Atomic<int32_t> mAdoptCount;
+   Atomic<int32_t> mAdoptFreeCount;
