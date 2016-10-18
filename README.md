@@ -15,7 +15,8 @@ Please see the file named COPYRIGHT.
 
 Currently, this project is tested to build only on Ubuntu 16.04 and with a
 custom build of Gecko. Before building this project, make a Firefox optimized
-build with the patch `gecko.patch` (from this directory) applied. The patch
+build with the patch `gecko.patch` (from this directory) applied and Rust
+enabled (`ac_add_options --enable-rust` in your `mozconfig`). The patch
 breaks the ability to run the resulting Firefox build normally and breaks
 the packaging that would happen on Mozilla's try server. For the latter reason,
 you need to build locally.
