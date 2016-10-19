@@ -123,6 +123,7 @@ macro_rules! copy_bench {
 
 // iconv
 
+#[cfg(target_os = "linux")]
 extern "C" {
     fn iconv_open(tocode: *const std::os::raw::c_char,
                   fromcode: *const std::os::raw::c_char)
@@ -136,6 +137,7 @@ extern "C" {
              -> usize;
 }
 
+#[cfg(target_os = "linux")]
 fn iconv_name(encoding: &'static encoding_rs::Encoding) -> &'static str {
     if encoding_rs::BIG5 == encoding {
         "big5-hkscs"
@@ -152,6 +154,7 @@ macro_rules! decode_bench_iconv {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(target_os = "linux")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -190,6 +193,7 @@ macro_rules! decode_bench_iconv {
 
 // ICU
 
+#[cfg(target_os = "linux")]
 #[link(name = "icuuc")]
 extern "C" {
     fn ucnv_open_55(label: *const std::os::raw::c_char,
@@ -205,6 +209,7 @@ extern "C" {
                         -> i32;
 }
 
+#[cfg(target_os = "linux")]
 fn icu_name(encoding: &'static encoding_rs::Encoding) -> &'static str {
     if encoding_rs::BIG5 == encoding {
         "big5-hkscs"
@@ -221,6 +226,7 @@ macro_rules! decode_bench_icu {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(target_os = "linux")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -248,12 +254,15 @@ macro_rules! decode_bench_icu {
 
 // uconv
 
+#[cfg(target_os = "linux")]
 #[link(name = "stdc++" )]
 extern "C" {}
 
+#[cfg(target_os = "linux")]
 #[link(name = "mozglue", kind = "static" )]
 extern "C" {}
 
+#[cfg(target_os = "linux")]
 #[link(name = "xul")]
 extern "C" {
     fn NS_InitXPCOM2(manager: *mut *mut libc::c_void,
@@ -269,8 +278,10 @@ extern "C" {
                                    dst_len: i32);
 }
 
+#[cfg(target_os = "linux")]
 static mut XPCOM_INITIALIZED: bool = false;
 
+#[cfg(target_os = "linux")]
 fn init_xpcom() {
     unsafe {
         if !XPCOM_INITIALIZED {
@@ -286,6 +297,7 @@ macro_rules! decode_bench_uconv {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(target_os = "linux")]
     #[bench]
     fn $name(b: &mut Bencher) {
         init_xpcom();
