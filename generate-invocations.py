@@ -12,15 +12,15 @@
 import subprocess
 
 languages = [
-  ("ar", "windows_1256"),
-  ("el", "windows_1253"),
-  ("en", "windows_1252"),
-  ("he", "windows_1255"),
-  ("ja", "shift_jis"),
-  ("ko", "euc_kr"),
-  ("ru", "windows_1251"),
-  ("zh_cn", "gb18030"),
-  ("zh_tw", "big5"),
+  ("ar", "windows_1256", 1256),
+  ("el", "windows_1253", 1253),
+  ("en", "windows_1252", 1252),
+  ("he", "windows_1255", 1255),
+  ("ja", "shift_jis", 932),
+  ("ko", "euc_kr", 949),
+  ("ru", "windows_1251", 1251),
+  ("zh_cn", "gb18030", 54936),
+  ("zh_tw", "big5", 950),
 ]
 
 def read_non_generated(path):
@@ -53,7 +53,7 @@ lib_file.write("""
 
 """)
 
-for (lang, enc) in languages:
+for (lang, enc, cp) in languages:
   lib_file.write('''decode_bench!(bench_copy_%s,
               bench_decode_to_utf8_%s,
               bench_decode_to_utf16_%s,
@@ -63,6 +63,7 @@ for (lang, enc) in languages:
               bench_iconv_to_utf8_%s,
               bench_icu_to_utf16_%s,
               bench_uconv_to_utf16_%s,
+              bench_windows_to_utf16_%s,
               bench_decode_to_utf8_%s,
               bench_decode_to_utf16_%s,
               bench_decode_to_string_%s,
@@ -70,9 +71,11 @@ for (lang, enc) in languages:
               bench_iconv_to_utf8_%s,
               bench_icu_to_utf16_%s,
               bench_uconv_to_utf16_%s,
+              bench_windows_to_utf16_%s,
               %s,
+              %d,
               "wikipedia/%s.html");
-''' % (lang, lang, lang, lang, lang, lang, lang, lang, lang, enc, enc, enc, enc, enc, enc, enc, enc.upper(), lang))
+''' % (lang, lang, lang, lang, lang, lang, lang, lang, lang, lang, enc, enc, enc, enc, enc, enc, enc, enc, enc.upper(), cp, lang))
 
 lib_file.write('''
 ''')

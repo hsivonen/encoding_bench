@@ -326,6 +326,46 @@ macro_rules! decode_bench_uconv {
 );
 }
 
+// Windows built-in
+
+#[cfg(target_os = "windows")]
+#[link(name = "Kernel32")]
+extern "system" {
+    fn MultiByteToWideChar(code_page: libc::c_uint,
+                           flags: libc::c_ulong,
+                           src: *const u8,
+                           src_len: libc::c_int,
+                           dst: *mut u16,
+                           dst_len: libc::c_int)
+                           -> libc::c_int;
+}
+
+macro_rules! decode_bench_windows {
+    ($name:ident,
+     $encoding:ident,
+     $cp:expr,
+     $data:expr) => (
+    #[cfg(target_os = "windows")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let encoding = encoding_rs::$encoding;
+        let utf8 = include_str!($data);
+        let (input, _, _) = encoding.encode(utf8);
+        let decoder = encoding.new_decoder_without_bom_handling();
+        let out_len = decoder.max_utf16_buffer_length(input.len());
+        let mut output: Vec<u16> = Vec::with_capacity(out_len);
+        output.resize(out_len, 0);
+        b.bytes = input.len() as u64;
+        b.iter(|| {
+               unsafe {
+                   MultiByteToWideChar($cp, 0, input.as_ptr(), input.len() as libc::c_int, output.as_mut_ptr(), output.len() as libc::c_int);
+               }
+            test::black_box(&output);
+        });
+    }
+);
+}
+
 macro_rules! decode_bench {
     ($copy_name:ident,
      $name8:ident,
@@ -336,6 +376,7 @@ macro_rules! decode_bench {
      $iconv_name:ident,
      $icu_name:ident,
      $uconv_name:ident,
+     $windows_name:ident,
      $legacy_name8:ident,
      $legacy_name16:ident,
      $legacy_string_name:ident,
@@ -343,7 +384,9 @@ macro_rules! decode_bench {
      $legacy_iconv_name:ident,
      $legacy_icu_name:ident,
      $legacy_uconv_name:ident,
+     $legacy_windows_name:ident,
      $encoding:ident,
+     $cp:expr,
      $data:expr) => (
     copy_bench!($copy_name, $data);
     decode_bench_utf8!($name8, UTF_8, $data);
@@ -354,6 +397,7 @@ macro_rules! decode_bench {
     decode_bench_iconv!($iconv_name, UTF_8, $data);
     decode_bench_icu!($icu_name, UTF_8, $data);
     decode_bench_uconv!($uconv_name, UTF_8, $data);
+    decode_bench_windows!($windows_name, UTF_8, 65001, $data);
     decode_bench_utf8!($legacy_name8, $encoding, $data);
     decode_bench_utf16!($legacy_name16, $encoding, $data);
     decode_bench_string!($legacy_string_name, $encoding, $data);
@@ -361,6 +405,7 @@ macro_rules! decode_bench {
     decode_bench_iconv!($legacy_iconv_name, $encoding, $data);
     decode_bench_icu!($legacy_icu_name, $encoding, $data);
     decode_bench_uconv!($legacy_uconv_name, $encoding, $data);
+    decode_bench_windows!($legacy_windows_name, $encoding, $cp, $data);
      );
 }
 
@@ -376,6 +421,7 @@ decode_bench!(bench_copy_ar,
               bench_iconv_to_utf8_ar,
               bench_icu_to_utf16_ar,
               bench_uconv_to_utf16_ar,
+              bench_windows_to_utf16_ar,
               bench_decode_to_utf8_windows_1256,
               bench_decode_to_utf16_windows_1256,
               bench_decode_to_string_windows_1256,
@@ -383,7 +429,9 @@ decode_bench!(bench_copy_ar,
               bench_iconv_to_utf8_windows_1256,
               bench_icu_to_utf16_windows_1256,
               bench_uconv_to_utf16_windows_1256,
+              bench_windows_to_utf16_windows_1256,
               WINDOWS_1256,
+              1256,
               "wikipedia/ar.html");
 decode_bench!(bench_copy_el,
               bench_decode_to_utf8_el,
@@ -394,6 +442,7 @@ decode_bench!(bench_copy_el,
               bench_iconv_to_utf8_el,
               bench_icu_to_utf16_el,
               bench_uconv_to_utf16_el,
+              bench_windows_to_utf16_el,
               bench_decode_to_utf8_windows_1253,
               bench_decode_to_utf16_windows_1253,
               bench_decode_to_string_windows_1253,
@@ -401,7 +450,9 @@ decode_bench!(bench_copy_el,
               bench_iconv_to_utf8_windows_1253,
               bench_icu_to_utf16_windows_1253,
               bench_uconv_to_utf16_windows_1253,
+              bench_windows_to_utf16_windows_1253,
               WINDOWS_1253,
+              1253,
               "wikipedia/el.html");
 decode_bench!(bench_copy_en,
               bench_decode_to_utf8_en,
@@ -412,6 +463,7 @@ decode_bench!(bench_copy_en,
               bench_iconv_to_utf8_en,
               bench_icu_to_utf16_en,
               bench_uconv_to_utf16_en,
+              bench_windows_to_utf16_en,
               bench_decode_to_utf8_windows_1252,
               bench_decode_to_utf16_windows_1252,
               bench_decode_to_string_windows_1252,
@@ -419,7 +471,9 @@ decode_bench!(bench_copy_en,
               bench_iconv_to_utf8_windows_1252,
               bench_icu_to_utf16_windows_1252,
               bench_uconv_to_utf16_windows_1252,
+              bench_windows_to_utf16_windows_1252,
               WINDOWS_1252,
+              1252,
               "wikipedia/en.html");
 decode_bench!(bench_copy_he,
               bench_decode_to_utf8_he,
@@ -430,6 +484,7 @@ decode_bench!(bench_copy_he,
               bench_iconv_to_utf8_he,
               bench_icu_to_utf16_he,
               bench_uconv_to_utf16_he,
+              bench_windows_to_utf16_he,
               bench_decode_to_utf8_windows_1255,
               bench_decode_to_utf16_windows_1255,
               bench_decode_to_string_windows_1255,
@@ -437,7 +492,9 @@ decode_bench!(bench_copy_he,
               bench_iconv_to_utf8_windows_1255,
               bench_icu_to_utf16_windows_1255,
               bench_uconv_to_utf16_windows_1255,
+              bench_windows_to_utf16_windows_1255,
               WINDOWS_1255,
+              1255,
               "wikipedia/he.html");
 decode_bench!(bench_copy_ja,
               bench_decode_to_utf8_ja,
@@ -448,6 +505,7 @@ decode_bench!(bench_copy_ja,
               bench_iconv_to_utf8_ja,
               bench_icu_to_utf16_ja,
               bench_uconv_to_utf16_ja,
+              bench_windows_to_utf16_ja,
               bench_decode_to_utf8_shift_jis,
               bench_decode_to_utf16_shift_jis,
               bench_decode_to_string_shift_jis,
@@ -455,7 +513,9 @@ decode_bench!(bench_copy_ja,
               bench_iconv_to_utf8_shift_jis,
               bench_icu_to_utf16_shift_jis,
               bench_uconv_to_utf16_shift_jis,
+              bench_windows_to_utf16_shift_jis,
               SHIFT_JIS,
+              932,
               "wikipedia/ja.html");
 decode_bench!(bench_copy_ko,
               bench_decode_to_utf8_ko,
@@ -466,6 +526,7 @@ decode_bench!(bench_copy_ko,
               bench_iconv_to_utf8_ko,
               bench_icu_to_utf16_ko,
               bench_uconv_to_utf16_ko,
+              bench_windows_to_utf16_ko,
               bench_decode_to_utf8_euc_kr,
               bench_decode_to_utf16_euc_kr,
               bench_decode_to_string_euc_kr,
@@ -473,7 +534,9 @@ decode_bench!(bench_copy_ko,
               bench_iconv_to_utf8_euc_kr,
               bench_icu_to_utf16_euc_kr,
               bench_uconv_to_utf16_euc_kr,
+              bench_windows_to_utf16_euc_kr,
               EUC_KR,
+              949,
               "wikipedia/ko.html");
 decode_bench!(bench_copy_ru,
               bench_decode_to_utf8_ru,
@@ -484,6 +547,7 @@ decode_bench!(bench_copy_ru,
               bench_iconv_to_utf8_ru,
               bench_icu_to_utf16_ru,
               bench_uconv_to_utf16_ru,
+              bench_windows_to_utf16_ru,
               bench_decode_to_utf8_windows_1251,
               bench_decode_to_utf16_windows_1251,
               bench_decode_to_string_windows_1251,
@@ -491,7 +555,9 @@ decode_bench!(bench_copy_ru,
               bench_iconv_to_utf8_windows_1251,
               bench_icu_to_utf16_windows_1251,
               bench_uconv_to_utf16_windows_1251,
+              bench_windows_to_utf16_windows_1251,
               WINDOWS_1251,
+              1251,
               "wikipedia/ru.html");
 decode_bench!(bench_copy_zh_cn,
               bench_decode_to_utf8_zh_cn,
@@ -502,6 +568,7 @@ decode_bench!(bench_copy_zh_cn,
               bench_iconv_to_utf8_zh_cn,
               bench_icu_to_utf16_zh_cn,
               bench_uconv_to_utf16_zh_cn,
+              bench_windows_to_utf16_zh_cn,
               bench_decode_to_utf8_gb18030,
               bench_decode_to_utf16_gb18030,
               bench_decode_to_string_gb18030,
@@ -509,7 +576,9 @@ decode_bench!(bench_copy_zh_cn,
               bench_iconv_to_utf8_gb18030,
               bench_icu_to_utf16_gb18030,
               bench_uconv_to_utf16_gb18030,
+              bench_windows_to_utf16_gb18030,
               GB18030,
+              54936,
               "wikipedia/zh_cn.html");
 decode_bench!(bench_copy_zh_tw,
               bench_decode_to_utf8_zh_tw,
@@ -520,6 +589,7 @@ decode_bench!(bench_copy_zh_tw,
               bench_iconv_to_utf8_zh_tw,
               bench_icu_to_utf16_zh_tw,
               bench_uconv_to_utf16_zh_tw,
+              bench_windows_to_utf16_zh_tw,
               bench_decode_to_utf8_big5,
               bench_decode_to_utf16_big5,
               bench_decode_to_string_big5,
@@ -527,7 +597,9 @@ decode_bench!(bench_copy_zh_tw,
               bench_iconv_to_utf8_big5,
               bench_icu_to_utf16_big5,
               bench_uconv_to_utf16_big5,
+              bench_windows_to_utf16_big5,
               BIG5,
+              950,
               "wikipedia/zh_tw.html");
 
 // END GENERATED CODE
