@@ -6,6 +6,8 @@ extern crate encoding;
 extern crate libc;
 
 use test::Bencher;
+
+#[cfg(target_os = "linux")]
 use std::ffi::CString;
 
 macro_rules! decode_bench_impl {
