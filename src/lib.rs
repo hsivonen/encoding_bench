@@ -161,7 +161,7 @@ macro_rules! decode_bench_iconv {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        let (mut input, _, _) = encoding.encode(utf8);
+        let (input, _, _) = encoding.encode(utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
         let out_len = decoder.max_utf8_buffer_length(input.len());
         let mut output: Vec<u8> = Vec::with_capacity(out_len);
@@ -174,7 +174,7 @@ macro_rules! decode_bench_iconv {
               unsafe {
                    // Black boxing input doesn't work, but iconv isn't in the
                    // view of the optimizer anyway.
-                   let mut input_ptr = input.as_mut_ptr();
+                   let mut input_ptr = input.as_ptr() as *mut u8;
                    let mut output_ptr = output.as_mut_ptr();
                    let input_ptr_ptr = &mut input_ptr as *mut *mut u8;
                    let output_ptr_ptr = &mut output_ptr as *mut *mut u8;
