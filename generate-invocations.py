@@ -13,12 +13,16 @@ import subprocess
 
 languages = [
   ("ar", "windows_1256", 1256),
+  ("cs", "windows_1250", 1250),
   ("el", "windows_1253", 1253),
   ("en", "windows_1252", 1252),
   ("he", "windows_1255", 1255),
   ("ja", "shift_jis", 932),
   ("ko", "euc_kr", 949),
   ("ru", "windows_1251", 1251),
+  ("th", "windows_874", 874),
+  ("tr", "windows_1254", 1254),
+  ("vi", "windows_1258", 1258),
   ("zh_cn", "gb18030", 54936),
   ("zh_tw", "big5", 950),
 ]
