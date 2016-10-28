@@ -146,6 +146,28 @@ macro_rules! decode_bench_string {
     });
 }
 
+macro_rules! encode_bench_vec {
+    ($name:ident,
+     $encoding:ident,
+     $data:expr) => (
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let encoding = encoding_rs::$encoding;
+        let utf8 = include_str!($data);
+        // Convert back and forth to avoid benching replacement, which other
+        // libs won't do.
+        let (intermediate, _, _) = encoding.encode(utf8);
+        let (cow, _) = encoding.decode_without_bom_handling(&intermediate[..]);
+        let input = &cow[..];
+        // Use output length to have something that can be compared
+        b.bytes = intermediate.len() as u64;
+        b.iter(|| {
+            let (output, _, _) = encoding.encode(test::black_box(&input[..]));
+            test::black_box(&output);
+        });
+    });
+}
+
 macro_rules! decode_bench_rust {
     ($name:ident,
      $encoding:ident,
@@ -488,5 +510,6 @@ macro_rules! decode_bench {
 
 encode_bench_utf8!(bench_encode_from_utf8_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 encode_bench_utf16!(bench_encode_from_utf16_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
+encode_bench_vec!(bench_encode_vec_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 
 // END GENERATED CODE
