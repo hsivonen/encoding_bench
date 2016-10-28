@@ -498,6 +498,14 @@ extern "C" {
                                    src_len: i32,
                                    dst: *mut u16,
                                    dst_len: i32);
+    fn NS_CreateUnicodeEncoder(name: *const u8, name_len: usize) -> *mut libc::c_void;
+    fn NS_ReleaseUnicodeEncoder(enc: *mut libc::c_void);
+    fn NS_EncodeWithUnicodeEncoder(enc: *mut libc::c_void,
+                                   src: *const u16,
+                                   src_len: i32,
+                                   dst: *mut u8,
+                                   dst_len: i32);
+    fn NS_FindEncodingForLabel(name: *const u8, name_len: usize) -> i32;
 }
 
 #[cfg(target_os = "linux")]
@@ -541,6 +549,52 @@ macro_rules! decode_bench_uconv {
         });
         unsafe {
             NS_ReleaseUnicodeDecoder(dec);
+        }
+    }
+);
+}
+
+macro_rules! encode_bench_uconv {
+    ($name:ident,
+     $encoding:ident,
+     $data:expr) => (
+    #[cfg(target_os = "linux")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        init_xpcom();
+        let encoding = encoding_rs::$encoding;
+        let utf8 = include_str!($data);
+// Convert back and forth to avoid benching replacement, which other
+// libs won't do.
+        let (intermediate, _, _) = encoding.encode(utf8);
+        let mut decoder = encoding.new_decoder_without_bom_handling();
+        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()));
+        let capacity = input.capacity();
+        input.resize(capacity, 0u16);
+        let (complete, _, written, _) = decoder.decode_to_utf16(&intermediate[..], &mut input[..], true);
+        match complete {
+            encoding_rs::CoderResult::InputEmpty => {}
+            encoding_rs::CoderResult::OutputFull => {
+                unreachable!();
+            }
+        }
+        input.truncate(written);
+        let mut encoder = encoding.new_encoder();
+        let out_len = intermediate.len() + 10;
+        let mut output: Vec<u8> = Vec::with_capacity(out_len);
+        output.resize(out_len, 0);
+        let name = encoding.name();
+        let enc = unsafe { NS_CreateUnicodeEncoder(name.as_ptr(), name.len()) };
+// Use output length to have something that can be compared
+        b.bytes = intermediate.len() as u64;
+        b.iter(|| {
+               unsafe {
+                   NS_EncodeWithUnicodeEncoder(enc, input.as_ptr(), input.len() as i32, output.as_mut_ptr(), output.len() as i32);
+               }
+            test::black_box(&output);
+        });
+        unsafe {
+            NS_ReleaseUnicodeEncoder(enc);
         }
     }
 );
@@ -642,5 +696,6 @@ encode_bench_vec!(bench_encode_vec_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 encode_bench_rust!(bench_encode_rust_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 encode_bench_iconv!(bench_encode_iconv_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 encode_bench_icu!(bench_encode_icu_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
+encode_bench_uconv!(bench_encode_uconv_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 
 // END GENERATED CODE
