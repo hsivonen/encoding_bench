@@ -294,21 +294,21 @@ macro_rules! decode_bench_iconv {
         let cd = unsafe { iconv_open(to_label.as_ptr(), from_label.as_ptr()) };
         b.bytes = input.len() as u64;
         b.iter(|| {
-              unsafe {
-                   // Black boxing input doesn't work, but iconv isn't in the
-                   // view of the optimizer anyway.
-                   let mut input_ptr = input.as_ptr() as *mut u8;
-                   let mut output_ptr = output.as_mut_ptr();
-                   let input_ptr_ptr = &mut input_ptr as *mut *mut u8;
-                   let output_ptr_ptr = &mut output_ptr as *mut *mut u8;
-                   let mut input_left = input.len();
-                   let mut output_left = output.len();
-                   let input_left_ptr = &mut input_left as *mut usize;
-                   let output_left_ptr = &mut output_left as *mut usize;
-                   iconv(cd, input_ptr_ptr, input_left_ptr, output_ptr_ptr, output_left_ptr);
-                   assert_eq!(input_left, 0usize);
-                test::black_box(&output);
-              }
+            unsafe {
+                 // Black boxing input doesn't work, but iconv isn't in the
+                 // view of the optimizer anyway.
+                 let mut input_ptr = input.as_ptr() as *mut u8;
+                 let mut output_ptr = output.as_mut_ptr();
+                 let input_ptr_ptr = &mut input_ptr as *mut *mut u8;
+                 let output_ptr_ptr = &mut output_ptr as *mut *mut u8;
+                 let mut input_left = input.len();
+                 let mut output_left = output.len();
+                 let input_left_ptr = &mut input_left as *mut usize;
+                 let output_left_ptr = &mut output_left as *mut usize;
+                 iconv(cd, input_ptr_ptr, input_left_ptr, output_ptr_ptr, output_left_ptr);
+                 assert_eq!(input_left, 0usize);
+              test::black_box(&output);
+            }
         });
           unsafe {
               iconv_close(cd);
@@ -339,21 +339,21 @@ macro_rules! encode_bench_iconv {
         // Use output length to have something that can be compared
         b.bytes = intermediate.len() as u64;
         b.iter(|| {
-              unsafe {
-                   // Black boxing input doesn't work, but iconv isn't in the
-                   // view of the optimizer anyway.
-                   let mut input_ptr = input.as_ptr() as *mut u8;
-                   let mut output_ptr = output.as_mut_ptr();
-                   let input_ptr_ptr = &mut input_ptr as *mut *mut u8;
-                   let output_ptr_ptr = &mut output_ptr as *mut *mut u8;
-                   let mut input_left = input.len();
-                   let mut output_left = output.len();
-                   let input_left_ptr = &mut input_left as *mut usize;
-                   let output_left_ptr = &mut output_left as *mut usize;
-                   iconv(cd, input_ptr_ptr, input_left_ptr, output_ptr_ptr, output_left_ptr);
-                   assert_eq!(input_left, 0usize);
-                test::black_box(&output);
-              }
+            unsafe {
+                 // Black boxing input doesn't work, but iconv isn't in the
+                 // view of the optimizer anyway.
+                 let mut input_ptr = input.as_ptr() as *mut u8;
+                 let mut output_ptr = output.as_mut_ptr();
+                 let input_ptr_ptr = &mut input_ptr as *mut *mut u8;
+                 let output_ptr_ptr = &mut output_ptr as *mut *mut u8;
+                 let mut input_left = input.len();
+                 let mut output_left = output.len();
+                 let input_left_ptr = &mut input_left as *mut usize;
+                 let output_left_ptr = &mut output_left as *mut usize;
+                 iconv(cd, input_ptr_ptr, input_left_ptr, output_ptr_ptr, output_left_ptr);
+                 assert_eq!(input_left, 0usize);
+              test::black_box(&output);
+            }
         });
           unsafe {
               iconv_close(cd);
@@ -418,9 +418,9 @@ macro_rules! decode_bench_icu {
         let cnv = unsafe { ucnv_open_55(label.as_ptr(), &mut error) };
         b.bytes = input.len() as u64;
         b.iter(|| {
-              unsafe {
-                  ucnv_toUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
-              }
+            unsafe {
+                ucnv_toUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
+            }
             test::black_box(&output);
         });
         unsafe {
@@ -453,7 +453,6 @@ macro_rules! encode_bench_icu {
             }
         }
         input.truncate(written);
-        let mut encoder = encoding.new_encoder();
         let out_len = intermediate.len() + 10;
         let mut output: Vec<u8> = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
@@ -463,9 +462,9 @@ macro_rules! encode_bench_icu {
 // Use output length to have something that can be compared
         b.bytes = intermediate.len() as u64;
         b.iter(|| {
-              unsafe {
-                  ucnv_fromUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
-              }
+            unsafe {
+                ucnv_fromUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
+            }
             test::black_box(&output);
         });
         unsafe {
@@ -542,9 +541,9 @@ macro_rules! decode_bench_uconv {
         let dec = unsafe { NS_CreateUnicodeDecoder(name.as_ptr(), name.len()) };
         b.bytes = input.len() as u64;
         b.iter(|| {
-               unsafe {
-                   NS_DecodeWithUnicodeDecoder(dec, input.as_ptr(), input.len() as i32, output.as_mut_ptr(), output.len() as i32);
-               }
+            unsafe {
+                NS_DecodeWithUnicodeDecoder(dec, input.as_ptr(), input.len() as i32, output.as_mut_ptr(), output.len() as i32);
+            }
             test::black_box(&output);
         });
         unsafe {
@@ -579,7 +578,6 @@ macro_rules! encode_bench_uconv {
             }
         }
         input.truncate(written);
-        let mut encoder = encoding.new_encoder();
         let out_len = intermediate.len() + 10;
         let mut output: Vec<u8> = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
@@ -588,9 +586,9 @@ macro_rules! encode_bench_uconv {
 // Use output length to have something that can be compared
         b.bytes = intermediate.len() as u64;
         b.iter(|| {
-               unsafe {
-                   NS_EncodeWithUnicodeEncoder(enc, input.as_ptr(), input.len() as i32, output.as_mut_ptr(), output.len() as i32);
-               }
+            unsafe {
+                NS_EncodeWithUnicodeEncoder(enc, input.as_ptr(), input.len() as i32, output.as_mut_ptr(), output.len() as i32);
+            }
             test::black_box(&output);
         });
         unsafe {
@@ -612,6 +610,15 @@ extern "system" {
                            dst: *mut u16,
                            dst_len: libc::c_int)
                            -> libc::c_int;
+    fn WideCharToMultiByte(code_page: libc::c_uint,
+                           flags: libc::c_ulong,
+                           src: *const u16,
+                           src_len: libc::c_int,
+                           dst: *mut u8,
+                           dst_len: libc::c_int,
+                           replacement: *const u8,
+                           used_replacement: *mut bool)
+                           -> libc::c_int;
 }
 
 macro_rules! decode_bench_windows {
@@ -631,14 +638,56 @@ macro_rules! decode_bench_windows {
         output.resize(out_len, 0);
         b.bytes = input.len() as u64;
         b.iter(|| {
-               unsafe {
-                   MultiByteToWideChar($cp, 0, input.as_ptr(), input.len() as libc::c_int, output.as_mut_ptr(), output.len() as libc::c_int);
-               }
+            unsafe {
+                MultiByteToWideChar($cp, 0, input.as_ptr(), input.len() as libc::c_int, output.as_mut_ptr(), output.len() as libc::c_int);
+            }
             test::black_box(&output);
         });
     }
 );
 }
+
+macro_rules! encode_bench_windows {
+    ($name:ident,
+     $encoding:ident,
+     $cp:expr,
+     $data:expr) => (
+    #[cfg(target_os = "windows")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let encoding = encoding_rs::$encoding;
+        let utf8 = include_str!($data);
+// Convert back and forth to avoid benching replacement, which other
+// libs won't do.
+        let (intermediate, _, _) = encoding.encode(utf8);
+        let mut decoder = encoding.new_decoder_without_bom_handling();
+        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()));
+        let capacity = input.capacity();
+        input.resize(capacity, 0u16);
+        let (complete, _, written, _) = decoder.decode_to_utf16(&intermediate[..], &mut input[..], true);
+        match complete {
+            encoding_rs::CoderResult::InputEmpty => {}
+            encoding_rs::CoderResult::OutputFull => {
+                unreachable!();
+            }
+        }
+        input.truncate(written);
+        let out_len = intermediate.len() + 10;
+        let mut output: Vec<u8> = Vec::with_capacity(out_len);
+        output.resize(out_len, 0);
+// Use output length to have something that can be compared
+        b.bytes = intermediate.len() as u64;
+        b.iter(|| {
+            unsafe {
+                WideCharToMultiByte($cp, 0, input.as_ptr(), input.len() as libc::c_int, output.as_mut_ptr(), output.len() as libc::c_int, std::ptr::null(), std::ptr::null_mut());
+            }
+            test::black_box(&output);
+        });
+    }
+);
+}
+
+// Invocations
 
 macro_rules! decode_bench {
     ($copy_name:ident,
