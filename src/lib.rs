@@ -63,8 +63,8 @@ macro_rules! encode_bench_utf8 {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        // Convert back and forth to avoid benching replacement, which other
-        // libs won't do.
+// Convert back and forth to avoid benching replacement, which other
+// libs won't do.
         let (intermediate, _, _) = encoding.encode(utf8);
         let (cow, _) = encoding.decode_without_bom_handling(&intermediate[..]);
         let input = &cow[..];
@@ -72,7 +72,7 @@ macro_rules! encode_bench_utf8 {
         let out_len = intermediate.len() + 10;
         let mut output = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
-        // Use output length to have something that can be compared
+// Use output length to have something that can be compared
         b.bytes = intermediate.len() as u64;
         b.iter(|| {
             let (result, _, _, _) = encoder.encode_from_utf8(test::black_box(&input[..]), &mut output[..], false);
@@ -95,8 +95,8 @@ macro_rules! encode_bench_utf16 {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        // Convert back and forth to avoid benching replacement, which other
-        // libs won't do.
+// Convert back and forth to avoid benching replacement, which other
+// libs won't do.
         let (intermediate, _, _) = encoding.encode(utf8);
         let mut decoder = encoding.new_decoder_without_bom_handling();
         let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()));
@@ -114,7 +114,7 @@ macro_rules! encode_bench_utf16 {
         let out_len = intermediate.len() + 10;
         let mut output = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
-        // Use output length to have something that can be compared
+// Use output length to have something that can be compared
         b.bytes = intermediate.len() as u64;
         b.iter(|| {
             let (result, _, _, _) = encoder.encode_from_utf16(test::black_box(&input[..]), &mut output[..], false);
@@ -196,13 +196,13 @@ macro_rules! encode_bench_rust {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        // Convert back and forth to avoid benching replacement, which other
-        // libs won't do.
+// Convert back and forth to avoid benching replacement, which other
+// libs won't do.
         let (intermediate, _, _) = encoding.encode(utf8);
         let (cow, _) = encoding.decode_without_bom_handling(&intermediate[..]);
         let input = &cow[..];
         let rust_encoding = encoding::label::encoding_from_whatwg_label(encoding.name()).unwrap();
-        // Use output length to have something that can be compared
+// Use output length to have something that can be compared
         b.bytes = intermediate.len() as u64;
         b.iter(|| {
             let output = rust_encoding.encode(test::black_box(&input[..]), encoding::EncoderTrap::Replace);
@@ -377,6 +377,13 @@ extern "C" {
                         src_len: i32,
                         error: *mut libc::c_int)
                         -> i32;
+    fn ucnv_fromUChars_55(cnv: *mut libc::c_void,
+                          dst: *mut u8,
+                          dst_len: i32,
+                          src: *const u16,
+                          src_len: i32,
+                          error: *mut libc::c_int)
+                          -> i32;
 }
 
 #[cfg(target_os = "linux")]
@@ -413,6 +420,51 @@ macro_rules! decode_bench_icu {
         b.iter(|| {
               unsafe {
                   ucnv_toUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
+              }
+            test::black_box(&output);
+        });
+        unsafe {
+            ucnv_close_55(cnv);
+        }
+    });
+}
+
+macro_rules! encode_bench_icu {
+    ($name:ident,
+     $encoding:ident,
+     $data:expr) => (
+    #[cfg(target_os = "linux")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let encoding = encoding_rs::$encoding;
+        let utf8 = include_str!($data);
+// Convert back and forth to avoid benching replacement, which other
+// libs won't do.
+        let (intermediate, _, _) = encoding.encode(utf8);
+        let mut decoder = encoding.new_decoder_without_bom_handling();
+        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()));
+        let capacity = input.capacity();
+        input.resize(capacity, 0u16);
+        let (complete, _, written, _) = decoder.decode_to_utf16(&intermediate[..], &mut input[..], true);
+        match complete {
+            encoding_rs::CoderResult::InputEmpty => {}
+            encoding_rs::CoderResult::OutputFull => {
+                unreachable!();
+            }
+        }
+        input.truncate(written);
+        let mut encoder = encoding.new_encoder();
+        let out_len = intermediate.len() + 10;
+        let mut output: Vec<u8> = Vec::with_capacity(out_len);
+        output.resize(out_len, 0);
+        let label = CString::new(icu_name(encoding)).unwrap();
+        let mut error: libc::c_int = 0;
+        let cnv = unsafe { ucnv_open_55(label.as_ptr(), &mut error) };
+// Use output length to have something that can be compared
+        b.bytes = intermediate.len() as u64;
+        b.iter(|| {
+              unsafe {
+                  ucnv_fromUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
               }
             test::black_box(&output);
         });
@@ -580,10 +632,15 @@ macro_rules! decode_bench {
 // BEGIN GENERATED CODE. PLEASE DO NOT EDIT.
 // Instead, please regenerate using generate-encoding-data.py
 
-encode_bench_utf8!(bench_encode_from_utf8_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
-encode_bench_utf16!(bench_encode_from_utf16_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
+encode_bench_utf8!(bench_encode_from_utf8_shift_jis,
+                   SHIFT_JIS,
+                   "wikipedia/ja.html");
+encode_bench_utf16!(bench_encode_from_utf16_shift_jis,
+                    SHIFT_JIS,
+                    "wikipedia/ja.html");
 encode_bench_vec!(bench_encode_vec_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 encode_bench_rust!(bench_encode_rust_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 encode_bench_iconv!(bench_encode_iconv_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
+encode_bench_icu!(bench_encode_icu_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 
 // END GENERATED CODE
