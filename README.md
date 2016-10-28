@@ -29,3 +29,38 @@ LIBRARY_PATH=/path-to-gecko-obj-dir/dist/sdk/lib:/path-to-gecko-obj-dir/dist/bin
 If the build is successful, it's a good idea to append `2> /dev/null` for the
 actual benchmarking runs to hide noise from Gecko.
 
+## Selection of test data
+
+For testing decoding, it's important to have test data that's real-world Web
+content in order to have a real-world interleaving of markup and non-markup.
+
+Unicode.org's translations of the Universal Declaration of Human Rights have
+less markup than one would expect from Web content in general. (Also, the
+copyright status of the _translations_ wasn't obvious at a glance.)
+
+Using Google Translate to synthetize content in various languages doesn't work,
+because Google Translate adds its own markup, which messes up the natural
+interleaving of ASCII and non-ASCII in real-world Web content.
+
+Reasons for choosing Wikipedia were:
+
+* Wikipedia is an actual top site that's relevant to users.
+* Wikipedia has content in all the languages that were relevant for testing.
+* Wikipedia content is human-authored.
+* Wikipedia content is suitably licensed.
+
+The topic Mars, the planet, was chosen, because it is the most-featured topic
+across the different-language Wikipedias and, indeed, had non-trivial articles
+in all the languages needed. Trying to choose a typical-length article for each
+language separately wasn't feasible in the Wikidata data set.
+
+For x-user-defined, a binary file is used instead of text, because the use case
+for x-user-defined is loading binary data using XHR (in pre-`ArrayBuffer` code).
+
+For testing encoders, the relevant cases are URL parsing (almost always ASCII),
+form submission (explicitly not optimized for speed in encoding_rs for legacy
+encodings) and POSTing stuff using XHR (UTF-16 to UTF-8 encode only). Because
+it was too troublesome to find real-world workloads representing POSTing stuff,
+simply using the decoder (Wikipedia) benchmarks in reverse was chosen as a
+matter of expediency.
+
