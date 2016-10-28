@@ -168,6 +168,8 @@ macro_rules! encode_bench_vec {
     });
 }
 
+// rust-encoding
+
 macro_rules! decode_bench_rust {
     ($name:ident,
      $encoding:ident,
@@ -185,6 +187,31 @@ macro_rules! decode_bench_rust {
         });
     });
 }
+
+macro_rules! encode_bench_rust {
+    ($name:ident,
+     $encoding:ident,
+     $data:expr) => (
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let encoding = encoding_rs::$encoding;
+        let utf8 = include_str!($data);
+        // Convert back and forth to avoid benching replacement, which other
+        // libs won't do.
+        let (intermediate, _, _) = encoding.encode(utf8);
+        let (cow, _) = encoding.decode_without_bom_handling(&intermediate[..]);
+        let input = &cow[..];
+        let rust_encoding = encoding::label::encoding_from_whatwg_label(encoding.name()).unwrap();
+        // Use output length to have something that can be compared
+        b.bytes = intermediate.len() as u64;
+        b.iter(|| {
+            let output = rust_encoding.encode(test::black_box(&input[..]), encoding::EncoderTrap::Replace);
+            test::black_box(&output);
+        });
+    });
+}
+
+// standard library
 
 macro_rules! decode_bench_std {
     ($name:ident,
@@ -266,6 +293,51 @@ macro_rules! decode_bench_iconv {
         let to_label = CString::new("UTF-8").unwrap();
         let cd = unsafe { iconv_open(to_label.as_ptr(), from_label.as_ptr()) };
         b.bytes = input.len() as u64;
+        b.iter(|| {
+              unsafe {
+                   // Black boxing input doesn't work, but iconv isn't in the
+                   // view of the optimizer anyway.
+                   let mut input_ptr = input.as_ptr() as *mut u8;
+                   let mut output_ptr = output.as_mut_ptr();
+                   let input_ptr_ptr = &mut input_ptr as *mut *mut u8;
+                   let output_ptr_ptr = &mut output_ptr as *mut *mut u8;
+                   let mut input_left = input.len();
+                   let mut output_left = output.len();
+                   let input_left_ptr = &mut input_left as *mut usize;
+                   let output_left_ptr = &mut output_left as *mut usize;
+                   iconv(cd, input_ptr_ptr, input_left_ptr, output_ptr_ptr, output_left_ptr);
+                   assert_eq!(input_left, 0usize);
+                test::black_box(&output);
+              }
+        });
+          unsafe {
+              iconv_close(cd);
+          }
+    });
+}
+
+macro_rules! encode_bench_iconv {
+    ($name:ident,
+     $encoding:ident,
+     $data:expr) => (
+    #[cfg(target_os = "linux")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let encoding = encoding_rs::$encoding;
+        let utf8 = include_str!($data);
+        // Convert back and forth to avoid benching replacement, which other
+        // libs won't do.
+        let (intermediate, _, _) = encoding.encode(utf8);
+        let (cow, _) = encoding.decode_without_bom_handling(&intermediate[..]);
+        let input = &cow[..];
+        let out_len = intermediate.len() + 10;
+        let mut output: Vec<u8> = Vec::with_capacity(out_len);
+        output.resize(out_len, 0);
+        let from_label = CString::new("UTF-8").unwrap();
+        let to_label = CString::new(iconv_name(encoding)).unwrap();
+        let cd = unsafe { iconv_open(to_label.as_ptr(), from_label.as_ptr()) };
+        // Use output length to have something that can be compared
+        b.bytes = intermediate.len() as u64;
         b.iter(|| {
               unsafe {
                    // Black boxing input doesn't work, but iconv isn't in the
@@ -511,5 +583,7 @@ macro_rules! decode_bench {
 encode_bench_utf8!(bench_encode_from_utf8_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 encode_bench_utf16!(bench_encode_from_utf16_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 encode_bench_vec!(bench_encode_vec_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
+encode_bench_rust!(bench_encode_rust_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
+encode_bench_iconv!(bench_encode_iconv_shift_jis, SHIFT_JIS, "wikipedia/ja.html");
 
 // END GENERATED CODE
