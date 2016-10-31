@@ -2,16 +2,35 @@
 # User Henri Sivonen <hsivonen@hsivonen.fi>
 # Date 1476099337 -10800
 #      Mon Oct 10 14:35:37 2016 +0300
-# Node ID cb131626eb88b687ee5fb73b98b64f7b97a1e14a
-# Parent  db8832148270b2512d18fcb8451e7a629183da06
+# Node ID 20b0566d3ad9e7e3469cfd98e75835b9d3e47095
+# Parent  027ab974b5b531d134601b7a006fc0c173fbdfed
 Export uconv testing functions and disable various unnecessary things that could interfere.
 
-MozReview-Commit-ID: 5eqyV0DpTI6
+MozReview-Commit-ID: JjLex95VNEl
 
 diff --git a/intl/uconv/nsUConvModule.cpp b/intl/uconv/nsUConvModule.cpp
 --- a/intl/uconv/nsUConvModule.cpp
 +++ b/intl/uconv/nsUConvModule.cpp
-@@ -575,8 +575,36 @@ static const mozilla::Module::ContractID
+@@ -1,16 +1,18 @@
+ /* -*- Mode: C++; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
+ /* This Source Code Form is subject to the terms of the Mozilla Public
+  * License, v. 2.0. If a copy of the MPL was not distributed with this
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ #include "mozilla/ModuleUtils.h"
+ #include "nsEncoderDecoderUtils.h"
+ #include "nsIUnicodeDecoder.h"
+ #include "nsIUnicodeEncoder.h"
++#include "mozilla/dom/EncodingUtils.h"
++#include "mozilla/Unused.h"
+ 
+ #include "nsUConvCID.h"
+ #include "nsTextToSubURI.h"
+ #include "nsUTF8ConverterService.h"
+ #include "nsConverterInputStream.h"
+ #include "nsConverterOutputStream.h"
+ #include "nsScriptableUConv.h"
+ #include "nsIOutputStream.h"
+@@ -575,8 +577,73 @@ static const mozilla::Module::ContractID
  static const mozilla::Module kUConvModule = {
    mozilla::Module::kVersion,
    kUConvCIDs,
@@ -48,10 +67,47 @@ diff --git a/intl/uconv/nsUConvModule.cpp b/intl/uconv/nsUConvModule.cpp
 +  MOZ_RELEASE_ASSERT(aSrcLength == oldLen);
 +  aDecoder->Reset();
 +}
++
++EXPORT_XPCOM_API(nsIUnicodeEncoder*)
++NS_CreateUnicodeEncoder(const char* aName, size_t aNameLen)
++{
++  nsDependentCSubstring encoding(aName, aNameLen);
++  nsAutoCString contractId(NS_UNICODEENCODER_CONTRACTID_BASE);
++  contractId.Append(encoding);
++
++  nsCOMPtr<nsIUnicodeEncoder> encoder = do_CreateInstance(contractId.get());
++  MOZ_RELEASE_ASSERT(encoder, "Tried to create decoder for unknown encoding.");
++  return encoder.forget().take();
++}
++
++EXPORT_XPCOM_API(void)
++NS_ReleaseUnicodeEncoder(nsIUnicodeEncoder* aEncoder)
++{
++  NS_RELEASE(aEncoder);
++}
++
++EXPORT_XPCOM_API(void)
++NS_EncodeWithUnicodeEncoder(nsIUnicodeEncoder* aEncoder, const char16_t* aSrc, int32_t aSrcLength,
++    char* aDest, int32_t aDestLength)
++{
++  int32_t oldLen = aSrcLength;
++  MOZ_RELEASE_ASSERT(aEncoder->Convert(aSrc, &aSrcLength, aDest, &aDestLength) == NS_OK);
++  MOZ_RELEASE_ASSERT(aSrcLength == oldLen);
++  aEncoder->Reset();
++}
++
++EXPORT_XPCOM_API(int32_t)
++NS_FindEncodingForLabel(const char* aName, size_t aNameLen)
++{
++  nsDependentCSubstring label(aName, aNameLen);
++  nsAutoCString encoding;
++  mozilla::Unused << mozilla::dom::EncodingUtils::FindEncodingForLabel(label, encoding);
++  return encoding.Length();
++}
 diff --git a/xpcom/build/XPCOMInit.cpp b/xpcom/build/XPCOMInit.cpp
 --- a/xpcom/build/XPCOMInit.cpp
 +++ b/xpcom/build/XPCOMInit.cpp
-@@ -651,53 +651,53 @@ NS_InitXPCOM2(nsIServiceManager** aResul
+@@ -650,53 +650,53 @@ NS_InitXPCOM2(nsIServiceManager** aResul
    nsCycleCollector_startup();
  
    // Register ICU memory functions.  This really shouldn't be necessary: the
@@ -140,7 +196,7 @@ diff --git a/xpcom/build/XPCOMInit.cpp b/xpcom/build/XPCOMInit.cpp
      NS_RELEASE(nsComponentManagerImpl::gComponentManager);
      return rv;
    }
-@@ -715,18 +715,18 @@ NS_InitXPCOM2(nsIServiceManager** aResul
+@@ -714,18 +714,18 @@ NS_InitXPCOM2(nsIServiceManager** aResul
    // to the directory service.
    nsDirectoryService::gService->RegisterCategoryProviders();
  
