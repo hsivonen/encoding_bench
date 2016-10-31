@@ -10,6 +10,34 @@ use test::Bencher;
 #[cfg(target_os = "linux")]
 use std::ffi::CString;
 
+macro_rules! decode_bench_user_defined {
+    ($name:ident,
+     $data:expr,
+     $max:ident,
+     $decode:ident) => (
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let bytes = include_bytes!($data);
+        let mut input = Vec::with_capacity(bytes.len());
+        input.extend_from_slice(bytes);
+        let mut decoder = encoding_rs::X_USER_DEFINED.new_decoder_without_bom_handling();
+        let out_len = decoder.$max(input.len());
+        let mut output = Vec::with_capacity(out_len);
+        output.resize(out_len, 0);
+        b.bytes = input.len() as u64;
+        b.iter(|| {
+            let (result, _, _, _) = decoder.$decode(test::black_box(&input[..]), &mut output[..], false);
+            match result {
+                encoding_rs::CoderResult::InputEmpty => {}
+                encoding_rs::CoderResult::OutputFull => {
+                    unreachable!("Output buffer too short.");
+                }
+            }
+            test::black_box(&output);
+        });
+    });
+}
+
 macro_rules! decode_bench_impl {
     ($name:ident,
      $encoding:ident,
@@ -168,6 +196,18 @@ macro_rules! encode_bench_vec {
     });
 }
 
+
+macro_rules! label_bench_rs {
+    ($name:ident,
+     $label:expr) => (
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        b.iter(|| {
+            test::black_box(encoding_rs::Encoding::for_label($label.as_bytes()));
+        });
+    });
+}
+
 // rust-encoding
 
 macro_rules! decode_bench_rust {
@@ -207,6 +247,17 @@ macro_rules! encode_bench_rust {
         b.iter(|| {
             let output = rust_encoding.encode(test::black_box(&input[..]), encoding::EncoderTrap::Replace);
             test::black_box(&output);
+        });
+    });
+}
+
+macro_rules! label_bench_rust {
+    ($name:ident,
+     $label:expr) => (
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        b.iter(|| {
+            test::black_box(encoding::label::encoding_from_whatwg_label($label));
         });
     });
 }
@@ -522,6 +573,34 @@ fn init_xpcom() {
     }
 }
 
+#[cfg(target_os = "linux")]
+#[bench]
+fn bench_uconv_to_utf16_user_defined(b: &mut Bencher) {
+    init_xpcom();
+    let bytes = include_bytes!("wikipedia/binary.jpg");
+    let mut input = Vec::with_capacity(bytes.len());
+    input.extend_from_slice(bytes);
+    let out_len = input.len() + 2;
+    let mut output: Vec<u16> = Vec::with_capacity(out_len);
+    output.resize(out_len, 0);
+    let name = "x-user-defined";
+    let dec = unsafe { NS_CreateUnicodeDecoder(name.as_ptr(), name.len()) };
+    b.bytes = input.len() as u64;
+    b.iter(|| {
+        unsafe {
+            NS_DecodeWithUnicodeDecoder(dec,
+                                        input.as_ptr(),
+                                        input.len() as i32,
+                                        output.as_mut_ptr(),
+                                        output.len() as i32);
+        }
+        test::black_box(&output);
+    });
+    unsafe {
+        NS_ReleaseUnicodeDecoder(dec);
+    }
+}
+
 macro_rules! decode_bench_uconv {
     ($name:ident,
      $encoding:ident,
@@ -598,6 +677,19 @@ macro_rules! encode_bench_uconv {
 );
 }
 
+macro_rules! label_bench_uconv {
+    ($name:ident,
+     $label:expr) => (
+    #[cfg(target_os = "linux")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let label = $label;
+        b.iter(|| {
+            test::black_box(unsafe { NS_FindEncodingForLabel(label.as_ptr(), label.len()) });
+        });
+    });
+}
+
 // Windows built-in
 
 #[cfg(target_os = "windows")]
@@ -639,7 +731,7 @@ macro_rules! decode_bench_windows {
         b.bytes = input.len() as u64;
         b.iter(|| {
             unsafe {
-                MultiByteToWideChar($cp, 0, input.as_ptr(), input.len() as libc::c_int, output.as_mut_ptr(), output.len() as libc::c_int);
+                assert!(MultiByteToWideChar($cp, 0, input.as_ptr(), input.len() as libc::c_int, output.as_mut_ptr(), output.len() as libc::c_int) != 0);
             }
             test::black_box(&output);
         });
@@ -679,7 +771,7 @@ macro_rules! encode_bench_windows {
         b.bytes = intermediate.len() as u64;
         b.iter(|| {
             unsafe {
-                WideCharToMultiByte($cp, 0, input.as_ptr(), input.len() as libc::c_int, output.as_mut_ptr(), output.len() as libc::c_int, std::ptr::null(), std::ptr::null_mut());
+                assert!(WideCharToMultiByte($cp, 0, input.as_ptr(), input.len() as libc::c_int, output.as_mut_ptr(), output.len() as libc::c_int, std::ptr::null(), std::ptr::null_mut()) != 0);
             }
             test::black_box(&output);
         });
@@ -688,6 +780,17 @@ macro_rules! encode_bench_windows {
 }
 
 // Invocations
+
+macro_rules! label_bench {
+    ($name:ident,
+     $rust_name:ident,
+     $uconv_name:ident,
+     $label:expr) => (
+    label_bench_rs!($name, $label);
+    label_bench_rust!($rust_name, $label);
+    label_bench_uconv!($uconv_name, $label);
+     );
+}
 
 macro_rules! decode_bench {
     ($copy_name:ident,
@@ -770,6 +873,32 @@ macro_rules! encode_bench {
     encode_bench_windows!($legacy_windows_name, $encoding, $cp, $data);
      );
 }
+
+label_bench!(bench_label_rs_utf_8,
+             bench_label_rust_utf_8,
+             bench_label_uconv_utf_8,
+             "utf-8");
+label_bench!(bench_label_rs_utf_8_upper,
+             bench_label_rust_utf_8_upper,
+             bench_label_uconv_utf_8_upper,
+             "UTF-8");
+label_bench!(bench_label_rs_cseucpkdfmtjapanesx,
+             bench_label_rust_cseucpkdfmtjapanesx,
+             bench_label_uconv_cseucpkdfmtjapanesx,
+             "CSEUCPKDFMTJAPANESX");
+label_bench!(bench_label_rs_xseucpkdfmtjapanese,
+             bench_label_rust_xseucpkdfmtjapanese,
+             bench_label_uconv_xseucpkdfmtjapanese,
+             "XSEUCPKDFMTJAPANESE");
+
+decode_bench_user_defined!(bench_decode_to_utf8_user_defined,
+                           "wikipedia/binary.jpg",
+                           max_utf8_buffer_length,
+                           decode_to_utf8);
+decode_bench_user_defined!(bench_decode_to_utf16_user_defined,
+                           "wikipedia/binary.jpg",
+                           max_utf16_buffer_length,
+                           decode_to_utf16);
 
 // BEGIN GENERATED CODE. PLEASE DO NOT EDIT.
 // Instead, please regenerate using generate-encoding-data.py
