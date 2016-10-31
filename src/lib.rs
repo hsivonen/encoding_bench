@@ -813,7 +813,7 @@ encode_bench!(bench_encode_from_utf8_ar,
               bench_windows_from_utf16_ar_windows_1256,
               WINDOWS_1256,
               1256,
-              "wikipedia/ar.html");
+              "wikipedia/ar.txt");
 decode_bench!(bench_copy_cs,
               bench_decode_to_utf8_cs,
               bench_decode_to_utf16_cs,
@@ -853,7 +853,7 @@ encode_bench!(bench_encode_from_utf8_cs,
               bench_windows_from_utf16_cs_windows_1250,
               WINDOWS_1250,
               1250,
-              "wikipedia/cs.html");
+              "wikipedia/cs.txt");
 decode_bench!(bench_copy_de,
               bench_decode_to_utf8_de,
               bench_decode_to_utf16_de,
@@ -893,7 +893,7 @@ encode_bench!(bench_encode_from_utf8_de,
               bench_windows_from_utf16_de_windows_1252,
               WINDOWS_1252,
               1252,
-              "wikipedia/de.html");
+              "wikipedia/de.txt");
 decode_bench!(bench_copy_el,
               bench_decode_to_utf8_el,
               bench_decode_to_utf16_el,
@@ -933,7 +933,7 @@ encode_bench!(bench_encode_from_utf8_el,
               bench_windows_from_utf16_el_windows_1253,
               WINDOWS_1253,
               1253,
-              "wikipedia/el.html");
+              "wikipedia/el.txt");
 decode_bench!(bench_copy_en,
               bench_decode_to_utf8_en,
               bench_decode_to_utf16_en,
@@ -973,7 +973,7 @@ encode_bench!(bench_encode_from_utf8_en,
               bench_windows_from_utf16_en_windows_1252,
               WINDOWS_1252,
               1252,
-              "wikipedia/en.html");
+              "wikipedia/en.txt");
 decode_bench!(bench_copy_fr,
               bench_decode_to_utf8_fr,
               bench_decode_to_utf16_fr,
@@ -1013,7 +1013,7 @@ encode_bench!(bench_encode_from_utf8_fr,
               bench_windows_from_utf16_fr_windows_1252,
               WINDOWS_1252,
               1252,
-              "wikipedia/fr.html");
+              "wikipedia/fr.txt");
 decode_bench!(bench_copy_he,
               bench_decode_to_utf8_he,
               bench_decode_to_utf16_he,
@@ -1053,7 +1053,7 @@ encode_bench!(bench_encode_from_utf8_he,
               bench_windows_from_utf16_he_windows_1255,
               WINDOWS_1255,
               1255,
-              "wikipedia/he.html");
+              "wikipedia/he.txt");
 decode_bench!(bench_copy_ja,
               bench_decode_to_utf8_ja,
               bench_decode_to_utf16_ja,
@@ -1093,7 +1093,7 @@ encode_bench!(bench_encode_from_utf8_ja,
               bench_windows_from_utf16_ja_shift_jis,
               SHIFT_JIS,
               932,
-              "wikipedia/ja.html");
+              "wikipedia/ja.txt");
 decode_bench!(bench_copy_ko,
               bench_decode_to_utf8_ko,
               bench_decode_to_utf16_ko,
@@ -1133,7 +1133,7 @@ encode_bench!(bench_encode_from_utf8_ko,
               bench_windows_from_utf16_ko_euc_kr,
               EUC_KR,
               949,
-              "wikipedia/ko.html");
+              "wikipedia/ko.txt");
 decode_bench!(bench_copy_pt,
               bench_decode_to_utf8_pt,
               bench_decode_to_utf16_pt,
@@ -1173,7 +1173,7 @@ encode_bench!(bench_encode_from_utf8_pt,
               bench_windows_from_utf16_pt_windows_1252,
               WINDOWS_1252,
               1252,
-              "wikipedia/pt.html");
+              "wikipedia/pt.txt");
 decode_bench!(bench_copy_ru,
               bench_decode_to_utf8_ru,
               bench_decode_to_utf16_ru,
@@ -1213,7 +1213,7 @@ encode_bench!(bench_encode_from_utf8_ru,
               bench_windows_from_utf16_ru_windows_1251,
               WINDOWS_1251,
               1251,
-              "wikipedia/ru.html");
+              "wikipedia/ru.txt");
 decode_bench!(bench_copy_th,
               bench_decode_to_utf8_th,
               bench_decode_to_utf16_th,
@@ -1253,7 +1253,7 @@ encode_bench!(bench_encode_from_utf8_th,
               bench_windows_from_utf16_th_windows_874,
               WINDOWS_874,
               874,
-              "wikipedia/th.html");
+              "wikipedia/th.txt");
 decode_bench!(bench_copy_tr,
               bench_decode_to_utf8_tr,
               bench_decode_to_utf16_tr,
@@ -1293,7 +1293,7 @@ encode_bench!(bench_encode_from_utf8_tr,
               bench_windows_from_utf16_tr_windows_1254,
               WINDOWS_1254,
               1254,
-              "wikipedia/tr.html");
+              "wikipedia/tr.txt");
 decode_bench!(bench_copy_vi,
               bench_decode_to_utf8_vi,
               bench_decode_to_utf16_vi,
@@ -1333,7 +1333,7 @@ encode_bench!(bench_encode_from_utf8_vi,
               bench_windows_from_utf16_vi_windows_1258,
               WINDOWS_1258,
               1258,
-              "wikipedia/vi.html");
+              "wikipedia/vi.txt");
 decode_bench!(bench_copy_zh_cn,
               bench_decode_to_utf8_zh_cn,
               bench_decode_to_utf16_zh_cn,
@@ -1373,7 +1373,7 @@ encode_bench!(bench_encode_from_utf8_zh_cn,
               bench_windows_from_utf16_zh_cn_gb18030,
               GB18030,
               54936,
-              "wikipedia/zh_cn.html");
+              "wikipedia/zh_cn.txt");
 decode_bench!(bench_copy_zh_tw,
               bench_decode_to_utf8_zh_tw,
               bench_decode_to_utf16_zh_tw,
@@ -1413,6 +1413,6 @@ encode_bench!(bench_encode_from_utf8_zh_tw,
               bench_windows_from_utf16_zh_tw_big5,
               BIG5,
               950,
-              "wikipedia/zh_tw.html");
+              "wikipedia/zh_tw.txt");
 
 // END GENERATED CODE

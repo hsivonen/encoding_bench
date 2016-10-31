@@ -102,7 +102,7 @@ for (lang, enc, cp) in languages:
               bench_windows_from_utf16_{lang}_{enc},
               {upper},
               {cp},
-              "wikipedia/{lang}.html");
+              "wikipedia/{lang}.txt");
 '''.format(lang=lang, enc=enc, upper=enc.upper(), cp=cp))
 
 lib_file.write('''

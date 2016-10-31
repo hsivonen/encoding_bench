@@ -58,9 +58,10 @@ For x-user-defined, a binary file is used instead of text, because the use case
 for x-user-defined is loading binary data using XHR (in pre-`ArrayBuffer` code).
 
 For testing encoders, the relevant cases are URL parsing (almost always ASCII),
-form submission (explicitly not optimized for speed in encoding_rs for legacy
-encodings) and POSTing stuff using XHR (UTF-16 to UTF-8 encode only). Because
-it was too troublesome to find real-world workloads representing POSTing stuff,
-simply using the decoder (Wikipedia) benchmarks in reverse was chosen as a
-matter of expediency.
-
+form submission (typically mostly human-readable text) and POSTing stuff using
+XHR (UTF-16 to UTF-8 encode only). Because it was too troublesome to find
+real-world workloads representing POSTing stuff using XHR and because URL
+parsing is almost always ASCII, the form submission case is measured even
+though (except when encoding to UTF-8), encoding_rs explicitly doesn't attempt
+to optimize that case for speed but for size. The test data is a plain-text
+extract from each corresponding HTML decoder test file.

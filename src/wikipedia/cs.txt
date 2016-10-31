@@ -1,0 +1,246 @@
+Mars je čtvrtá planeta sluneční soustavy, druhá nejmenší planeta soustavy po Merkuru. Je pojmenována po římském bohu války Martovi. Jedná se o planetu terestrického typu, tj. má pevný horninový povrch pokrytý impaktními krátery, vysokými sopkami, hlubokými kaňony a dalšími útvary. Má dva měsíce nepravidelného tvaru pojmenované Phobos a Deimos.
+
+V období, kdy je Mars v opozici ke Slunci a Země se tak nachází mezi těmito dvěma tělesy, je Mars pozorovatelný na obloze po celou noc. Spolehlivé informace o prvních pozorováních Marsu jako planety neexistují, ale je pravděpodobné, že k nim došlo mezi lety 3000 až 4000 př. n. l. Všechny starověké civilizace, Egypťané, Babylóňané a Řekové, znaly tuto „putující hvězdu“ a měly pro ni svá pojmenování. Kvůli jejímu načervenalému nádechu, způsobenému červenou barvou zoxidované půdy na jejím povrchu, považovaly staré národy Mars většinou za symbol ohně, krve a zániku.
+
+Detailní zkoumání planety umožnilo od 60. let 20. století takřka 20 úspěšných automatických sond. V současné době je na oběžné dráze kolem Marsu pět funkčních sond (Mars Odyssey, Mars Express, Mars Reconnaissance Orbiter, Mars Orbiter Mission a MAVEN) a na povrchu planety se pohybují dvě vozítka, z nichž jedno spadá do mise Mars Exploration Rover (Opportunity)[3] a druhé do mise Mars Science Laboratory (Curiosity).[4] Díky sondám se povedlo zmapovat větší část povrchu, definovat základní historická období či porozumět základním jevům odehrávajícím se na planetě.
+
+Vznik[editovat | editovat zdroj]
+
+Mars vznikl podobně jako ostatní planety našeho systému přibližně před 4,5 miliardami let akrecí z pracho-plynného disku, jenž obíhal kolem rodící se centrální hvězdy. Srážkami prachových částic se začala formovat malá tělesa, která svou gravitací přitahovala další částice a okolní plyn. Vznikly tak první planetesimály, které se vzájemně srážely a formovaly větší tělesa. Na konci tohoto procesu v soustavě vznikly čtyři terestrické protoplanety.[5] V porovnání s ostatními má Mars – nejvzdálenější z terestrických planet – nejvyšší zastoupení lehkých prvků jako křemík, hliník či síra.
+
+Po zformování protoplanety docházelo k masivnímu bombardování povrchu zbylým materiálem ze vzniku soustavy, což mělo za následek jeho neustálé přetváření a přetavování. Je dokonce možné, že celý povrch byl roztaven do podoby tzv. magmatického oceánu, jehož tepelná energie společně s teplem uvolněným diferenciací pláště a jádra je dodnes kumulována v nitru planety a umožňuje existenci vulkanismu a tektonických procesů.[6]
+Fyzikální charakteristiky[editovat | editovat zdroj]
+Porovnání Marsu se Zemí
+Soubor:Mars.ogvPřehrát média
+Animace (00:40) s hlavními rysy Marsu.
+Soubor:GMM-3 Mars Gravity.webmPřehrát média
+Video (01:28) ukazuje gravitační pole Marsu.
+
+Mars má oproti Zemi zhruba čtvrtinovou plochu povrchu a přibližně desetinovou hmotnost (1,448×108 km2 a 6,4185×1023 kg).[7] Střední hustota planety je 3933 kg.m−3.[7] Velikost Marsu, který je znatelně menší než Země, ačkoliv se vyvíjel v oblasti, kde bylo více místa, a mohl tak nasbírat více materiálu, je jedním z hlavních paradoxů ve vývoji sluneční soustavy, který není dobře vysvětlen. Podle jedné z teorií by to mohlo souviset s dávnou migrací Jupiteru sluneční soustavou, kdy tato obří planeta mohla krátce navštívit zónu terestrických planet a vymést odsud část materiálu.[8]
+
+Sluneční den je zde podobně dlouhý jako na Zemi (24 hodin, 39 minut a 35,244 sekund) a nazývá se Sol.[9]
+Geologické složení[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článku Geologie Marsu.
+
+Geologická stavba Marsu je podobná jako Země. Na povrchu kůra, pod ní plášť a uprostřed jádro
+(umělecká představa)
+
+Přesné geologické složení planety není známo, ale na základě astronomických pozorování a průzkumu několika desítek meteoritů z Marsu,[10] které byly nalezeny na Zemi, se soudí, že povrch Marsu je tvořen převážně z hornin ze skupiny čedičů.[11] Oproti pozemským čedičům jsou některé oblasti obohaceny o křemičitanovou složku, podobající se až pozemským andezitům[12] (na druhou stranu je možné, že jsou tvořeny i sopečným sklem). Při pozorování je planeta načervenalá, což je způsobeno pokrytím celého povrchu planety oxidem železitým. V okolí Marsu se v současnosti nevyskytuje globální magnetické pole, avšak některé oblasti planety vykazují trvalou magnetizaci, což svědčí pro hypotézu, že historické magnetické pole bylo globálního charakteru. Na povrchu se nevyskytuje voda v tekutém stavu, což může být jeden z důvodů, proč na Marsu není pozorována desková tektonika. V minulosti (zejména na počátku vývoje planety) však mohla být část kůry mobilní, a v takovém případě by pozorované paleomagnetické anomálie mohly souviset s tvorbou nové kůry,[13] podobně jako je tomu u zemských středooceánských hřbetů.
+
+Vzhledem k faktu, že na Marsu nebyly prováděny podrobné geologické průzkumy, jsou současné poznatky o planetě a její vnitřní stavbě velmi slabé a založeny převážně na srovnáních se Zemí a teoretických modelech založených na nepřímých měřeních pořízených automatickými sondami. Pod kůrou se zřejmě nachází plášť primárně tvořený olivínem a spinelem.[11] Odhaduje se, že planeta má žhavé, zčásti tekuté jádro, které má přibližně 1480 km[14] (jiný zdroj uvádí 1300 až 1700 km[11]) v průměru a je složené převážně ze železa s 15 – 17 váhových % příměsí síry, což je až dvakrát více než je obsah síry v jádru Země.[14] Nicméně nepanuje obecná shoda mezi vědci, jestli je jádro částečně tekuté či pevné a obě dvě hypotézy jsou stále zvažovány.[11]
+
+Jádro je obklopeno pláštěm, jehož aktivita spojená s tepelným vývojem dala vzniknout většině tektonických a vulkanických útvarů na planetě. V současnosti je tato aktivita minimální, avšak v hlubších částech pláště může plášťová konvekce stále probíhat. Nejsvrchnější část pláště tvoří kůra, jejíž průměrná mocnost dosahuje 38 km až 62 km.[11]
+Povrch[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článcích Povrch Marsu a Vulkanismus na Marsu.
+
+Největší hora sluneční soustavy Olympus Mons. Velikost základny je přibližně 600 km, přičemž hora ční asi 24 km nad okolní planinou[15]
+(Viking 1)
+
+Do 60. let 20. století se všeobecně věřilo, že polární čepičky Marsu jsou složené ze zmrzlé vody. Během průzkumu kosmickými sondami se ale ukázalo, že Mars má slabou atmosféru složenou především z oxidu uhličitého s pouze malou příměsí vody, která se předpokládala v polárních oblastech. Atmosférický tlak v průměru dosahuje 700 Pa.[16] Na základě tohoto zjištění byl následně vytvořen model atmosféry Marsu, ze kterého vyplynulo, že dostatečně nízké teploty způsobily zkondenzování a zmrznutí samotného CO2 na pólech. Kvůli tomuto periodickému ději (na Marsu se střídají roční období podobně jako na Zemi) dochází také k významné změně tlaku během roku až o 20 %.[16] Další podrobné zkoumání nicméně ukázalo, že se póly skládají z vodního i suchého ledu (H2O i CO2).[17]
+
+Pro pozorovatele mimo planetu má Mars oranžovočervenou barvu[18] nebo růžovou se dvěma bělavými oblastmi polárních čepiček. Oblasti s nižším albedem se jeví při pozorování šedě.[18] Na červených oblastech se nacházejí rozličné světlé a tmavé plochy s nazelenalou barvou. Tmavé plochy ovšem nejsou oceány vody, protože ta se na Marsu nemůže vyskytovat v tekutém stavu kvůli nízkému atmosférickému tlaku (~700 Pa).[16] Tyto změny v jasnosti povrchu jsou způsobené rozdílným druhem povrchového materiálu:[16] světlejší naoranžovělé oblasti obsahují prach a písek bohatý na oxid železitý; tmavší plochy jsou zpravidla kamenitější a skalnatější regiony. Tvary a rozměry těchto oblastí mění se vlivem občasných silných větrů, které prach přemisťují.[19]
+
+Povrch Marsu je velmi různorodý. Jižní polokoule s víceméně hornatou krajinou je pokryta krátery, zatímco na severní polokouli jsou rozsáhlé rovné pláně zalité lávou. Obecně je povrch Marsu pokryt skalnatými a nebo kamenitými útvary, které jsou místy překryty prachem a písečnými dunami. Na Marsu se nachází značné množství kráterů, koryt, kaňonů a sopek. Je zde v současnosti nejvyšší známá hora sluneční soustavy – štítová sopka Olympus Mons, která dosahuje výšky přes 21 km.[20] V rovníkové oblasti Marsu se nachází obrovský kaňon Valles Marineris, dlouhý 4 500 km a hluboký 7 km. Objevila ho sonda Mariner 9 mapující Mars v letech 1971–1972, podle které byl kaňon pojmenován. Průzkum sondami Viking přinesl i snímky oblasti Cydonia Mensae, na kterých se objevil zvláštní útvar připomínající lidskou tvář obrácenou k nebi.[21] Tento skalní útvar se později začal označovat jako tzv. „tvář z Marsu“ [22] a považoval se za umělé dílo mimozemské civilizace. Pozdější kvalitnější snímky ale ukázaly, že se jednalo pouze o hru světla a stínu na obyčejném erodovaném skalním masívu.[22]
+Atlas[editovat | editovat zdroj]
+Valles Marineris 	Syrtis Major 	Elysium Planitia
+
+Pojmenování povrchových útvarů Marsu je složitější než v případě Merkuru a Venuše, jelikož názvosloví vznikalo více než sto let již od prvních pozorování prováděných italským astronomem Giovannim Schiaparellim roku 1877.[23] Ten během pozorování začal pro útvary používat jména známé z Evropy, Asie a Afriky, které spojoval s mytologickými názvy. V práci, kterou Schiaparelli započal, pokračoval i Eugene Antoniadi, v obou případech byly pojmenovány ale výrazné albedové útvary, které ne nutně odpovídaly objektům na povrchu. Po roce 1973 došlo k podrobnému zmapování povrchu Marsu pomocí sondy Mariner 9, což přineslo velkou revizi názvů a jejich úpravu, na které je postaveno současné názvosloví.[24]
+Poznámky[editovat | editovat zdroj]
+
+Nulová výška: Protože Mars nemá žádné vodní plochy, neexistuje tedy ani žádná přirozená nulová výška jako je u Země hladina světového oceánu, od které by se mohly měřit topografické výšky. Byla tedy zavedena umělá nulová výška povrchu, do 90. let 20. století daná atmosferickým tlakem 6,1 mbar a později daná středním gravitačním potenciálem v oblasti rovníku planety.[25]
+
+Nultý poledník: Rovník Marsu je dán rotací, ale nultý poledník byl určen podobně jako na Zemi, dohodou, že prochází určitým konkrétním bodem. Astronomové v 19. století si za tento bod zvolili s poměrně velkou nepřesností kruhový útvar na povrchu označovaný jako Sinus Meridiani. Teprve roku 1972, poté, co sonda Mariner 9 získala první podrobnější snímky, bylo určeno, že nultý poledník prochází malým kráterem Airy-0 v oblasti Sinus Meridiani.[26]
+Interaktivní mapa Marsu
+Mapa Marsu
+Informace o tomto obrázku
+	
+Mars map scale-coloured.png
+Kliknutím na požadovanou oblast budete přesměrováni na odpovídající článek.
+Barva udává výšku nad nebo pod referenčním elipsoidem.
+Po stranách lze odečítat zeměpisnou šířku a délku.
+Stratigrafie[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článku Stratigrafie Marsu.
+
+Stratigrafie Marsu je vědní disciplína v planetologii, která se snaží rozčlenit základní stratigrafické jednotky na Marsu. Původně byly na základě fotografií sondy Viking ze 70. let vyčleněny čtyři základní jednotky. Nyní, vzhledem k získávání stále nových dat ze sond z posledního desetiletí, které kolem Marsu obíhají či po něm jezdí, procházejí podstatnou revizí. Vzhledem k tomu, že zatím není možné získat geologické vzorky přímo z hornin na povrchu, je celá stratigrafie založena na pozorování svrchní vrstvy kůry, respektive na projevech impaktů cizích těles na povrch.[27]
+
+Pozorováním kráterů byly vyčleněny čtyři základní historická období v geologické historii planety: Pre-noachian, noachian, hesperian a amazonian.[28] Jednotka Noachian byla pojmenována podle oblasti Noachis Terra a je charakteristická vysokým výskytem impaktních kráterů různé velikosti podobající se měsíční krajině. Období je tedy charakteristické silným bombardováním povrchu tělesy z vesmíru a množstvím kapalné vody na povrchu. Hesperian je pojmenován dle oblasti Hesperia Planum a je pro ni charakteristické průměrné pokrytí impaktními krátery. V tomto období docházelo k významné sopečné činnosti a katastrofickým záplavám způsobených činností outflow channels. Nejmladší jednotka Amazonian byla pojmenována dle Amazonis Planitia. Pro období Amazonianu je charakteristická nízký počet nových impaktních kráterů a pozůstatky po projevech ledovců a výrazné sopečné činnosti například v oblasti Tharsis.
+Marsovská historie (V miliónech let)
+Atmosféra[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článku Atmosféra Marsu.
+
+Nad povrchem je viditelná atmosféra
+(Mars Global Surveyor)
+
+Mars má dnes velmi řídkou atmosféru, která není schopná zadržovat tepelnou výměnu mezi povrchem a okolním prostorem, což má za následek velké teplotní rozdíly během dne a noci. Tlak na povrchu se pohybuje mezi 600 až 1000 Pa, což je přibližně 100 až 150krát méně než na povrchu Země či jako přibližně ve 30 km nad jejím povrchem. Podobně jako na Zemi ale dochází ke změnám v atmosféře v závislosti na sezónních výkyvech, jak se planeta přibližuje a oddaluje od Slunce. V zimě přibližně 25 % atmosférického oxidu uhličitého zmrzne na pólech, zatímco v létě opět sublimuje a vrátí se do atmosféry.[29]
+
+Atmosféra je tvořena převážně z oxidu uhličitého (95,32 %), dále obsahuje: dusík (2,7 %), argon (1,6 %), kyslík (0,13 %), oxid uhelnatý (0,07 %) a vodní páry (0,03 %),[30] která vzniká sublimací z polárních čepiček. Mezi ostatní plyny vyskytující se v atmosféře se pak ještě řadí neon, krypton, xenon, ozón a metan (který je možným indikátorem života na Marsu, jelikož podléhá rychlému rozpadu,[31] nicméně studie z roku 2012 naznačuje, že metan vzniká jako výsledek interakce UV záření se sloučeninami uhlíků obsažených v mikrometeoritech a kosmickém prachu[32]).
+
+Průměrná teplota u povrchu planety je okolo 210 K (-63 °C).[33] Pro Mars jsou charakteristické velké rozdíly mezi dnem a nocí. Na rovníku se teploty běžně pohybují od −90 do −10 °C, a nad nulu se dostanou jen výjimečně. Naproti tomu teplota povrchové vrstvy půdy může někdy dosáhnout až +30 °C. I přes tyto občasně příznivé teploty nemůže na většině povrchu existovat kapalná voda. Voda by se okamžitě začala vypařovat vlivem nízkého tlaku. Ve výšce okolo 40 až 50 km nad povrchem se nachází vrstva, která má stálou teplotu. Následně ve výšce přibližně 130 km začíná ionosféra a vodíková koróna planety dosahuje až do výšky 20 000 km.[34]
+
+Podrobné znalosti o složení atmosféry, jejích změnách a o dlouhodobějším klimatu byly získány díky několika sondám, které na povrchu přistály (např. Viking 1 a 2, Spirit, Opportunity atd.), či které zkoumaly atmosféru z orbity. Na základě měření se zjistilo, že i na Marsu panuje skleníkový efekt, který otepluje planetu přibližně o 5 °C[35] a zadržuje okolo 30 % tepelné energie.[36] Výškově se atmosféra dělí na nižší (do 45 km), střední (do 110 km) a vyšší (nad 110 km).
+Oblačnost[editovat | editovat zdroj]
+
+Na Marsu byla pozorována i oblačnost,[37] která je nejspíše tvořena krystalky oxidu uhličitého[38] vznikajících ve výšce okolo zhruba patnácti kilometrů. Vyjma oblačnosti se zde projevují i další procesy napovídající, že i na Marsu panují procesy měnícího se počasí. Vedle počasí je atmosféra planety také dějištěm častých prachových bouří, které občas dosáhnou celoplanetárního charakteru[39] nebo i malé vzdušné víry v podobě prašných vírů.[40] Během bouří mohou větry na povrchu planety dosahovat až rychlostí okolo 200 km/h, vynášejíce do atmosféry značné množství drobných prachových částic (obsahujících magnetit) o velikosti 0,1 mikrometru až 0,01 mm. Protože magnetit má větší schopnost pohlcovat modré světlo než červené, atmosféra se při pohledu z planety zdá žlutavá, či při východu/západu Slunce červená. Proces, který toto způsobuje je složitější než Rayleighův rozptyl, který je znám ze Země způsobující zde modrou barvu. Průměrné rychlosti větru jsou však 35 až 50 km/hod.[34] Díky řidší atmosféře ale nemá vítr takovou sílu jako obdobný vítr na Zemi.
+Voda[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článku Voda na Marsu.
+
+Ma'adim Vallis – koryto vyhloubené tekoucí vodou v oblasti kráteru Gusev (horní kráter, který dosahuje průměru 170 km)
+(Viking)
+
+V současnosti kvůli nízkému tlaku nemůže na povrchu Marsu existovat voda v tekuté podobě[zdroj?] – existuje buď ve formě ledu nebo jako vodní pára, která vzniká sublimací při zvýšení teploty. Dle pozorování se zdá téměř jisté, že se na povrchu planety tekoucí voda v minulosti vyskytovala.[41] Je nyní spíše otázkou, kdy a jak dlouho se tam tekoucí voda nacházela a kam se poděla. Předpokládá se, že povrch Marsu byl zaplaven oceánem v období noachianu.[42] Vlivem ochlazování planety v hesperianu došlo k zmrznutí povrchové vody, část jí zřejmě unikla do kosmického prostoru. Následné erozivní procesy pohřbily část zmrzlého ledu pod povrch Marsu. Vedle těchto zatím neprozkoumaných vodních zdrojů se na pólech nacházejí dvě polární čepičky, které jsou částečně tvořeny vodním ledem a částečně suchým ledem. Předpokládá se, že se voda vyskytuje i ve formě permafrostu, který by měl zasahovat až do oblastí kolem 60°. V roce 2007 NASA provedla odhad množství vody zachycené v jižní polární čepičce. Dle modelu by veškerá voda zaplavila celý Mars do výšky 11 metrů.[43]
+
+Díky novým podrobným snímkům byly na povrchu Marsu rozlišeny geomorfologické pozůstatky vodní činnosti v podobě říčních koryt, sedimentů, pozůstatky zaplavených oblastí, či relikty po rychlém úniku vody z kryosféry Marsu vlivem vulkanické aktivity. Předpokládá se, že jeden podobný obrovský únik vytvořil i údolí Valles Marineris, které vzniklo v dávné historii Marsu. Dalším příkladem může být Cerberus Fossae, u které se předpokládá vznik před 5 milióny let. Prolomení vyvrhlo vodu do oblasti Elysium Planitia, kde vytvořila ledové moře viditelné do dnešních dnů.[44]
+
+V září 2015 přišla NASA s důležitým objevem, ve kterém tvrdí, že se na Marsu za příznivých podmínek občas na povrchu vyskytuje tekoucí velmi slaná voda.[45]
+Magnetické pole a radiace[editovat | editovat zdroj]
+
+Mars má slabé magnetické pole, jehož ochranná funkce je neporovnatelně menší než u zemského magnetického pole. Měření sondy Mars Global Surveyor přinesla důkazy, že krátce po vzniku planety měl Mars dynamičtější povrch, který se více podobal Zemi.[46] Měření magnetometrem ukázalo magnetické pruhy, což svědčí o silnějším magnetickém dynamu, které pracovalo několik miliónu let po vzniku. Neznámá událost (možný dopad asteroidu) však toto pole narušila.[46]
+
+Ze zjištění vědců z amerického Úřadu pro letectví a vesmír (NASA), kteří analyzovali získaná data ze sondy Mars Odyssey, vyplývá, že radiace na oběžné dráze Marsu je 2,5krát větší než na Mezinárodní vesmírné stanici a dosahuje tak limitů pro bezpečný pobyt. NASA považuje tento problém za zvládnutelný pomocí stínítek a systémem varování před vyšším zářením od Slunce.[47]
+Oběžná dráha[editovat | editovat zdroj]
+Mars je vzdálen asi 230 000 000 km (143 000 000 mil) od Slunce; jeho oběžná doba je 687 dnů (zemských), znázorněna v červené barvě. Oběžná dráha Země je modře.
+
+Mars obíhá kolem Slunce ve vzdálenosti mezi 206 644 545 km (1,3815 AU[33]) v perihelu a 249 228 730 km (1,666 AU[33]) v afelu. Doba jednoho oběhu kolem centrální hvězdy je 686,9601 pozemského dne. Kolem své osy se Mars otočí za dobu, která je velmi podobná délce pozemského dne – 24 hodin 39 minut 35,244 sekund[33] (Země 23 hodin, 56 minut a 4,091 sekund). Úhlový sklon planetární osy 25,19°[33] je srovnatelný se sklonem 23,44°, který má Země. Díky tomuto sklonění jsou zde roční období, podobná těm na Zemi, ačkoli jsou téměř dvakrát tak dlouhá, neboť „marsovský rok“ činí 1,88 roku pozemského.
+
+Vzdálenost od Země se v průběhu oběžné doby mění v rozmezí mezi 56 milióny až 400 milióny kilometrů v pravidelném cyklu 17 let,[48] kdy nastává nejpříznivější opozice planety pro pozorování a pro vysílání kosmických sond. Díky tomu, že se Mars přibližuje, či oddaluje od Země, dochází současně k poklesu jeho hvězdné velikosti – pohyb mezi 1,6m až –2,8m, zdánlivý průměr 4" do 25". Tato nepravidelnost má za následek, že v některých obdobích je Mars čtvrtým nejjasnějším tělesem na obloze po Slunci, Měsíci a Venuši a jindy je méně jasný než Jupiter.
+
+V roce 2003 byla velká opozice Marsu a Země, kdy Mars byl nejblíže 55,757 milionu kilometrů.[49] Další nastala 7. listopadu 2005,[50] kdy byl Mars při pozorování ze Země až 55° nad obzorem, další byla 29. ledna 2010,[50] kdy měl Mars magnitudu -1,2. Další opozice byla 3. března 2012,[50] kdy měl Mars magnitudu -1,1.
+Měsíce[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článcích Měsíce Marsu, Phobos (měsíc) a Deimos (měsíc).
+
+Phobos
+Deimos
+Uměle dobarvené fotografie Phobosu (vlevo) a Deimosu (vpravo), pořízené kamerou HiRISE. Fotografie nejsou ve stejném měřítku.
+
+Okolo planety obíhají dvě přirozené družice – Phobos („strach“) a Deimos („hrůza“). Podle řecké mytologie byli Fobos a Deimos synové boha války Area, kteří ho jako vozatajové doprovázeli do válek. Řecký Arés byl pak protějškem římského Marta.[51]
+
+Oba měsíce objevil Asaph Hall v roce 1877 a pojmenoval je podle synů boha Marta. Zajímavostí je, že existence měsíců byla několikrát předpovězena v literatuře dlouho před jejich objevením. Johannes Kepler byl přesvědčen, že pokud má Země jeden měsíc a Jupiter 4 měsíce (v jeho době byly známy pouze Galileovy měsíce Jupitera), musí mít Mars kvůli harmonii kosmu měsíce dva. O dvou marsovských měsících psal i Jonathan Swift v knize Gulliverovy cesty (1726) či Voltaire v díle Micromégas (1752).[52]
+
+Obě dvě tělesa mají vázanou rotaci, což znamená, že ukazují Marsu stále stejnou stranu. Velmi nápadně se chemickým složením a tvarově podobají tělesům, které tvoří pás planetek mezi Marsem a Jupiterem, což vedlo k teorii, že se jedná o asteroidy, které Mars svojí gravitací zachytil.[53] Další teorií je impaktní (podobná dnes převládající teorii původu Měsíce), počítající se srážkou velkého tělesa s Marsem, která vyvrhla horniny z povrchu obou těles na oběžnou dráhu Marsu, a tento materiál se postupně zformoval do měsíce Phobos.[54] Pro definitivní zodpovězení této otázky bude nutné odebrat vzorky z povrchu těchto měsíců.
+
+Phobos obíhá planetu rychleji než se ona sama otáčí, což způsobuje zpomalování jeho oběhu a snižování vzdálenosti. Odhaduje se, že za 50 000 000 let Phobos do planety narazí.[55] Při pohledu z povrchu Marsu by Phobos měl úhlový průměr 12', zatímco Deimos asi 2'.
+Marsovy přirozené satelity jméno 	průměr (km) 	hmotnost (kg) 	objem (km3) 	poloměr
+oběžné dráhy (km) 	oběžná doba
+Phobos 	22,2 (27 × 21,6 × 18,8) 	1,0659×1016[56] 	5,729[56] 	9 376[56] 	7,65 hodin[56]
+Deimos 	12,6 (10 × 12 × 16) 	1,4762×1015[57] 	998[57] 	23 458[57] 	30,30 hodin[57]
+Pozorování[editovat | editovat zdroj]
+Mapa neexistujících kanálů, jak je zachytil Giovanni Schiaparelli
+Mapa Marsu z Hubbleova dalekohledu okolo roku 1999 (sever nahoře)
+
+První pozorování planety jsou známá již z období prvních civilizací (Egypťané, Babylóňané a Řekové), kdy byl Mars pozorován pouhým okem. Během první poloviny 17. století využili astronomové první konstruované dalekohledy pro pozorování, které jim umožnily rozeznat na povrchu planety tmavé a světlé plochy, z čehož se usoudilo, že na Marsu jsou polární čepičky.
+
+V roce 1877 se poprvé v mapách povrchu Marsu objevují nové útvary tzv. kanály, u kterých si jejich objevitel Giovanni Schiaparelli nebyl jist, co znamenají.[23] Později se ukázalo, že byly pouhým optickým klamem zapříčiněným špatnými rozlišovacími schopnostmi dalekohledu a pohybem prachu po povrchu planety.[58] Částečně vlivem špatného překladu italského slova „canale“ znamenající vyjma umělého kanálu i přírodní „koryto“ došlo překladem k mýlce, že dílo je umělého charakteru.[23] Zpráva o pozorování se rychle roznesla a následně objev začaly potvrzovat i další pozorovací místa[23] a vytvářet nepřeberné množství podrobných map neexistujících kanálů (spolu s nimi začaly vznikat teorie o jejich umělém vzniku a umírající civilizaci na vysychající planetě).[58] Ve skutečnosti jsou kanály jen optický klam, který vzniká řetězcem tmavých skvrn. Jejich existence byla po 50 letech pozorováním vyvrácena, ale část veřejnosti je stále měla za existující dílo. Až fotografie z kosmických sond jednoznačně toto přesvědčení vyvrátily.[58]
+
+Při pozorování dalekohledem ze Země nelze vidět žádné významné detaily povrchu vyjma polárních čepiček, a tak podrobné prozkoumání Marsu mohlo proběhnout až po návštěvě sond.[58]
+Výzkum[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článku Výzkum Marsu.
+
+První fotografie povrchu Marsu, pořízená lodí Viking 1
+
+Mars se stal jednou z prvních planet, která byla zkoumána na počátku vesmírného průzkumu. Americké, ruské, evropské a japonské sondy kolem této planety již obíhaly, dopadaly na její povrch, přistávaly a jezdily po ní, aby získaly data o jejím geologickém složení, vlastnostech povrchu, hledaly vodu a zkoumaly klima.
+Minulost[editovat | editovat zdroj]
+Přistávací modul Vikingu 2, fotografie zachycuje nejbližší okolí sondy
+
+První úspěšná mise byla americká Mariner 4 vypuštěná v roce 1964. Následoval symbolický úspěch dvou sovětských sond Mars 2 a Mars 3 vypuštěných v roce 1971, které přistály na jeho povrchu, ale kontakt s nimi byl ztracen několik sekund po dosednutí. Důležitou událostí začátku 70. let 20. století se stalo navedení americké sondy Mariner 9 na oběžnou dráhu, která pořídila první kvalitní fotografie povrchu planety, jenž umožnily rozpoznat základní morfologické jednotky. Následoval americký program Viking, který se skládal ze dvou orbitálních sond, každá obsahující i povrchový modul. Oba povrchové moduly úspěšně přistály na povrchu v roce 1976 a po dobu 6 (Viking 1) respektive 3 (Viking 2) let prováděly pozorování. Přistávací moduly odvysílaly na Zemi také první barevnou fotografii povrchu Marsu[59] a orbitální sekce pořídily detailní fotografie povrchu v takovém rozlišení, že jsou některé části používány dodnes. V roce 1988 byly vyslány dvě sovětské sondy Fobos 1 a 2, které měly studovat Mars a jeho dva měsíce. Bohužel se ale Fobos 1 odmlčel již po cestě k Marsu, zatímco Fobos 2 pořídil úspěšně fotografie Marsu i Phobosu, ale před vysláním dvou přistávacích modulů na povrch měsíce se porouchal.
+
+Po selhání sondy Mars Observer v roce 1992 se roku 1996 k Marsu dostala sonda Mars Global Surveyor, která úspěšně mapovala povrch planety až do roku 2006, kdy bylo po třetím prodloužení mise se sondou ztraceno spojení. Měsíc po vyslání sondy Surveyor byla vyslána další sonda Mars Pathfinder, která měla za úkol vysadit na povrchu malé pojízdné vozítko, jenž by zkoumalo okolí přistávacího modulu v oblasti Ares Vallis. Tato mise byla pro NASA obrovským úspěchem, jelikož přinesla velkou řadu snímků z povrchu, kterým se dostala obrovská publicita.
+Současnost[editovat | editovat zdroj]
+Skutečný povrch planety s uměle vygenerovaným vozítkem Opportunity
+(umělecká představa)
+Na výzkumu Marsu se jednou mohou podílet i automatické létající sondy
+(umělecká představa)
+
+V roce 2001 NASA vyslala úspěšně sondu Mars Odyssey, která je stále na orbitě planety. Pomocí gama spektrometru objevila známky vodíku ve svrchních metrech marsovského regolitu. Předpokládá se, že tento vodík je vázán ve vodním ledu, který se pod povrchem nachází.[60]
+
+O dva roky později v roce 2003 se k planetě vydala evropská sonda Mars Express, která se skládala ze dvou částí, orbitálního modulu Mars Express a přistávacího s označením Beagle 2. Tato mise byla úspěšná jen částečně, jelikož přistávací modul z nezjištěných příčin selhal během přistávacího manévru a následně v únoru 2004 byl prohlášen za ztracený.[61] Na začátku roku 2004 byl pomocí planetárního fourierovského spektrometru pracující s infračerveným světlem ohlášen nález metanu v atmosféře Marsu. V červnu 2006 Evropská vesmírná agentura vydala zprávu, že objevila polární záři.[62]
+
+V roce 2003 se k Marsu vydala i dvě stejná vozítka NASA v rámci projektu Mars Exploration Rover – Spirit (MER-A) a Opportunity (MER-B). Obě dvě vozítka úspěšně přistála na povrchu v lednu 2004 a začala zkoumat místa dopadu, pomocí mechanického ramena očišťovat vzorky a analyzovat je. Mezi největší objevy patří důkaz, že na Marsu kdysi skutečně byla tekutá voda v obou oblastech, kde sondy přistály. Vozítka měla hlavní misi naplánovánu na 90 dní, ale díky silnému větru a prachovým vírům, které čistí solární panely vozítek, byla mnohonásobně déle funkční.[63] Vozítko Spirit přestalo fungovat 22. března 2010 po ujetí 7,73 km namísto plánovaných 600 metrů. Jeho dvojče Opportunity je stále pojízdné a přináší vědecká data (informace k březnu 2015). Za tu dobu ujelo již přes 42 km.[64]
+
+Dne 12. srpna 2005 byla vyslána další americká sonda Mars Reconnaissance Orbiter, která se na oběžnou dráhu planety dostala 10. března 2006.[65] Hlavním úkolem plánované dvouleté vědecké mise je zmapovat povrch Marsu a studovat počasí, aby se mohlo vybrat vhodné místo pro další sondy, které by měly na povrchu přistát. Sonda obsahuje telekomunikační zařízení s vyšší přenosovou rychlostí než všechny předchozí sondy dohromady.
+
+25. květen 2008 úspěšně přistála na Marsu nepohyblivá americká sonda Phoenix, která byla na svojí cestu vyslána 4. srpna 2007. Přistála poblíž severní polární čepičky. Přistávací modul byl vybaven robotickou rukou, která byla schopna odebrat vzorky až do vzdálenosti 2,5 metru a dostat se až metr pod marsovský povrch. Během svého života sonda objevila v místě přistání vodní led nehluboko pod povrchem.[66]
+
+Roku 2011 se měla uskutečnit ruská mise Fobos-Grunt, která si kladla za cíl dopravit zpět na Zem vzorky z měsíce Phobos. Nosná raketa odstartovala 8. listopadu 2011.[67] Po oddělení druhého stupně však nedošlo ke spuštění motoru, který měl sondu navést na dráhu k Marsu. Sonda zůstala na oběžné dráze Země a nakonec zanikla v zemské atmosféře.[67]
+
+Dne 26. listopadu 2011 proběhl start nosné rakety Atlas V541 se sondou Mars Science Laboratory.[68] Jde o sofistikovanou pojízdnou laboratoř, která by měla na Marsu, mimo jiné, hledat organické sloučeniny či stopy života.[69] Sonda úspěšně přistála dne 6. srpna 2012.[4]
+Budoucnost[editovat | editovat zdroj]
+
+Na rok 2016 či 2018 plánuje Evropská vesmírná agentura svoje první vozítko pod názvem ExoMars; měl by být schopný kopat až dva metry pod povrch, kde by hledal organické molekuly.[70][71]
+
+V roce 2004 vyhlásil americký prezident George W. Bush dlouhodobý plán Vision for Space Exploration, dle kterého se USA připravují vyslat na povrch Marsu pilotovanou loď a na jeho povrch vysadit člověka.[72] Podobné plány má i Evropská vesmírná agentura sdružující evropské země, která by chtěla dostat člověka na Mars mezi lety 2025 až 2030.[73] Obdobné ambice má i Rusko.[74]
+Život na Marsu[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článku Život na Marsu.
+
+Detail výbrusu meteoritu AHL84001, kde se podle některých výzkumů nachází pozůstatky po „jednoduchém životě“. Průměr protáhlého útvaru je 100 nm
+
+Současné poznání historie Marsu nasvědčuje, že se po jeho vzniku na povrchu nacházela hustá atmosféra a kapalná voda, která možná tvořila i celoplanetární oceán pokrývající převážnou část severní polokoule.[75] Dle současné teorie o vzniku života tím byla splněna základní podmínka, která mohla vytvořit obyvatelnou zónu na povrchu a umožnit tak vznik primitivního života.[76] Na druhou stranu proti vzniku života hovoří fakt, že tyto příznivé podmínky trvaly pouze dočasně, v současnosti je téměř všechna voda na Marsu zmrzlá, a planeta se tak nachází mimo obyvatelnou zónu Slunce. Předpokládá se, že by pro případný vznik života musely být k dispozici jiné energetické zdroje než energie Slunce (např. vulkanismus).
+
+Slabá magnetosféra a extrémně tenká atmosféra, veliké výkyvy teplot, ukončení současné vulkanické činnosti a bombardování povrchu meteory nedávají v současnosti příliš mnoho nadějí, že by život (pokud se vyvinul) mohl přežít do dnešních dní, i když vědci na Zemi jsou neustále překvapování podmínkami, za kterých může život přežívat (radioaktivita,[77] život v naprosté temnotě,[78] život bez dýchatelného kyslíku,[79] atd.). V letech 2014–2015 probíhaly na Mezinárodní vesmírné stanici experimenty s antarktickými houbami rodu Cryomyces.[80] Na vesmírné stanici byly po dobu 18 měsíců vystaveny stejné atmosféře i silnému ultrafialovému záření, s jakým by se střetly na povrchu Marsu.[81] Na konci testu přežilo 60 % všech houbových buněk a každá desátá buňka byla schopna se množit a vytvářet nové kolonie.
+
+Pro potvrzení či vyvrácení teorie o životě na Marsu chybějí zatím jasné důkazy. Existují sice některé náznaky, které nasvědčují, že na Marsu život skutečně byl, jako například struktury připomínající pozůstatky činnosti organismů v meteoritu ALH 84001.[82] Na povrchu planety provedlo několik sond (např. Viking) experimenty, které měly objevit důkazy života, ale tyto pokusy nepřinesly žádný důkaz potvrzující život na planetě nyní ani v minulosti.
+
+Pro nebezpečí zavlečení pozemského života na Mars jsou sondy určené pro přistání na Marsu pečlivě sterilizovány[83] (i když na začátku výzkumu nebyly všechny sondy sterilizovány příliš pečlivě[84]). Na jasnou odpověď, jestli na planetě skutečně vznikl život anebo jestli se jedná pouze o vědeckou fikci, je potřeba počkat, dokud nebude pečlivě prostudována větší část povrchu planety.
+Kolonizace[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článku Kolonizace Marsu.
+
+Lidská kolonizace Marsu je cílem mnoha spekulací i seriózních studií, které se objevují po celou dobu výzkumu této planety. Povrchové podmínky a snadná dostupnost vody dělají z Marsu jednu z nejlépe obyvatelných planet sluneční soustavy. Proto bude pravděpodobně dalším cílem lidské expanze. Dle nejnovějších záměrů by se měl člověk na Mars vypravit kolem roku 2030[73] a od této doby zde začít budovat stálou základnu.
+
+Mars vyžaduje méně energie na jednotku hmotnosti (delta-v) k jeho dosažení ze Země než kterákoli jiná planeta s výjimkou Venuše. S využitím Hohmannovy oběžné dráhy trvá let k Marsu přibližně 9 měsíců v závislosti na druhu použitého pohonu,[85] během kterých bude posádka vystavena stavu beztíže. Kratší doba v podobě 6 až 7 měsíců je možná, ale došlo by ke spotřebě většího množství paliva.
+
+Otevřenou otázkou zůstává, zda lidstvo bude odsouzeno na Marsu žít v uzavřených základnách, kde se bude uměle udržovat atmosféra, anebo zda se podaří přeměnit povrch planety na obyvatelný pomocí terraformace.
+Terraformace[editovat | editovat zdroj]
+
+    Podrobnější informace naleznete v článku Terraformace Marsu.
+
+Umělecká představa jak by mohl vypadat terraformovaný Mars
+
+Terraformace Marsu je hypotetický soubor procesů, které by měly umožnit člověku život na povrchu Marsu bez nutnosti používat ochranné prostředky před okolním prostředím. Jeho výsledkem by tak měl být vznik planety podobné Zemi.[86] Proces, který by mohl teoreticky změnit celou planetu, by probíhal po desítky či stovky let[87] od nejjednodušších organismů přes rostliny až po první živočichy.
+
+Jelikož je Mars rozdílný a má menší gravitaci, podmínky nebudou nikdy zcela shodné s těmi pozemskými. V současnosti se jedná spíše o sci-fi myšlenku, jelikož neexistuje žádná dostupná technologie, která by tuto přeměnu zvládla, i když se již občas objevují nápady, jak povrch Marsu přeměnit.[88]
+Mars v kultuře[editovat | editovat zdroj]
+Jméno planety[editovat | editovat zdroj]
+Socha boha Marta před Villa Adriana v Tivoli, Itálie
+
+Mars je pojmenován po římském bohu války.[89] Setkáváme se s ním v římské mytologii (viz Mars (mytologie)). V babylónské astronomii byla planeta pojmenována po Nergalovi, božstvu ohně, války a ničení, pravděpodobně díky rudé barvě.[90] Když Řekové spojili Nergala se svým bohem války Aréem, pojmenovali planetu Ἄρεως ἀστἡρ (Areos aster), neboli „hvězda Areova“. Římané, kteří ztotožnili svého boha války Marta s řeckým Aréem, s ním také spojovali planetu a říkali jí „Stella Martis“, neboli „Hvězda Martova“, resp. „Mars“. Řekové označovali planetu i jako Πυρόεις (Pyroeis), což znamená přibližně hořící.[91] V hinduistické mytologii je znám Mars jako Mangala (मंगल),[92] a spojován s bohem války[93] v sanskrtu také jako Angaraka[94] podle boha války, jehož znameními byly kozoroh a štír a který učil okultním vědám. Staří Egypťané tuto planetu nazývali „Ḥr Dšr“ – „Rudý Hor“.[95] Hebrejci ji naproti tomu říkali Ma'adim (מאדים‎‎) – „ta, která se zardívá“; zde je také původ jména jednoho z největších kaňonů Marsu – Ma'adim Vallis.[96] Mars je al-Mirrikh (المريخ‎‎) jak v arabštině,[97] tak v perštině (بهرام‎‎), v turečtině se mu říká Merih. Etymologie al-Mirrikh je zatím neobjasněná. Staří Peršané říkali Marsu Bahram[93] (بهرام‎‎) podle zoroastrijského boha osudu. Staří Turkové jej nazývali Sakit. Číňané, Japonci, Korejci a Vietnamci planetu označovali za Ohnivou hvězdu[91] (čínsky v českém přepisu Chuo-sing, pchin-jinem Huǒxīng, znaky 火星), jménem založeným na starém čínském systému pěti elementů.
+Symbol Marsu
+
+Symbolem Marsu je malé kolečko s šipkou směrující nahoru a ven. Je to stylizované znázornění štítu a kopí, používaných římským bohem Marsem, který byl nejen bohem války, ale také patronem vojáků. Symbol se také užívá v biologii pro označení mužského pohlaví a v alchymii k označení prvku železa, o kterém se soudilo, že byl ovládán Marsem, díky charakteristicky červené barvě oxidu železitého.[98] ♂ označuje znak Unicode na pozici U+2642.
+Význam v astrologii[editovat | editovat zdroj]
+
+Za vlády Chaldejců v jižní Mezopotámii došlo k významnému rozvoji astrologie a k zavedení systému sedmi planet (k vládnoucímu páru Slunce, Měsíc přidali ještě Merkur, Venuši, Mars, Jupiter a Saturn), kterým byly také přiřazeny příslušné božské principy.[99] V případě Marsu to byl babylónský bůh moru Nergal, k němuž byly později asociováni egyptský Hor, hindský Mangal, řecký Áres a římský bůh války Mars.[100] Tradičním astrologickým 7 planetám odpovídá 7 dnů v týdnu,[101] kde je Mars spojen s úterým, z čehož také vychází pojmenování pro tento den v románských jazycích (např. ve španělštině martes, v italštině martedì a ve francouzštině mardi).[102] Podle Pythagora 7 planetárních sfér kolem Země svým otáčením vyluzuje tzv. hudbu sfér – starší hudební stupnice proto byly sedmitónové.[103] Marsu odpovídá číslo 5 a tón G.[104]
+
+Mars ve zvěrokruhu vládne I. a VIII. nebeskému domu, tj. denní dům je pro něj Beran a noční Štír, povýšení pak zažívá v Kozorohu, pád v Raku a zničení ve Váhách a v Býku.[105] Problémy tomuto systému přinesl objev trpasličí planety Pluto, v jejíž prospěch někteří moderní astrologové odebírají Marsu znamení Štíra.[100][106][107] Konzervativní astrologové naproti tomu raději ponechávají Pluto bez domicilu.[108]
+
+Původně představoval božský princip Marsu (muže) harmonický protiklad k Venuši (ženě) a tomu odpovídal i jeho tehdejší symbol ♁ (nyní jde o symbol Země), pozdějším zdůrazněním agresívních prvků však došlo k deformaci kříže do úhlopříčného šípu, tj. k přechodu do dnešního symbolu ♂.[109] Astrologická povaha Marsu vychází z mytologie a je spojována se sebejistotou a sebe-prosazováním se, agresí, sexualitou, energií, silou, ambicemi a výbušností, tedy historicky chápanými samčími vlastnostmi.[110] Tyto vlastnosti zároveň svědčí o duchu ovládaném nižšími potencemi (hmotou),[111] což se odráželo i v již zmíněném původním symbolu ♁ (kříži hmoty nad kruhem ducha).[112]
+
+Dle astrologů by se měl vliv Marsu uplatňovat v povoláních jako jsou vojáci, chirurgové či sportovci.[113] Francouzský psycholog a statistik Michel Gauquelin provedl v 60. letech 20. století velkou studii nazvanou „Mars Effect“, která dávala významnou korelaci mezi datem narození sportovních šampiónů a dominantním postavením Marsu.[114] Test na jinak sestaveném vzorku šampiónů však přinesl negativní výsledek.[115]
+Inteligentní Marťani[editovat | editovat zdroj]
+
+Oblíbená představa, že je Mars obydlen inteligentními Marťany, se traduje do 19. století, kdy se na plno rozeběhlo mapování marsovských kanálů, které propagoval především italský astronom Giovanni Schiaparelli. Ve spojení s knihou od Percivala Lowella o postupně umírající planetě, která vysychá a chladne s prastarou civilizací, která se snaží vytvořit síť zavlažovacích kanálů, se rychle začala šířit myšlenka, že na Marsu existuje inteligentní život.[116]
+
+Pozorování neexistujících kanálů na Marsu se šířilo mezi tehdejšími astronomy jako Marsovská horečka,[117] která přinášela podrobnější a přesnější mapy zavlažovacích kanálů. V roce 1899 během průzkumu atmosférického rádiového šumu zachytil vynálezce Nikola Tesla opakující se signál, o kterém později prohlásil, že by se mohlo jednat o radiovou komunikaci z jiné planety, pravděpodobně Marsu.[118] Teslově teorii se brzy dostalo podpory Lorda Kelvina, který navštívil Spojené státy americké v roce 1902 a při této příležitosti měl prohlásit, že Tesla zachytil Marťanské radiové vysílání určené pro Spojené státy.[119] V roce 1901 vyšel článek v New York Times, že ředitel Harvard College Observatory Edward Charles Pickering obdržel telegram z Lowell Observatory v Arizoně ohledně možného pokusu zachycené komunikace Marsu se Zemí.
+
+Jak ale ukázaly kosmické sondy ve 20. století, na Marsu inteligentní život v současnosti není.
+Sci-fi[editovat | editovat zdroj]
+Mimozemšťani útočící na Zemi ve Wellsově knize Válka světů
+
+Mars byl a je častým předmětem sci-fi příběhů, které ho v historii popisovaly jako živý svět inteligentních tvorů a v současnosti jako vyprahlou planetu, kterou se člověk snaží podmanit. Jeho magická rudá barva a chybná představa rozsáhlých kanálů na jeho povrchu inspirovala mnohé spisovatele, aby své příběhy zasadili do tohoto světa. Snad nejznámější knihou z rané historie sci-fi žánru je H. G. Wellsova kniha Válka světů z roku 1898, která popisuje invazi Marťanů z umírající planety na Zem a následnou válku s lidstvem. Kniha se stala hitem a dočkala se i rádiového vysílání 30. října 1938. Vysílání bylo natolik přesvědčivé, že mnozí posluchači, kteří si zapnuli rádio později, se domnívali, že se jedná o skutečnou událost, což vyústilo v paniku a chaos.[120]
+
+Dalším slavným dílem je Marťanská kronika od amerického spisovatele Raye Bradburyho, která líčí zkázu marťanské civilizace nešťastnou náhodou způsobenou lidmi a neschopnost lidí se z této chyby poučit. V 60. letech 20. století o Marsu psali Edgar Rice Burroughs a Robert A. Heinlein.
+
+Mars se v literatuře vyskytoval již dříve před vznikem moderní sci-fi. Například spisovatel Jonathan Swift ve své knize Gulliverovy cesty v devatenácté kapitole popisuje dva měsíce Marsu, přibližně 150 let před tím, než byly skutečně objeveny astronomem Asaphem Hallem.[121]
+
+Před vysláním sond Mariner a Viking, které přinesly první podrobné snímky o skutečném povrchu Marsu bez života, se většina knih zabývala tématem inteligentních Marťanů a jejich vztahy s lidmi. Když se ale ukázalo, že život na Marsu není a že možná ani nikdy nebyl, téma knih se změnilo. Začalo se zaobírat blízkou lidskou budoucností, ve které se lidstvo pokusí na Marsu přistát a vytvořit na něm trvalou základnu a následně ho osídlit. Ceněnou ságou o kolonizaci a boji za svobodu Marsu je Marťanská trilogie od Kima Stanleyho Robinsona.
+
+Snímky z Marsu ale nevyvrátily veškeré pochybnosti a některé paradoxně zájem sci-fi autorů ještě podpořily. Nejznámějším útvarem ze snímků sond Viking se stala tzv. Tvář na Marsu – hora, připomínající lidskou tvář, obrácenou do vesmíru (pozdější podrobné mapování ukázalo, že se jedná o přírodní útvar vzniklý zvětráváním[122]). Tento a podobné výjevy na Marsu měly za následek to, že je Mars i po zmapování povrchu pro spisovatele vědeckofantastické literatury stále zajímavý.
+
+Dalším oblíbeným námětem se stal boj marťanské kolonie za nezávislost na Zemi, který se objevuje v dílech Grega Beara a nebo již zmiňovaného Kima Stanleyho Robinsona. Na stejném základě staví film Total Recall a televizní seriál Babylon 5. V nezávislé kolonii na Marsu se odehrává i děj tetralogie Pán modrého meče českého spisovatele Ondřeje Neffa.
