@@ -11,6 +11,11 @@ https://creativecommons.org/licenses/by-sa/3.0/legalcode>. See the file
 wikipedia/sources.txt for a mapping from the file names (without .html) to
 Wikipedia URLs.
 
+Additionally, the Czech Wikipedia content (cs.html and cs.txt) is said to
+contain text from the Web site http://astro.pef.zcu.cz/ (no longer available)
+subject to the GNU Free Documentation License <LICENSE-GFDL or
+https://www.gnu.org/licenses/fdl.html>.
+
 binary.jpg image credit: NASA/JPL/MSSS (Public Domain) (via Wikipedia)
 
 The file gecko.patch is under the license of the files being patched: MPL 2.0
