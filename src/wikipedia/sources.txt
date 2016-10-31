@@ -15,3 +15,5 @@ vi: https://vi.wikipedia.org/w/index.php?title=Sao_H%E1%BB%8Fa&oldid=24192627
 zh_cn: https://zh.wikipedia.org/w/index.php?title=%E7%81%AB%E6%98%9F&variant=zh-cn&oldid=41736649
 zh_tw: https://zh.wikipedia.org/w/index.php?title=%E7%81%AB%E6%98%9F&variant=zh-tw&oldid=41736649
 binary: https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Water_ice_clouds_hanging_above_Tharsis_PIA02653_black_background.jpg/240px-Water_ice_clouds_hanging_above_Tharsis_PIA02653_black_background.jpg
+
+# To avoid glibc choking, the characters 无 and ／ have been removed from zh_tw.
