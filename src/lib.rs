@@ -2,12 +2,16 @@
 
 extern crate test;
 extern crate encoding_rs;
+
+#[cfg(feature = "third_party")]
 extern crate encoding;
+
+#[cfg(any(feature = "third_party", feature = "uconv"))]
 extern crate libc;
 
 use test::Bencher;
 
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", feature = "third_party"))]
 use std::ffi::CString;
 
 macro_rules! decode_bench_user_defined {
@@ -214,6 +218,7 @@ macro_rules! decode_bench_rust {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(feature = "third_party")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -232,6 +237,7 @@ macro_rules! encode_bench_rust {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(feature = "third_party")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -254,6 +260,7 @@ macro_rules! encode_bench_rust {
 macro_rules! label_bench_rust {
     ($name:ident,
      $label:expr) => (
+    #[cfg(feature = "third_party")]
     #[bench]
     fn $name(b: &mut Bencher) {
         b.iter(|| {
@@ -267,6 +274,7 @@ macro_rules! label_bench_rust {
 macro_rules! decode_bench_std {
     ($name:ident,
      $data:expr) => (
+    #[cfg(feature = "third_party")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let mut input = Vec::new();
@@ -282,6 +290,7 @@ macro_rules! decode_bench_std {
 macro_rules! copy_bench {
     ($name:ident,
      $data:expr) => (
+    #[cfg(feature = "third_party")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let mut input = Vec::new();
@@ -299,7 +308,7 @@ macro_rules! copy_bench {
 
 // iconv
 
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", feature = "third_party"))]
 extern "C" {
     fn iconv_open(tocode: *const std::os::raw::c_char,
                   fromcode: *const std::os::raw::c_char)
@@ -313,7 +322,7 @@ extern "C" {
              -> usize;
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", feature = "third_party"))]
 fn iconv_name(encoding: &'static encoding_rs::Encoding) -> &'static str {
     if encoding_rs::BIG5 == encoding {
         "big5-hkscs"
@@ -330,7 +339,7 @@ macro_rules! decode_bench_iconv {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
-    #[cfg(target_os = "linux")]
+    #[cfg(all(target_os = "linux", feature = "third_party"))]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -371,7 +380,7 @@ macro_rules! encode_bench_iconv {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
-    #[cfg(target_os = "linux")]
+    #[cfg(all(target_os = "linux", feature = "third_party"))]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -414,7 +423,7 @@ macro_rules! encode_bench_iconv {
 
 // ICU
 
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", feature = "third_party"))]
 #[link(name = "icuuc")]
 extern "C" {
     fn ucnv_open_55(label: *const std::os::raw::c_char,
@@ -437,7 +446,7 @@ extern "C" {
                           -> i32;
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(all(target_os = "linux", feature = "third_party"))]
 fn icu_name(encoding: &'static encoding_rs::Encoding) -> &'static str {
     if encoding_rs::BIG5 == encoding {
         "big5-hkscs"
@@ -454,7 +463,7 @@ macro_rules! decode_bench_icu {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
-    #[cfg(target_os = "linux")]
+    #[cfg(all(target_os = "linux", feature = "third_party"))]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -484,7 +493,7 @@ macro_rules! encode_bench_icu {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
-    #[cfg(target_os = "linux")]
+    #[cfg(all(target_os = "linux", feature = "third_party"))]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -526,15 +535,15 @@ macro_rules! encode_bench_icu {
 
 // uconv
 
-#[cfg(target_os = "linux")]
-#[link(name = "stdc++" )]
+#[cfg(feature = "uconv")]
+#[link(name = "stdc++")]
 extern "C" {}
 
-#[cfg(target_os = "linux")]
-#[link(name = "mozglue", kind = "static" )]
+#[cfg(feature = "uconv")]
+#[link(name = "mozglue", kind = "static")]
 extern "C" {}
 
-#[cfg(target_os = "linux")]
+#[cfg(feature = "uconv")]
 #[link(name = "xul")]
 extern "C" {
     fn NS_InitXPCOM2(manager: *mut *mut libc::c_void,
@@ -558,10 +567,10 @@ extern "C" {
     fn NS_FindEncodingForLabel(name: *const u8, name_len: usize) -> i32;
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(feature = "uconv")]
 static mut XPCOM_INITIALIZED: bool = false;
 
-#[cfg(target_os = "linux")]
+#[cfg(feature = "uconv")]
 fn init_xpcom() {
     unsafe {
         if !XPCOM_INITIALIZED {
@@ -573,7 +582,7 @@ fn init_xpcom() {
     }
 }
 
-#[cfg(target_os = "linux")]
+#[cfg(feature = "uconv")]
 #[bench]
 fn bench_uconv_to_utf16_user_defined(b: &mut Bencher) {
     init_xpcom();
@@ -605,7 +614,7 @@ macro_rules! decode_bench_uconv {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
-    #[cfg(target_os = "linux")]
+    #[cfg(feature = "uconv")]
     #[bench]
     fn $name(b: &mut Bencher) {
         init_xpcom();
@@ -636,7 +645,7 @@ macro_rules! encode_bench_uconv {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
-    #[cfg(target_os = "linux")]
+    #[cfg(feature = "uconv")]
     #[bench]
     fn $name(b: &mut Bencher) {
         init_xpcom();
@@ -680,7 +689,7 @@ macro_rules! encode_bench_uconv {
 macro_rules! label_bench_uconv {
     ($name:ident,
      $label:expr) => (
-    #[cfg(target_os = "linux")]
+    #[cfg(feature = "uconv")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let label = $label;
@@ -692,7 +701,7 @@ macro_rules! label_bench_uconv {
 
 // Windows built-in
 
-#[cfg(target_os = "windows")]
+#[cfg(all(target_os = "windows", feature = "third_party"))]
 #[link(name = "Kernel32")]
 extern "system" {
     fn MultiByteToWideChar(code_page: libc::c_uint,
@@ -718,7 +727,7 @@ macro_rules! decode_bench_windows {
      $encoding:ident,
      $cp:expr,
      $data:expr) => (
-    #[cfg(target_os = "windows")]
+    #[cfg(all(target_os = "windows", feature = "third_party"))]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -744,7 +753,7 @@ macro_rules! encode_bench_windows {
      $encoding:ident,
      $cp:expr,
      $data:expr) => (
-    #[cfg(target_os = "windows")]
+    #[cfg(all(target_os = "windows", feature = "third_party"))]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;

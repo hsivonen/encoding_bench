@@ -3,7 +3,12 @@ name = "encoding_bench"
 version = "0.1.0"
 authors = ["Henri Sivonen <hsivonen@hsivonen.fi>"]
 
+[features]
+third_party = ["encoding", "libc"]
+uconv = ["libc"]
+
 [dependencies]
 encoding_rs = { path = "../encoding_rs/" }
-encoding = "0.2.33"
-libc = "0.2.16"
+encoding = { version = "0.2.33", optional = true }
+libc = { version = "0.2.16", optional = true }
+
