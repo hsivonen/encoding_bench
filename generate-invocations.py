@@ -66,7 +66,7 @@ for (lang, enc, cp) in languages:
               bench_decode_to_utf16_{lang},
               bench_decode_to_string_{lang},
               bench_rust_to_string_{lang},
-              bench_std_to_string_{lang},
+              bench_std_validation_{lang},
               bench_iconv_to_utf8_{lang},
               bench_icu_to_utf16_{lang},
               bench_uconv_to_utf16_{lang},
