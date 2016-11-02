@@ -14,6 +14,40 @@ use test::Bencher;
 #[cfg(all(target_os = "linux", feature = "third_party"))]
 use std::ffi::CString;
 
+fn encode_utf16(str: &str, big_endian: bool) -> Vec<u8> {
+    let mut vec = Vec::new();
+    let mut iter = str.encode_utf16();
+    loop {
+        match iter.next() {
+            None => {
+                return vec;
+            }
+            Some(code_unit) => {
+                let hi = (code_unit >> 8) as u8;
+                let lo = (code_unit & 0xFF) as u8;
+                if big_endian {
+                    vec.push(hi);
+                    vec.push(lo);
+                } else {
+                    vec.push(lo);
+                    vec.push(hi);
+                }
+            }
+        }
+    }
+}
+
+fn encode(encoding: &'static encoding_rs::Encoding, str: &str) -> Vec<u8> {
+    if encoding == encoding_rs::UTF_16BE {
+        return encode_utf16(str, true);
+    } else if encoding == encoding_rs::UTF_16LE {
+        return encode_utf16(str, false);
+    } else {
+        let (cow, _, _) = encoding.encode(str);
+        return cow.into_owned();
+    }
+}
+
 macro_rules! decode_bench_user_defined {
     ($name:ident,
      $data:expr,
@@ -52,7 +86,7 @@ macro_rules! decode_bench_impl {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        let (input, _, _) = encoding.encode(utf8);
+        let input = encode(encoding, utf8);
         let mut decoder = encoding.new_decoder_without_bom_handling();
         let out_len = decoder.$max(input.len());
         let mut output = Vec::with_capacity(out_len);
@@ -171,7 +205,7 @@ macro_rules! decode_bench_string {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        let (input, _, _) = encoding.encode(utf8);
+        let input = encode(encoding, utf8);
         b.bytes = input.len() as u64;
         b.iter(|| {
             let (output, _) = encoding.decode_without_bom_handling(test::black_box(&input[..]));
@@ -227,7 +261,7 @@ macro_rules! decode_bench_rust {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        let (input, _, _) = encoding.encode(utf8);
+        let input = encode(encoding, utf8);
         let rust_encoding = encoding::label::encoding_from_whatwg_label(encoding.name()).unwrap();
         b.bytes = input.len() as u64;
         b.iter(|| {
@@ -349,7 +383,7 @@ macro_rules! decode_bench_iconv {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        let (input, _, _) = encoding.encode(utf8);
+        let input = encode(encoding, utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
         let out_len = decoder.max_utf8_buffer_length(input.len());
         let mut output: Vec<u8> = Vec::with_capacity(out_len);
@@ -473,7 +507,7 @@ macro_rules! decode_bench_icu {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        let (input, _, _) = encoding.encode(utf8);
+        let input = encode(encoding, utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
         let out_len = decoder.max_utf16_buffer_length(input.len());
         let mut output: Vec<u16> = Vec::with_capacity(out_len);
@@ -625,7 +659,7 @@ macro_rules! decode_bench_uconv {
         init_xpcom();
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        let (input, _, _) = encoding.encode(utf8);
+        let input = encode(encoding, utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
         let out_len = decoder.max_utf16_buffer_length(input.len());
         let mut output: Vec<u16> = Vec::with_capacity(out_len);
@@ -737,7 +771,7 @@ macro_rules! decode_bench_windows {
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
         let utf8 = include_str!($data);
-        let (input, _, _) = encoding.encode(utf8);
+        let input = encode(encoding, utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
         let out_len = decoder.max_utf16_buffer_length(input.len());
         let mut output: Vec<u16> = Vec::with_capacity(out_len);
