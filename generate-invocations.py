@@ -105,6 +105,20 @@ for (lang, enc, cp) in languages:
               "wikipedia/{lang}.txt");
 '''.format(lang=lang, enc=enc, upper=enc.upper(), cp=cp))
 
+  for (encoding, code_page) in [("utf_16le", 1200), ("utf_16be", 1201),]:
+    lib_file.write('''decode_bench_legacy!(bench_decode_to_utf8_{lang}_{enc},
+              bench_decode_to_utf16_{lang}_{enc},
+              bench_decode_to_string_{lang}_{enc},
+              bench_rust_to_string_{lang}_{enc},
+              bench_iconv_to_utf8_{lang}_{enc},
+              bench_icu_to_utf16_{lang}_{enc},
+              bench_uconv_to_utf16_{lang}_{enc},
+              bench_windows_to_utf16_{lang}_{enc},
+              {upper},
+              {cp},
+              "wikipedia/{lang}.html");
+'''.format(lang=lang, enc=encoding, upper=encoding.upper(), cp=code_page))
+
 lib_file.write('''
 ''')
 lib_file.write(lib_rs_end)
