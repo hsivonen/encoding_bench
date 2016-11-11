@@ -6,6 +6,7 @@ authors = ["Henri Sivonen <hsivonen@hsivonen.fi>"]
 [features]
 third_party = ["encoding", "libc"]
 uconv = ["libc"]
+simd-accel = ["encoding_rs/simd-accel"]
 
 [dependencies]
 encoding_rs = { path = "../encoding_rs/" }
