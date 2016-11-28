@@ -199,8 +199,6 @@ macro_rules! decode_bench_string {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
-    // This is worth benching mainly in comparison with rust-encoding.
-    #[cfg(feature = "third_party")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -218,8 +216,6 @@ macro_rules! encode_bench_vec {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
-    // This is worth benching mainly in comparison with rust-encoding.
-    #[cfg(feature = "third_party")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
