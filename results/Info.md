@@ -5,8 +5,13 @@ revision_computer_system_bits.txt
 ## Revisions
 
 * baseline: encoding_rs tag [bench_baseline][1]
+* alu: encoding_rs tag [bench_before_utf8_polish][2]
+* simd: encoding_rs tag [bench_before_utf8_polish][2] with `--features simd-accel`
+* unaligned: encoding_rs tag [bench_only_unaligned_sse2][3] with `--features simd-accel`
 
 [1]: https://github.com/hsivonen/encoding_rs/releases/tag/bench_baseline
+[2]: https://github.com/hsivonen/encoding_rs/releases/tag/bench_before_utf8_polish
+[3]: https://github.com/hsivonen/encoding_rs/releases/tag/bench_only_unaligned_sse2
 
 ## Computers
 
