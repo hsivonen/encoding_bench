@@ -858,27 +858,27 @@ macro_rules! decode_bench {
      $encoding:ident,
      $cp:expr,
      $data:expr) => (
-    copy_bench!($copy_name, $data);
+//    copy_bench!($copy_name, $data);
     decode_bench_utf8!($name8, UTF_8, $data);
     decode_bench_utf16!($name16, UTF_8, $data);
     decode_bench_string!($string_name, UTF_8, $data);
-    decode_bench_rust!($rust_name, UTF_8, $data);
-    decode_bench_std!($std_name, $data);
-    decode_bench_iconv!($iconv_name, UTF_8, $data);
-    decode_bench_icu!($icu_name, UTF_8, $data);
-    decode_bench_uconv!($uconv_name, UTF_8, $data);
-    decode_bench_windows!($windows_name, UTF_8, 65001, $data);
-    decode_bench_legacy!($legacy_name8,
-                         $legacy_name16,
-                         $legacy_string_name,
-                         $legacy_rust_name,
-                         $legacy_iconv_name,
-                         $legacy_icu_name,
-                         $legacy_uconv_name,
-                         $legacy_windows_name,
-                         $encoding,
-                         $cp,
-                         $data);
+//    decode_bench_rust!($rust_name, UTF_8, $data);
+//    decode_bench_std!($std_name, $data);
+//    decode_bench_iconv!($iconv_name, UTF_8, $data);
+//    decode_bench_icu!($icu_name, UTF_8, $data);
+//    decode_bench_uconv!($uconv_name, UTF_8, $data);
+//    decode_bench_windows!($windows_name, UTF_8, 65001, $data);
+//    decode_bench_legacy!($legacy_name8,
+//                         $legacy_name16,
+//                         $legacy_string_name,
+//                         $legacy_rust_name,
+//                         $legacy_iconv_name,
+//                         $legacy_icu_name,
+//                         $legacy_uconv_name,
+//                         $legacy_windows_name,
+//                         $encoding,
+//                         $cp,
+//                         $data);
      );
 }
 
@@ -894,14 +894,14 @@ macro_rules! decode_bench_legacy {
      $encoding:ident,
      $cp:expr,
      $data:expr) => (
-    decode_bench_utf8!($legacy_name8, $encoding, $data);
-    decode_bench_utf16!($legacy_name16, $encoding, $data);
-    decode_bench_string!($legacy_string_name, $encoding, $data);
-    decode_bench_rust!($legacy_rust_name, $encoding, $data);
-    decode_bench_iconv!($legacy_iconv_name, $encoding, $data);
-    decode_bench_icu!($legacy_icu_name, $encoding, $data);
-    decode_bench_uconv!($legacy_uconv_name, $encoding, $data);
-    decode_bench_windows!($legacy_windows_name, $encoding, $cp, $data);
+//    decode_bench_utf8!($legacy_name8, $encoding, $data);
+//    decode_bench_utf16!($legacy_name16, $encoding, $data);
+//    decode_bench_string!($legacy_string_name, $encoding, $data);
+//    decode_bench_rust!($legacy_rust_name, $encoding, $data);
+//    decode_bench_iconv!($legacy_iconv_name, $encoding, $data);
+//    decode_bench_icu!($legacy_icu_name, $encoding, $data);
+//    decode_bench_uconv!($legacy_uconv_name, $encoding, $data);
+//    decode_bench_windows!($legacy_windows_name, $encoding, $cp, $data);
      );
 }
 
@@ -925,25 +925,25 @@ macro_rules! encode_bench {
      $encoding:ident,
      $cp:expr,
      $data:expr) => (
-    encode_bench_utf8!($name8, UTF_8, $data);
+//    encode_bench_utf8!($name8, UTF_8, $data);
     encode_bench_utf16!($name16, UTF_8, $data);
-    encode_bench_vec!($vec_name, UTF_8, $data);
-    encode_bench_rust!($rust_name, UTF_8, $data);
-    encode_bench_iconv!($iconv_name, UTF_8, $data);
-    encode_bench_icu!($icu_name, UTF_8, $data);
-    encode_bench_uconv!($uconv_name, UTF_8, $data);
-    encode_bench_windows!($windows_name, UTF_8, 65001, $data);
-    encode_bench_legacy!($legacy_name8,
-                         $legacy_name16,
-                         $legacy_vec_name,
-                         $legacy_rust_name,
-                         $legacy_iconv_name,
-                         $legacy_icu_name,
-                         $legacy_uconv_name,
-                         $legacy_windows_name,
-                         $encoding,
-                         $cp,
-                         $data);
+//    encode_bench_vec!($vec_name, UTF_8, $data);
+//    encode_bench_rust!($rust_name, UTF_8, $data);
+//    encode_bench_iconv!($iconv_name, UTF_8, $data);
+//    encode_bench_icu!($icu_name, UTF_8, $data);
+//    encode_bench_uconv!($uconv_name, UTF_8, $data);
+//    encode_bench_windows!($windows_name, UTF_8, 65001, $data);
+//    encode_bench_legacy!($legacy_name8,
+//                         $legacy_name16,
+//                         $legacy_vec_name,
+//                         $legacy_rust_name,
+//                         $legacy_iconv_name,
+//                         $legacy_icu_name,
+//                         $legacy_uconv_name,
+//                         $legacy_windows_name,
+//                         $encoding,
+//                         $cp,
+//                         $data);
      );
 }
 
@@ -959,42 +959,42 @@ macro_rules! encode_bench_legacy {
      $encoding:ident,
      $cp:expr,
      $data:expr) => (
-    encode_bench_utf8!($legacy_name8, $encoding, $data);
-    encode_bench_utf16!($legacy_name16, $encoding, $data);
-    encode_bench_vec!($legacy_vec_name, $encoding, $data);
-    encode_bench_rust!($legacy_rust_name, $encoding, $data);
-    encode_bench_iconv!($legacy_iconv_name, $encoding, $data);
-    encode_bench_icu!($legacy_icu_name, $encoding, $data);
-    encode_bench_uconv!($legacy_uconv_name, $encoding, $data);
-    encode_bench_windows!($legacy_windows_name, $encoding, $cp, $data);
+//    encode_bench_utf8!($legacy_name8, $encoding, $data);
+//    encode_bench_utf16!($legacy_name16, $encoding, $data);
+//    encode_bench_vec!($legacy_vec_name, $encoding, $data);
+//    encode_bench_rust!($legacy_rust_name, $encoding, $data);
+//    encode_bench_iconv!($legacy_iconv_name, $encoding, $data);
+//    encode_bench_icu!($legacy_icu_name, $encoding, $data);
+//    encode_bench_uconv!($legacy_uconv_name, $encoding, $data);
+//    encode_bench_windows!($legacy_windows_name, $encoding, $cp, $data);
      );
 }
 
-label_bench!(bench_label_rs_utf_8,
-             bench_label_rust_utf_8,
-             bench_label_uconv_utf_8,
-             "utf-8");
-label_bench!(bench_label_rs_utf_8_upper,
-             bench_label_rust_utf_8_upper,
-             bench_label_uconv_utf_8_upper,
-             "UTF-8");
-label_bench!(bench_label_rs_cseucpkdfmtjapanesx,
-             bench_label_rust_cseucpkdfmtjapanesx,
-             bench_label_uconv_cseucpkdfmtjapanesx,
-             "CSEUCPKDFMTJAPANESX");
-label_bench!(bench_label_rs_xseucpkdfmtjapanese,
-             bench_label_rust_xseucpkdfmtjapanese,
-             bench_label_uconv_xseucpkdfmtjapanese,
-             "XSEUCPKDFMTJAPANESE");
-
-decode_bench_user_defined!(bench_decode_to_utf8_user_defined,
-                           "wikipedia/binary.jpg",
-                           max_utf8_buffer_length,
-                           decode_to_utf8);
-decode_bench_user_defined!(bench_decode_to_utf16_user_defined,
-                           "wikipedia/binary.jpg",
-                           max_utf16_buffer_length,
-                           decode_to_utf16);
+//label_bench!(bench_label_rs_utf_8,
+//             bench_label_rust_utf_8,
+//             bench_label_uconv_utf_8,
+//             "utf-8");
+//label_bench!(bench_label_rs_utf_8_upper,
+//             bench_label_rust_utf_8_upper,
+//             bench_label_uconv_utf_8_upper,
+//             "UTF-8");
+//label_bench!(bench_label_rs_cseucpkdfmtjapanesx,
+//             bench_label_rust_cseucpkdfmtjapanesx,
+//             bench_label_uconv_cseucpkdfmtjapanesx,
+//             "CSEUCPKDFMTJAPANESX");
+//label_bench!(bench_label_rs_xseucpkdfmtjapanese,
+//             bench_label_rust_xseucpkdfmtjapanese,
+//             bench_label_uconv_xseucpkdfmtjapanese,
+//             "XSEUCPKDFMTJAPANESE");
+//
+//decode_bench_user_defined!(bench_decode_to_utf8_user_defined,
+//                           "wikipedia/binary.jpg",
+//                           max_utf8_buffer_length,
+//                           decode_to_utf8);
+//decode_bench_user_defined!(bench_decode_to_utf16_user_defined,
+//                           "wikipedia/binary.jpg",
+//                           max_utf16_buffer_length,
+//                           decode_to_utf16);
 
 decode_bench_legacy!(bench_decode_to_utf8_ja_euc_jp,
                      bench_decode_to_utf16_ja_euc_jp,
