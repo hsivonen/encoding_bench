@@ -14,6 +14,8 @@ use test::Bencher;
 #[cfg(all(target_os = "linux", feature = "third_party"))]
 use std::ffi::CString;
 
+use std::borrow::Cow;
+
 fn encode_utf16(str: &str, big_endian: bool) -> Vec<u8> {
     let mut vec = Vec::new();
     let mut iter = str.encode_utf16();
@@ -207,6 +209,11 @@ macro_rules! decode_bench_string {
         b.bytes = input.len() as u64;
         b.iter(|| {
             let (output, _) = encoding.decode_without_bom_handling(test::black_box(&input[..]));
+            if encoding == encoding_rs::UTF_8 {
+                if let Cow::Owned(_) = output {
+                    unreachable!();
+                }
+            }
             test::black_box(&output);
         });
     });
@@ -986,6 +993,116 @@ label_bench!(bench_label_rs_xseucpkdfmtjapanese,
              bench_label_rust_xseucpkdfmtjapanese,
              bench_label_uconv_xseucpkdfmtjapanese,
              "XSEUCPKDFMTJAPANESE");
+
+decode_bench_string!(bench_decode_to_string_jquerycat,
+                     UTF_8,
+                     "jquery/jquery-cat.js");
+
+copy_bench!(bench_copy_jquery, "jquery/jquery-3.1.1.min.js");
+decode_bench_utf8!(bench_decode_to_utf8_jquery,
+                   UTF_8,
+                   "jquery/jquery-3.1.1.min.js");
+decode_bench_utf16!(bench_decode_to_utf16_jquery,
+                    UTF_8,
+                    "jquery/jquery-3.1.1.min.js");
+decode_bench_string!(bench_decode_to_string_jquery,
+                     UTF_8,
+                     "jquery/jquery-3.1.1.min.js");
+decode_bench_rust!(bench_rust_to_string_jquery,
+                   UTF_8,
+                   "jquery/jquery-3.1.1.min.js");
+decode_bench_std!(bench_std_validation_jquery, "jquery/jquery-3.1.1.min.js");
+decode_bench_iconv!(bench_iconv_to_utf8_jquery,
+                    UTF_8,
+                    "jquery/jquery-3.1.1.min.js");
+decode_bench_icu!(bench_icu_to_utf16_jquery,
+                  UTF_8,
+                  "jquery/jquery-3.1.1.min.js");
+decode_bench_uconv!(bench_uconv_to_utf16_jquery,
+                    UTF_8,
+                    "jquery/jquery-3.1.1.min.js");
+decode_bench_windows!(bench_windows_to_utf16_jquery,
+                      UTF_8,
+                      65001,
+                      "jquery/jquery-3.1.1.min.js");
+
+decode_bench_utf8!(bench_decode_to_utf8_jquery_windows_1252,
+                   WINDOWS_1252,
+                   "jquery/jquery-3.1.1.min.js");
+decode_bench_utf16!(bench_decode_to_utf16_jquery_windows_1252,
+                    WINDOWS_1252,
+                    "jquery/jquery-3.1.1.min.js");
+decode_bench_string!(bench_decode_to_string_jquery_windows_1252,
+                     WINDOWS_1252,
+                     "jquery/jquery-3.1.1.min.js");
+decode_bench_rust!(bench_rust_to_string_jquery_windows_1252,
+                   WINDOWS_1252,
+                   "jquery/jquery-3.1.1.min.js");
+decode_bench_iconv!(bench_iconv_to_utf8_jquery_windows_1252,
+                    WINDOWS_1252,
+                    "jquery/jquery-3.1.1.min.js");
+decode_bench_icu!(bench_icu_to_utf16_jquery_windows_1252,
+                  WINDOWS_1252,
+                  "jquery/jquery-3.1.1.min.js");
+decode_bench_uconv!(bench_uconv_to_utf16_jquery_windows_1252,
+                    WINDOWS_1252,
+                    "jquery/jquery-3.1.1.min.js");
+decode_bench_windows!(bench_windows_to_utf16_jquery_windows_1252,
+                      WINDOWS_1252,
+                      1252,
+                      "jquery/jquery-3.1.1.min.js");
+
+encode_bench_utf8!(bench_encode_from_utf8_jquery,
+                   UTF_8,
+                   "jquery/jquery-3.1.1.min.js");
+encode_bench_utf16!(bench_encode_from_utf16_jquery,
+                    UTF_8,
+                    "jquery/jquery-3.1.1.min.js");
+encode_bench_vec!(bench_encode_to_vec_jquery,
+                  UTF_8,
+                  "jquery/jquery-3.1.1.min.js");
+encode_bench_rust!(bench_rust_to_vec_jquery,
+                   UTF_8,
+                   "jquery/jquery-3.1.1.min.js");
+encode_bench_iconv!(bench_iconv_from_utf8_jquery,
+                    UTF_8,
+                    "jquery/jquery-3.1.1.min.js");
+encode_bench_icu!(bench_icu_from_utf16_jquery,
+                  UTF_8,
+                  "jquery/jquery-3.1.1.min.js");
+encode_bench_uconv!(bench_uconv_from_utf16_jquery,
+                    UTF_8,
+                    "jquery/jquery-3.1.1.min.js");
+encode_bench_windows!(bench_windows_from_utf16_jquery,
+                      UTF_8,
+                      65001,
+                      "jquery/jquery-3.1.1.min.js");
+
+encode_bench_utf8!(bench_encode_from_utf8_jquery_windows_1252,
+                   WINDOWS_1252,
+                   "jquery/jquery-3.1.1.min.js");
+encode_bench_utf16!(bench_encode_from_utf16_jquery_windows_1252,
+                    WINDOWS_1252,
+                    "jquery/jquery-3.1.1.min.js");
+encode_bench_vec!(bench_encode_to_vec_jquery_windows_1252,
+                  WINDOWS_1252,
+                  "jquery/jquery-3.1.1.min.js");
+encode_bench_rust!(bench_rust_to_vec_jquery_windows_1252,
+                   WINDOWS_1252,
+                   "jquery/jquery-3.1.1.min.js");
+encode_bench_iconv!(bench_iconv_from_utf8_jquery_windows_1252,
+                    WINDOWS_1252,
+                    "jquery/jquery-3.1.1.min.js");
+encode_bench_icu!(bench_icu_from_utf16_jquery_windows_1252,
+                  WINDOWS_1252,
+                  "jquery/jquery-3.1.1.min.js");
+encode_bench_uconv!(bench_uconv_from_utf16_jquery_windows_1252,
+                    WINDOWS_1252,
+                    "jquery/jquery-3.1.1.min.js");
+encode_bench_windows!(bench_windows_from_utf16_jquery_windows_1252,
+                      WINDOWS_1252,
+                      1252,
+                      "jquery/jquery-3.1.1.min.js");
 
 decode_bench_user_defined!(bench_decode_to_utf8_user_defined,
                            "wikipedia/binary.jpg",
