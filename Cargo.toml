@@ -7,6 +7,8 @@ authors = ["Henri Sivonen <hsivonen@hsivonen.fi>"]
 third_party = ["encoding", "libc"]
 uconv = ["libc"]
 simd-accel = ["encoding_rs/simd-accel"]
+no-static-ideograph-encoder-tables = ["encoding_rs/no-static-ideograph-encoder-tables"]
+parallel-utf8 = ["encoding_rs/parallel-utf8"]
 
 [dependencies]
 encoding_rs = { path = "../encoding_rs/" }
