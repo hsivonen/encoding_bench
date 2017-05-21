@@ -61,7 +61,7 @@ macro_rules! decode_bench_user_defined {
         let mut input = Vec::with_capacity(bytes.len());
         input.extend_from_slice(bytes);
         let mut decoder = encoding_rs::X_USER_DEFINED.new_decoder_without_bom_handling();
-        let out_len = decoder.$max(input.len());
+        let out_len = decoder.$max(input.len()).unwrap();
         let mut output = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
         b.bytes = input.len() as u64;
@@ -90,7 +90,7 @@ macro_rules! decode_bench_impl {
         let utf8 = include_str!($data);
         let input = encode(encoding, utf8);
         let mut decoder = encoding.new_decoder_without_bom_handling();
-        let out_len = decoder.$max(input.len());
+        let out_len = decoder.$max(input.len()).unwrap();
         let mut output = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
         b.bytes = input.len() as u64;
@@ -167,7 +167,7 @@ macro_rules! encode_bench_utf16 {
 // libs won't do.
         let (intermediate, _, _) = encoding.encode(utf8);
         let mut decoder = encoding.new_decoder_without_bom_handling();
-        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()));
+        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()).unwrap());
         let capacity = input.capacity();
         input.resize(capacity, 0u16);
         let (complete, _, written, _) = decoder.decode_to_utf16(&intermediate[..], &mut input[..], true);
@@ -388,7 +388,7 @@ macro_rules! decode_bench_iconv {
         let utf8 = include_str!($data);
         let input = encode(encoding, utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
-        let out_len = decoder.max_utf8_buffer_length(input.len());
+        let out_len = decoder.max_utf8_buffer_length(input.len()).unwrap();
         let mut output: Vec<u8> = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
         let from_label = CString::new(iconv_name(encoding)).unwrap();
@@ -512,7 +512,7 @@ macro_rules! decode_bench_icu {
         let utf8 = include_str!($data);
         let input = encode(encoding, utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
-        let out_len = decoder.max_utf16_buffer_length(input.len());
+        let out_len = decoder.max_utf16_buffer_length(input.len()).unwrap();
         let mut output: Vec<u16> = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
         let label = CString::new(icu_name(encoding)).unwrap();
@@ -544,7 +544,7 @@ macro_rules! encode_bench_icu {
 // libs won't do.
         let (intermediate, _, _) = encoding.encode(utf8);
         let mut decoder = encoding.new_decoder_without_bom_handling();
-        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()));
+        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()).unwrap());
         let capacity = input.capacity();
         input.resize(capacity, 0u16);
         let (complete, _, written, _) = decoder.decode_to_utf16(&intermediate[..], &mut input[..], true);
@@ -664,7 +664,7 @@ macro_rules! decode_bench_uconv {
         let utf8 = include_str!($data);
         let input = encode(encoding, utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
-        let out_len = decoder.max_utf16_buffer_length(input.len());
+        let out_len = decoder.max_utf16_buffer_length(input.len()).unwrap();
         let mut output: Vec<u16> = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
         let name = encoding.name();
@@ -697,7 +697,7 @@ macro_rules! encode_bench_uconv {
 // libs won't do.
         let (intermediate, _, _) = encoding.encode(utf8);
         let mut decoder = encoding.new_decoder_without_bom_handling();
-        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()));
+        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()).unwrap());
         let capacity = input.capacity();
         input.resize(capacity, 0u16);
         let (complete, _, written, _) = decoder.decode_to_utf16(&intermediate[..], &mut input[..], true);
@@ -776,7 +776,7 @@ macro_rules! decode_bench_windows {
         let utf8 = include_str!($data);
         let input = encode(encoding, utf8);
         let decoder = encoding.new_decoder_without_bom_handling();
-        let out_len = decoder.max_utf16_buffer_length(input.len());
+        let out_len = decoder.max_utf16_buffer_length(input.len()).unwrap();
         let mut output: Vec<u16> = Vec::with_capacity(out_len);
         output.resize(out_len, 0);
         b.bytes = input.len() as u64;
@@ -804,7 +804,7 @@ macro_rules! encode_bench_windows {
 // libs won't do.
         let (intermediate, _, _) = encoding.encode(utf8);
         let mut decoder = encoding.new_decoder_without_bom_handling();
-        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()));
+        let mut input: Vec<u16> = Vec::with_capacity(decoder.max_utf16_buffer_length(intermediate.len()).unwrap());
         let capacity = input.capacity();
         input.resize(capacity, 0u16);
         let (complete, _, written, _) = decoder.decode_to_utf16(&intermediate[..], &mut input[..], true);
