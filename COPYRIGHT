@@ -18,5 +18,8 @@ https://www.gnu.org/licenses/fdl.html>.
 
 binary.jpg image credit: NASA/JPL/MSSS (Public Domain) (via Wikipedia)
 
+jQuery is under the MIT license <LICENSE-MIT-JQUERY or
+https://github.com/jquery/jquery/blob/master/LICENSE.txt>.
+
 The file gecko.patch is under the license of the files being patched: MPL 2.0
 <LICENSE-MPL or https://mozilla.org/MPL/2.0/>.
