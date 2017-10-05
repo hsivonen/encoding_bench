@@ -4,8 +4,13 @@ version = "0.1.0"
 authors = ["Henri Sivonen <hsivonen@hsivonen.fi>"]
 
 [features]
-third_party = ["encoding", "libc"]
 uconv = ["libc"]
+iconv = ["libc"]
+icu = ["libc"]
+rust-encoding = ["encoding"]
+standard-library = []
+memcpy = []
+win32 = []
 simd-accel = ["encoding_rs/simd-accel"]
 no-static-ideograph-encoder-tables = ["encoding_rs/no-static-ideograph-encoder-tables"]
 
