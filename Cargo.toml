@@ -11,11 +11,15 @@ rust-encoding = ["encoding"]
 standard-library = []
 memcpy = []
 win32 = []
+self = []
+mem = []
+safe_mem = ["safe_encoding_rs_mem"]
 simd-accel = ["encoding_rs/simd-accel"]
 no-static-ideograph-encoder-tables = ["encoding_rs/no-static-ideograph-encoder-tables"]
 
 [dependencies]
 encoding_rs = { path = "../encoding_rs/" }
+safe_encoding_rs_mem = { path = "../safe_encoding_rs_mem/", optional = true }
 encoding = { version = "0.2.33", optional = true }
 libc = { version = "0.2.16", optional = true }
 

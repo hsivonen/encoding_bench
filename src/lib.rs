@@ -14,8 +14,10 @@ use test::Bencher;
 #[cfg(any(feature = "icu", feature = "iconv", feature = "uconv"))]
 use std::ffi::CString;
 
+#[allow(unused_imports)]
 use std::borrow::Cow;
 
+#[allow(dead_code)]
 fn encode_utf16(str: &str, big_endian: bool) -> Vec<u8> {
     let mut vec = Vec::new();
     let mut iter = str.encode_utf16();
@@ -39,6 +41,7 @@ fn encode_utf16(str: &str, big_endian: bool) -> Vec<u8> {
     }
 }
 
+#[allow(dead_code)]
 fn encode(encoding: &'static encoding_rs::Encoding, str: &str) -> Vec<u8> {
     if encoding == encoding_rs::UTF_16BE {
         return encode_utf16(str, true);
@@ -55,6 +58,7 @@ macro_rules! decode_bench_user_defined {
      $data:expr,
      $max:ident,
      $decode:ident) => (
+    #[cfg(feature = "self")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
@@ -84,6 +88,7 @@ macro_rules! decode_bench_impl {
      $data:expr,
      $max:ident,
      $decode:ident) => (
+    #[cfg(feature = "self")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -127,6 +132,7 @@ macro_rules! encode_bench_utf8 {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(feature = "self")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -159,6 +165,7 @@ macro_rules! encode_bench_utf16 {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(feature = "self")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -201,6 +208,7 @@ macro_rules! decode_bench_string {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(feature = "self")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -223,6 +231,7 @@ macro_rules! encode_bench_vec {
     ($name:ident,
      $encoding:ident,
      $data:expr) => (
+    #[cfg(feature = "self")]
     #[bench]
     fn $name(b: &mut Bencher) {
         let encoding = encoding_rs::$encoding;
@@ -241,10 +250,10 @@ macro_rules! encode_bench_vec {
     });
 }
 
-
 macro_rules! label_bench_rs {
     ($name:ident,
      $label:expr) => (
+    #[cfg(feature = "self")]
     #[bench]
     fn $name(b: &mut Bencher) {
         b.iter(|| {
@@ -826,11 +835,34 @@ macro_rules! encode_bench_windows {
             }
             test::black_box(&output);
         });
-    }
-);
+    });
+}
+
+// mem
+
+macro_rules! mem_bench_is_bytes {
+    ($name:ident,
+     $func:path,
+     $len:expr,
+     $data:expr) => (
+    #[cfg(feature = "mem")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let bytes = include_bytes!($data);
+        let truncated = &bytes[..$len];
+        b.bytes = truncated.len() as u64;
+        b.iter(|| {
+            test::black_box($func(test::black_box(truncated)));
+        });
+    });
 }
 
 // Invocations
+
+mem_bench_is_bytes!(bench_mem_is_ascii, encoding_rs::mem::is_ascii, 16, "wikipedia/de.txt");
+mem_bench_is_bytes!(bench_mem_is_utf8_latin1, encoding_rs::mem::is_utf8_latin1, 16, "wikipedia/de.txt");
+
+
 
 macro_rules! label_bench {
     ($name:ident,
