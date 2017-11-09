@@ -969,6 +969,82 @@ macro_rules! mem_bench_u8_to_u16 {
     });
 }
 
+macro_rules! mem_bench_str_to_u16 {
+    ($name:ident,
+     $safe_name:ident,
+     $func:ident,
+     $len:expr,
+     $data:expr) => (
+    #[cfg(feature = "mem")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let truncated = &s[..$len];
+        let capacity = $len * 4;
+        let mut vec = Vec::with_capacity(capacity);
+        vec.resize(capacity, 0u16);
+        let dst = &mut vec[..];
+        b.bytes = truncated.len() as u64;
+        b.iter(|| {
+            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+        });
+    }
+
+    #[cfg(feature = "safe_mem")]
+    #[bench]
+    fn $safe_name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let truncated = &s[..$len];
+        let capacity = $len * 4;
+        let mut vec = Vec::with_capacity(capacity);
+        vec.resize(capacity, 0u16);
+        let dst = &mut vec[..];
+        b.bytes = truncated.len() as u64;
+        b.iter(|| {
+            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+        });
+    });
+}
+
+macro_rules! mem_bench_u16_to_u8 {
+    ($name:ident,
+     $safe_name:ident,
+     $func:ident,
+     $len:expr,
+     $data:expr) => (
+    #[cfg(feature = "mem")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let u: Vec<u16> = s.encode_utf16().collect();
+        let truncated = &u[..$len];
+        let capacity = $len * 4;
+        let mut vec = Vec::with_capacity(capacity);
+        vec.resize(capacity, 0u8);
+        let dst = &mut vec[..];
+        b.bytes = (truncated.len() * 2) as u64;
+        b.iter(|| {
+            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+        });
+    }
+
+    #[cfg(feature = "safe_mem")]
+    #[bench]
+    fn $safe_name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let u: Vec<u16> = s.encode_utf16().collect();
+        let truncated = &u[..$len];
+        let capacity = $len * 4;
+        let mut vec = Vec::with_capacity(capacity);
+        vec.resize(capacity, 0u8);
+        let dst = &mut vec[..];
+        b.bytes = (truncated.len() * 2) as u64;
+        b.iter(|| {
+            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+        });
+    });
+}
+
 // Invocations
 
 mem_bench_is_u8!(bench_mem_is_ascii,
@@ -1009,6 +1085,16 @@ mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16,
 mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin,
                      bench_safe_mem_copy_ascii_to_basic_latin,
                      copy_ascii_to_basic_latin,
+                     16,
+                     "wikipedia/de.txt");
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16,
+                      bench_safe_mem_convert_str_to_utf16,
+                      convert_str_to_utf16,
+                      16,
+                      "wikipedia/de.txt");
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8,
+                     bench_safe_mem_convert_utf16_to_utf8,
+                     convert_utf16_to_utf8,
                      16,
                      "wikipedia/de.txt");
 
