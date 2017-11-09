@@ -3,6 +3,9 @@
 extern crate test;
 extern crate encoding_rs;
 
+#[cfg(feature = "safe_mem")]
+extern crate safe_encoding_rs_mem;
+
 #[cfg(feature = "rust-encoding")]
 extern crate encoding;
 
@@ -840,9 +843,10 @@ macro_rules! encode_bench_windows {
 
 // mem
 
-macro_rules! mem_bench_is_bytes {
+macro_rules! mem_bench_is_u8 {
     ($name:ident,
-     $func:path,
+     $safe_name:ident,
+     $func:ident,
      $len:expr,
      $data:expr) => (
     #[cfg(feature = "mem")]
@@ -852,17 +856,161 @@ macro_rules! mem_bench_is_bytes {
         let truncated = &bytes[..$len];
         b.bytes = truncated.len() as u64;
         b.iter(|| {
-            test::black_box($func(test::black_box(truncated)));
+            test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+        });
+    }
+
+    #[cfg(feature = "safe_mem")]
+    #[bench]
+    fn $safe_name(b: &mut Bencher) {
+        let bytes = include_bytes!($data);
+        let truncated = &bytes[..$len];
+        b.bytes = truncated.len() as u64;
+        b.iter(|| {
+            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+        });
+    });
+}
+
+macro_rules! mem_bench_is_str {
+    ($name:ident,
+     $safe_name:ident,
+     $func:ident,
+     $len:expr,
+     $data:expr) => (
+    #[cfg(feature = "mem")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let truncated = &s[..$len];
+        b.bytes = truncated.len() as u64;
+        b.iter(|| {
+            test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+        });
+    }
+
+    #[cfg(feature = "safe_mem")]
+    #[bench]
+    fn $safe_name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let truncated = &s[..$len];
+        b.bytes = truncated.len() as u64;
+        b.iter(|| {
+            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+        });
+    });
+}
+
+macro_rules! mem_bench_is_u16 {
+    ($name:ident,
+     $safe_name:ident,
+     $func:ident,
+     $len:expr,
+     $data:expr) => (
+    #[cfg(feature = "mem")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let u: Vec<u16> = s.encode_utf16().collect();
+        let truncated = &u[..$len];
+        b.bytes = (truncated.len() * 2) as u64;
+        b.iter(|| {
+            test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+        });
+    }
+
+    #[cfg(feature = "safe_mem")]
+    #[bench]
+    fn $safe_name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let u: Vec<u16> = s.encode_utf16().collect();
+        let truncated = &u[..$len];
+        b.bytes = (truncated.len() * 2) as u64;
+        b.iter(|| {
+            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+        });
+    });
+}
+
+macro_rules! mem_bench_u8_to_u16 {
+    ($name:ident,
+     $safe_name:ident,
+     $func:ident,
+     $len:expr,
+     $data:expr) => (
+    #[cfg(feature = "mem")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let bytes = include_bytes!($data);
+        let truncated = &bytes[..$len];
+        let capacity = $len * 4;
+        let mut vec = Vec::with_capacity(capacity);
+        vec.resize(capacity, 0u16);
+        let dst = &mut vec[..];
+        b.bytes = truncated.len() as u64;
+        b.iter(|| {
+            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+        });
+    }
+
+    #[cfg(feature = "safe_mem")]
+    #[bench]
+    fn $safe_name(b: &mut Bencher) {
+        let bytes = include_bytes!($data);
+        let truncated = &bytes[..$len];
+        let capacity = $len * 4;
+        let mut vec = Vec::with_capacity(capacity);
+        vec.resize(capacity, 0u16);
+        let dst = &mut vec[..];
+        b.bytes = truncated.len() as u64;
+        b.iter(|| {
+            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
         });
     });
 }
 
 // Invocations
 
-mem_bench_is_bytes!(bench_mem_is_ascii, encoding_rs::mem::is_ascii, 16, "wikipedia/de.txt");
-mem_bench_is_bytes!(bench_mem_is_utf8_latin1, encoding_rs::mem::is_utf8_latin1, 16, "wikipedia/de.txt");
-
-
+mem_bench_is_u8!(bench_mem_is_ascii,
+                 bench_safe_mem_is_ascii,
+                 is_ascii,
+                 16,
+                 "wikipedia/de.txt");
+mem_bench_is_u8!(bench_mem_is_utf8_latin1,
+                 bench_safe_mem_is_utf8_latin1,
+                 is_utf8_latin1,
+                 16,
+                 "wikipedia/de.txt");
+mem_bench_is_str!(bench_mem_is_str_latin1,
+                  bench_safe_mem_is_str_latin1,
+                  is_str_latin1,
+                  16,
+                  "wikipedia/de.txt");
+mem_bench_is_u16!(bench_mem_is_basic_latin,
+                  bench_safe_mem_is_basic_latin,
+                  is_basic_latin,
+                  16,
+                  "wikipedia/de.txt");
+mem_bench_is_u16!(bench_mem_is_utf16_latin1,
+                  bench_safe_mem_is_utf16_latin1,
+                  is_utf16_latin1,
+                  16,
+                  "wikipedia/de.txt");
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16,
+                     bench_safe_mem_convert_utf8_to_utf16,
+                     convert_utf8_to_utf16,
+                     16,
+                     "wikipedia/de.txt");
+mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16,
+                     bench_safe_mem_convert_latin1_to_utf16,
+                     convert_latin1_to_utf16,
+                     16,
+                     "wikipedia/de.txt");
+mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin,
+                     bench_safe_mem_copy_ascii_to_basic_latin,
+                     copy_ascii_to_basic_latin,
+                     16,
+                     "wikipedia/de.txt");
 
 macro_rules! label_bench {
     ($name:ident,
