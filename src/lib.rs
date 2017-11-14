@@ -846,6 +846,15 @@ macro_rules! encode_bench_windows {
 // Note that the benches below always copy static data to a Vec/String in order to
 // test malloc-provided alignment.
 
+fn round_str_index_up(s: &str, i: usize) -> usize {
+    let b = s.as_bytes();
+    let mut idx = i;
+    while (idx < b.len()) && ((b[idx] & 0xC0) == 0x80) {
+        idx += 1;
+    }
+    idx
+}
+
 macro_rules! mem_bench_is_u8 {
     ($name:ident,
      $safe_name:ident,
@@ -891,7 +900,7 @@ macro_rules! mem_bench_is_str {
         let s = include_str!($data);
         let mut string = String::with_capacity(s.len());
         string.push_str(s);
-        let truncated = &string[..$len];
+        let truncated = &string[..round_str_index_up(&string[..], $len)];
         b.bytes = truncated.len() as u64;
         b.iter(|| {
             test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
@@ -904,7 +913,7 @@ macro_rules! mem_bench_is_str {
         let s = include_str!($data);
         let mut string = String::with_capacity(s.len());
         string.push_str(s);
-        let truncated = &string[..$len];
+        let truncated = &string[..round_str_index_up(&string[..], $len)];
         b.bytes = truncated.len() as u64;
         b.iter(|| {
             test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
@@ -1027,7 +1036,7 @@ macro_rules! mem_bench_str_to_u16 {
         let s = include_str!($data);
         let mut string = String::with_capacity(s.len());
         string.push_str(s);
-        let truncated = &string[..$len];
+        let truncated = &string[..round_str_index_up(&string[..], $len)];
         let capacity = $len * 4;
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
@@ -1044,7 +1053,7 @@ macro_rules! mem_bench_str_to_u16 {
         let s = include_str!($data);
         let mut string = String::with_capacity(s.len());
         string.push_str(s);
-        let truncated = &string[..$len];
+        let truncated = &string[..round_str_index_up(&string[..], $len)];
         let capacity = $len * 4;
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
@@ -1226,101 +1235,184 @@ macro_rules! mem_bench_u8_to_str {
 
 // Invocations
 
-mem_bench_is_u8!(bench_mem_is_ascii,
-                 bench_safe_mem_is_ascii,
+mem_bench_is_u8!(bench_mem_is_ascii_true,
+                 bench_safe_mem_is_ascii_true,
                  is_ascii,
                  16,
-                 "wikipedia/de.txt");
-mem_bench_is_u8!(bench_mem_is_utf8_latin1,
-                 bench_safe_mem_is_utf8_latin1,
+                 "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u8!(bench_mem_is_ascii_false,
+                 bench_safe_mem_is_ascii_false,
+                 is_ascii,
+                 16,
+                 "wikipedia/de-edit.txt");
+
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_true,
+                 bench_safe_mem_is_utf8_latin1_true,
                  is_utf8_latin1,
                  16,
-                 "wikipedia/de.txt");
-mem_bench_is_str!(bench_mem_is_str_latin1,
-                  bench_safe_mem_is_str_latin1,
+                 "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_false,
+                 bench_safe_mem_is_utf8_latin1_false,
+                 is_utf8_latin1,
+                 16,
+                 "wikipedia/ar.txt");
+
+mem_bench_is_str!(bench_mem_is_str_latin1_true,
+                  bench_safe_mem_is_str_latin1_true,
                   is_str_latin1,
                   16,
-                  "wikipedia/de.txt");
-mem_bench_is_u16!(bench_mem_is_basic_latin,
-                  bench_safe_mem_is_basic_latin,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_str!(bench_mem_is_str_latin1_false,
+                  bench_safe_mem_is_str_latin1_false,
+                  is_str_latin1,
+                  16,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_is_basic_latin_true,
+                  bench_safe_mem_is_basic_latin_true,
                   is_basic_latin,
                   16,
-                  "wikipedia/de.txt");
-mem_bench_is_u16!(bench_mem_is_utf16_latin1,
-                  bench_safe_mem_is_utf16_latin1,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_is_basic_latin_false,
+                  bench_safe_mem_is_basic_latin_false,
+                  is_basic_latin,
+                  16,
+                  "wikipedia/de-edit.txt");
+
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_true,
+                  bench_safe_mem_is_utf16_latin1_true,
                   is_utf16_latin1,
                   16,
-                  "wikipedia/de.txt");
-mem_bench_is_u16!(bench_mem_utf16_valid_up_to,
-                  bench_safe_mem_utf16_valid_up_to,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_false,
+                  bench_safe_mem_is_utf16_latin1_false,
+                  is_utf16_latin1,
+                  16,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_ascii,
+                  bench_safe_mem_utf16_valid_up_to_ascii,
                   utf16_valid_up_to,
                   16,
-                  "wikipedia/de.txt");
-mem_bench_mut_u16!(bench_mem_ensure_utf16_validity,
-                   bench_safe_mem_ensure_utf16_validity,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_latin1,
+                  bench_safe_mem_utf16_valid_up_to_latin1,
+                  utf16_valid_up_to,
+                  16,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_bmp,
+                  bench_safe_mem_utf16_valid_up_to_bmp,
+                  utf16_valid_up_to,
+                  16,
+                  "wikipedia/ar.txt");
+
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_ascii,
+                   bench_safe_mem_ensure_utf16_validity_ascii,
                    ensure_utf16_validity,
                    16,
-                   "wikipedia/de.txt");
-mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16,
-                     bench_safe_mem_convert_utf8_to_utf16,
+                   "jquery/jquery-3.1.1.min.js");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_latin1,
+                   bench_safe_mem_ensure_utf16_validity_latin1,
+                   ensure_utf16_validity,
+                   16,
+                   "wikipedia/de-edit.txt");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_bmp,
+                   bench_safe_mem_ensure_utf16_validity_bmp,
+                   ensure_utf16_validity,
+                   16,
+                   "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_ascii,
+                     bench_safe_mem_convert_utf8_to_utf16_ascii,
                      convert_utf8_to_utf16,
                      16,
-                     "wikipedia/de.txt");
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_bmp,
+                     bench_safe_mem_convert_utf8_to_utf16_bmp,
+                     convert_utf8_to_utf16,
+                     16,
+                     "wikipedia/ar.txt");
+
 mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16,
                      bench_safe_mem_convert_latin1_to_utf16,
                      convert_latin1_to_utf16,
                      16,
-                     "wikipedia/de.txt");
+                     "wikipedia/de-edit.txt");
+
 mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin,
                      bench_safe_mem_copy_ascii_to_basic_latin,
                      copy_ascii_to_basic_latin,
                      16,
-                     "wikipedia/de.txt");
-mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16,
-                      bench_safe_mem_convert_str_to_utf16,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_ascii,
+                      bench_safe_mem_convert_str_to_utf16_ascii,
                       convert_str_to_utf16,
                       16,
-                      "wikipedia/de.txt");
-mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8,
-                     bench_safe_mem_convert_utf16_to_utf8,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_bmp,
+                      bench_safe_mem_convert_str_to_utf16_bmp,
+                      convert_str_to_utf16,
+                      16,
+                      "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_ascii,
+                     bench_safe_mem_convert_utf16_to_utf8_ascii,
                      convert_utf16_to_utf8,
                      16,
-                     "wikipedia/de.txt");
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_bmp,
+                     bench_safe_mem_convert_utf16_to_utf8_bmp,
+                     convert_utf16_to_utf8,
+                     16,
+                     "wikipedia/ar.txt");
+
 mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_latin1_lossy,
                      bench_safe_mem_convert_utf16_to_latin1_lossy,
                      convert_utf16_to_latin1_lossy,
                      16,
-                     "wikipedia/de.txt");
+                     "wikipedia/de-edit.txt");
+
 mem_bench_u16_to_u8!(bench_mem_copy_basic_latin_to_ascii,
                      bench_safe_mem_copy_basic_latin_to_ascii,
                      copy_basic_latin_to_ascii,
                      16,
-                     "wikipedia/de.txt");
-mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str,
-                      bench_safe_mem_convert_utf16_to_str,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_ascii,
+                      bench_safe_mem_convert_utf16_to_str_ascii,
                       convert_utf16_to_str,
                       16,
-                      "wikipedia/de.txt");
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_bmp,
+                      bench_safe_mem_convert_utf16_to_str_bmp,
+                      convert_utf16_to_str,
+                      16,
+                      "wikipedia/ar.txt");
+
 mem_bench_u8_to_u8!(bench_mem_convert_latin1_to_utf8,
                     bench_safe_mem_convert_latin1_to_utf8,
                     convert_latin1_to_utf8,
                     16,
-                    "wikipedia/de.txt");
+                    "wikipedia/de-edit.txt");
+
 mem_bench_u8_to_u8!(bench_mem_convert_utf8_to_latin1_lossy,
                     bench_safe_mem_convert_utf8_to_latin1_lossy,
                     convert_utf8_to_latin1_lossy,
                     16,
-                    "wikipedia/de.txt");
+                    "wikipedia/de-edit.txt");
+
 mem_bench_u8_to_u8!(bench_mem_copy_ascii_to_ascii,
                     bench_safe_mem_copy_ascii_to_ascii,
                     copy_ascii_to_ascii,
                     16,
-                    "wikipedia/de.txt");
+                    "jquery/jquery-3.1.1.min.js");
+
 mem_bench_u8_to_str!(bench_mem_convert_latin1_to_str,
                      bench_safe_mem_convert_latin1_to_str,
                      convert_latin1_to_str,
                      16,
-                     "wikipedia/de.txt");
+                     "wikipedia/de-edit.txt");
 
 macro_rules! label_bench {
     ($name:ident,
