@@ -843,6 +843,9 @@ macro_rules! encode_bench_windows {
 
 // mem
 
+// Note that the benches below always copy static data to a Vec/String in order to
+// test malloc-provided alignment.
+
 macro_rules! mem_bench_is_u8 {
     ($name:ident,
      $safe_name:ident,
@@ -853,7 +856,9 @@ macro_rules! mem_bench_is_u8 {
     #[bench]
     fn $name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
-        let truncated = &bytes[..$len];
+        let mut v = Vec::with_capacity(bytes.len());
+        v.extend_from_slice(bytes);
+        let truncated = &v[..$len];
         b.bytes = truncated.len() as u64;
         b.iter(|| {
             test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
@@ -864,7 +869,9 @@ macro_rules! mem_bench_is_u8 {
     #[bench]
     fn $safe_name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
-        let truncated = &bytes[..$len];
+        let mut v = Vec::with_capacity(bytes.len());
+        v.extend_from_slice(bytes);
+        let truncated = &v[..$len];
         b.bytes = truncated.len() as u64;
         b.iter(|| {
             test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
@@ -882,7 +889,9 @@ macro_rules! mem_bench_is_str {
     #[bench]
     fn $name(b: &mut Bencher) {
         let s = include_str!($data);
-        let truncated = &s[..$len];
+        let mut string = String::with_capacity(s.len());
+        string.push_str(s);
+        let truncated = &string[..$len];
         b.bytes = truncated.len() as u64;
         b.iter(|| {
             test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
@@ -893,7 +902,9 @@ macro_rules! mem_bench_is_str {
     #[bench]
     fn $safe_name(b: &mut Bencher) {
         let s = include_str!($data);
-        let truncated = &s[..$len];
+        let mut string = String::with_capacity(s.len());
+        string.push_str(s);
+        let truncated = &string[..$len];
         b.bytes = truncated.len() as u64;
         b.iter(|| {
             test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
@@ -932,6 +943,37 @@ macro_rules! mem_bench_is_u16 {
     });
 }
 
+macro_rules! mem_bench_mut_u16 {
+    ($name:ident,
+     $safe_name:ident,
+     $func:ident,
+     $len:expr,
+     $data:expr) => (
+    #[cfg(feature = "mem")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let mut u: Vec<u16> = s.encode_utf16().collect();
+        let truncated = &mut u[..$len];
+        b.bytes = (truncated.len() * 2) as u64;
+        b.iter(|| {
+            test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+        });
+    }
+
+    #[cfg(feature = "safe_mem")]
+    #[bench]
+    fn $safe_name(b: &mut Bencher) {
+        let s = include_str!($data);
+        let mut u: Vec<u16> = s.encode_utf16().collect();
+        let truncated = &mut u[..$len];
+        b.bytes = (truncated.len() * 2) as u64;
+        b.iter(|| {
+            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+        });
+    });
+}
+
 macro_rules! mem_bench_u8_to_u16 {
     ($name:ident,
      $safe_name:ident,
@@ -942,7 +984,9 @@ macro_rules! mem_bench_u8_to_u16 {
     #[bench]
     fn $name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
-        let truncated = &bytes[..$len];
+        let mut v = Vec::with_capacity(bytes.len());
+        v.extend_from_slice(bytes);
+        let truncated = &v[..$len];
         let capacity = $len * 4;
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
@@ -957,7 +1001,9 @@ macro_rules! mem_bench_u8_to_u16 {
     #[bench]
     fn $safe_name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
-        let truncated = &bytes[..$len];
+        let mut v = Vec::with_capacity(bytes.len());
+        v.extend_from_slice(bytes);
+        let truncated = &v[..$len];
         let capacity = $len * 4;
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
@@ -979,7 +1025,9 @@ macro_rules! mem_bench_str_to_u16 {
     #[bench]
     fn $name(b: &mut Bencher) {
         let s = include_str!($data);
-        let truncated = &s[..$len];
+        let mut string = String::with_capacity(s.len());
+        string.push_str(s);
+        let truncated = &string[..$len];
         let capacity = $len * 4;
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
@@ -994,7 +1042,9 @@ macro_rules! mem_bench_str_to_u16 {
     #[bench]
     fn $safe_name(b: &mut Bencher) {
         let s = include_str!($data);
-        let truncated = &s[..$len];
+        let mut string = String::with_capacity(s.len());
+        string.push_str(s);
+        let truncated = &string[..$len];
         let capacity = $len * 4;
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
@@ -1098,7 +1148,9 @@ macro_rules! mem_bench_u8_to_u8 {
     #[bench]
     fn $name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
-        let truncated = &bytes[..$len];
+        let mut v = Vec::with_capacity(bytes.len());
+        v.extend_from_slice(bytes);
+        let truncated = &v[..$len];
         let capacity = $len * 4;
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u8);
@@ -1113,7 +1165,9 @@ macro_rules! mem_bench_u8_to_u8 {
     #[bench]
     fn $safe_name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
-        let truncated = &bytes[..$len];
+        let mut v = Vec::with_capacity(bytes.len());
+        v.extend_from_slice(bytes);
+        let truncated = &v[..$len];
         let capacity = $len * 4;
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u8);
@@ -1135,7 +1189,9 @@ macro_rules! mem_bench_u8_to_str {
     #[bench]
     fn $name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
-        let truncated = &bytes[..$len];
+        let mut v = Vec::with_capacity(bytes.len());
+        v.extend_from_slice(bytes);
+        let truncated = &v[..$len];
         let capacity = $len * 4;
         let mut string = String::with_capacity(capacity);
         for _ in 0..capacity {
@@ -1152,7 +1208,9 @@ macro_rules! mem_bench_u8_to_str {
     #[bench]
     fn $safe_name(b: &mut Bencher) {
         let bytes = include_bytes!($data);
-        let truncated = &bytes[..$len];
+        let mut v = Vec::with_capacity(bytes.len());
+        v.extend_from_slice(bytes);
+        let truncated = &v[..$len];
         let capacity = $len * 4;
         let mut string = String::with_capacity(capacity);
         for _ in 0..capacity {
@@ -1165,7 +1223,6 @@ macro_rules! mem_bench_u8_to_str {
         });
     });
 }
-
 
 // Invocations
 
@@ -1194,6 +1251,16 @@ mem_bench_is_u16!(bench_mem_is_utf16_latin1,
                   is_utf16_latin1,
                   16,
                   "wikipedia/de.txt");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to,
+                  bench_safe_mem_utf16_valid_up_to,
+                  utf16_valid_up_to,
+                  16,
+                  "wikipedia/de.txt");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity,
+                   bench_safe_mem_ensure_utf16_validity,
+                   ensure_utf16_validity,
+                   16,
+                   "wikipedia/de.txt");
 mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16,
                      bench_safe_mem_convert_utf8_to_utf16,
                      convert_utf8_to_utf16,
