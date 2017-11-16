@@ -1235,185 +1235,6 @@ macro_rules! mem_bench_u8_to_str {
 
 // Invocations
 
-mem_bench_is_u8!(bench_mem_is_ascii_true,
-                 bench_safe_mem_is_ascii_true,
-                 is_ascii,
-                 16,
-                 "jquery/jquery-3.1.1.min.js");
-mem_bench_is_u8!(bench_mem_is_ascii_false,
-                 bench_safe_mem_is_ascii_false,
-                 is_ascii,
-                 16,
-                 "wikipedia/de-edit.txt");
-
-mem_bench_is_u8!(bench_mem_is_utf8_latin1_true,
-                 bench_safe_mem_is_utf8_latin1_true,
-                 is_utf8_latin1,
-                 16,
-                 "wikipedia/de-edit.txt");
-mem_bench_is_u8!(bench_mem_is_utf8_latin1_false,
-                 bench_safe_mem_is_utf8_latin1_false,
-                 is_utf8_latin1,
-                 16,
-                 "wikipedia/ar.txt");
-
-mem_bench_is_str!(bench_mem_is_str_latin1_true,
-                  bench_safe_mem_is_str_latin1_true,
-                  is_str_latin1,
-                  16,
-                  "wikipedia/de-edit.txt");
-mem_bench_is_str!(bench_mem_is_str_latin1_false,
-                  bench_safe_mem_is_str_latin1_false,
-                  is_str_latin1,
-                  16,
-                  "wikipedia/ar.txt");
-
-mem_bench_is_u16!(bench_mem_is_basic_latin_true,
-                  bench_safe_mem_is_basic_latin_true,
-                  is_basic_latin,
-                  16,
-                  "jquery/jquery-3.1.1.min.js");
-mem_bench_is_u16!(bench_mem_is_basic_latin_false,
-                  bench_safe_mem_is_basic_latin_false,
-                  is_basic_latin,
-                  16,
-                  "wikipedia/de-edit.txt");
-
-mem_bench_is_u16!(bench_mem_is_utf16_latin1_true,
-                  bench_safe_mem_is_utf16_latin1_true,
-                  is_utf16_latin1,
-                  16,
-                  "wikipedia/de-edit.txt");
-mem_bench_is_u16!(bench_mem_is_utf16_latin1_false,
-                  bench_safe_mem_is_utf16_latin1_false,
-                  is_utf16_latin1,
-                  16,
-                  "wikipedia/ar.txt");
-
-mem_bench_is_u16!(bench_mem_utf16_valid_up_to_ascii,
-                  bench_safe_mem_utf16_valid_up_to_ascii,
-                  utf16_valid_up_to,
-                  16,
-                  "jquery/jquery-3.1.1.min.js");
-mem_bench_is_u16!(bench_mem_utf16_valid_up_to_latin1,
-                  bench_safe_mem_utf16_valid_up_to_latin1,
-                  utf16_valid_up_to,
-                  16,
-                  "wikipedia/de-edit.txt");
-mem_bench_is_u16!(bench_mem_utf16_valid_up_to_bmp,
-                  bench_safe_mem_utf16_valid_up_to_bmp,
-                  utf16_valid_up_to,
-                  16,
-                  "wikipedia/ar.txt");
-
-mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_ascii,
-                   bench_safe_mem_ensure_utf16_validity_ascii,
-                   ensure_utf16_validity,
-                   16,
-                   "jquery/jquery-3.1.1.min.js");
-mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_latin1,
-                   bench_safe_mem_ensure_utf16_validity_latin1,
-                   ensure_utf16_validity,
-                   16,
-                   "wikipedia/de-edit.txt");
-mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_bmp,
-                   bench_safe_mem_ensure_utf16_validity_bmp,
-                   ensure_utf16_validity,
-                   16,
-                   "wikipedia/ar.txt");
-
-mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_ascii,
-                     bench_safe_mem_convert_utf8_to_utf16_ascii,
-                     convert_utf8_to_utf16,
-                     16,
-                     "jquery/jquery-3.1.1.min.js");
-mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_bmp,
-                     bench_safe_mem_convert_utf8_to_utf16_bmp,
-                     convert_utf8_to_utf16,
-                     16,
-                     "wikipedia/ar.txt");
-
-mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16,
-                     bench_safe_mem_convert_latin1_to_utf16,
-                     convert_latin1_to_utf16,
-                     16,
-                     "wikipedia/de-edit.txt");
-
-mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin,
-                     bench_safe_mem_copy_ascii_to_basic_latin,
-                     copy_ascii_to_basic_latin,
-                     16,
-                     "jquery/jquery-3.1.1.min.js");
-
-mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_ascii,
-                      bench_safe_mem_convert_str_to_utf16_ascii,
-                      convert_str_to_utf16,
-                      16,
-                      "jquery/jquery-3.1.1.min.js");
-mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_bmp,
-                      bench_safe_mem_convert_str_to_utf16_bmp,
-                      convert_str_to_utf16,
-                      16,
-                      "wikipedia/ar.txt");
-
-mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_ascii,
-                     bench_safe_mem_convert_utf16_to_utf8_ascii,
-                     convert_utf16_to_utf8,
-                     16,
-                     "jquery/jquery-3.1.1.min.js");
-mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_bmp,
-                     bench_safe_mem_convert_utf16_to_utf8_bmp,
-                     convert_utf16_to_utf8,
-                     16,
-                     "wikipedia/ar.txt");
-
-mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_latin1_lossy,
-                     bench_safe_mem_convert_utf16_to_latin1_lossy,
-                     convert_utf16_to_latin1_lossy,
-                     16,
-                     "wikipedia/de-edit.txt");
-
-mem_bench_u16_to_u8!(bench_mem_copy_basic_latin_to_ascii,
-                     bench_safe_mem_copy_basic_latin_to_ascii,
-                     copy_basic_latin_to_ascii,
-                     16,
-                     "jquery/jquery-3.1.1.min.js");
-
-mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_ascii,
-                      bench_safe_mem_convert_utf16_to_str_ascii,
-                      convert_utf16_to_str,
-                      16,
-                      "jquery/jquery-3.1.1.min.js");
-mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_bmp,
-                      bench_safe_mem_convert_utf16_to_str_bmp,
-                      convert_utf16_to_str,
-                      16,
-                      "wikipedia/ar.txt");
-
-mem_bench_u8_to_u8!(bench_mem_convert_latin1_to_utf8,
-                    bench_safe_mem_convert_latin1_to_utf8,
-                    convert_latin1_to_utf8,
-                    16,
-                    "wikipedia/de-edit.txt");
-
-mem_bench_u8_to_u8!(bench_mem_convert_utf8_to_latin1_lossy,
-                    bench_safe_mem_convert_utf8_to_latin1_lossy,
-                    convert_utf8_to_latin1_lossy,
-                    16,
-                    "wikipedia/de-edit.txt");
-
-mem_bench_u8_to_u8!(bench_mem_copy_ascii_to_ascii,
-                    bench_safe_mem_copy_ascii_to_ascii,
-                    copy_ascii_to_ascii,
-                    16,
-                    "jquery/jquery-3.1.1.min.js");
-
-mem_bench_u8_to_str!(bench_mem_convert_latin1_to_str,
-                     bench_safe_mem_convert_latin1_to_str,
-                     convert_latin1_to_str,
-                     16,
-                     "wikipedia/de-edit.txt");
-
 macro_rules! label_bench {
     ($name:ident,
      $rust_name:ident,
@@ -2737,4 +2558,1072 @@ decode_bench_legacy!(bench_decode_to_utf8_zh_tw_utf_16be,
                      1201,
                      "wikipedia/zh_tw.html");
 
+mem_bench_is_u8!(bench_mem_is_ascii_true_1,
+                 bench_safe_mem_is_ascii_true_1,
+                 is_ascii,
+                 1,
+                 "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u8!(bench_mem_is_ascii_false_1,
+                 bench_safe_mem_is_ascii_false_1,
+                 is_ascii,
+                 1,
+                 "wikipedia/de-edit.txt");
+
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_true_1,
+                 bench_safe_mem_is_utf8_latin1_true_1,
+                 is_utf8_latin1,
+                 1,
+                 "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_false_1,
+                 bench_safe_mem_is_utf8_latin1_false_1,
+                 is_utf8_latin1,
+                 1,
+                 "wikipedia/ar.txt");
+
+mem_bench_is_str!(bench_mem_is_str_latin1_true_1,
+                  bench_safe_mem_is_str_latin1_true_1,
+                  is_str_latin1,
+                  1,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_str!(bench_mem_is_str_latin1_false_1,
+                  bench_safe_mem_is_str_latin1_false_1,
+                  is_str_latin1,
+                  1,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_is_basic_latin_true_1,
+                  bench_safe_mem_is_basic_latin_true_1,
+                  is_basic_latin,
+                  1,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_is_basic_latin_false_1,
+                  bench_safe_mem_is_basic_latin_false_1,
+                  is_basic_latin,
+                  1,
+                  "wikipedia/de-edit.txt");
+
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_true_1,
+                  bench_safe_mem_is_utf16_latin1_true_1,
+                  is_utf16_latin1,
+                  1,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_false_1,
+                  bench_safe_mem_is_utf16_latin1_false_1,
+                  is_utf16_latin1,
+                  1,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_ascii_1,
+                  bench_safe_mem_utf16_valid_up_to_ascii_1,
+                  utf16_valid_up_to,
+                  1,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_latin1_1,
+                  bench_safe_mem_utf16_valid_up_to_latin1_1,
+                  utf16_valid_up_to,
+                  1,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_bmp_1,
+                  bench_safe_mem_utf16_valid_up_to_bmp_1,
+                  utf16_valid_up_to,
+                  1,
+                  "wikipedia/ar.txt");
+
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_ascii_1,
+                   bench_safe_mem_ensure_utf16_validity_ascii_1,
+                   ensure_utf16_validity,
+                   1,
+                   "jquery/jquery-3.1.1.min.js");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_latin1_1,
+                   bench_safe_mem_ensure_utf16_validity_latin1_1,
+                   ensure_utf16_validity,
+                   1,
+                   "wikipedia/de-edit.txt");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_bmp_1,
+                   bench_safe_mem_ensure_utf16_validity_bmp_1,
+                   ensure_utf16_validity,
+                   1,
+                   "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_ascii_1,
+                     bench_safe_mem_convert_utf8_to_utf16_ascii_1,
+                     convert_utf8_to_utf16,
+                     1,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_bmp_1,
+                     bench_safe_mem_convert_utf8_to_utf16_bmp_1,
+                     convert_utf8_to_utf16,
+                     1,
+                     "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16_1,
+                     bench_safe_mem_convert_latin1_to_utf16_1,
+                     convert_latin1_to_utf16,
+                     1,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin_1,
+                     bench_safe_mem_copy_ascii_to_basic_latin_1,
+                     copy_ascii_to_basic_latin,
+                     1,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_ascii_1,
+                      bench_safe_mem_convert_str_to_utf16_ascii_1,
+                      convert_str_to_utf16,
+                      1,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_bmp_1,
+                      bench_safe_mem_convert_str_to_utf16_bmp_1,
+                      convert_str_to_utf16,
+                      1,
+                      "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_ascii_1,
+                     bench_safe_mem_convert_utf16_to_utf8_ascii_1,
+                     convert_utf16_to_utf8,
+                     1,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_bmp_1,
+                     bench_safe_mem_convert_utf16_to_utf8_bmp_1,
+                     convert_utf16_to_utf8,
+                     1,
+                     "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_latin1_lossy_1,
+                     bench_safe_mem_convert_utf16_to_latin1_lossy_1,
+                     convert_utf16_to_latin1_lossy,
+                     1,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u16_to_u8!(bench_mem_copy_basic_latin_to_ascii_1,
+                     bench_safe_mem_copy_basic_latin_to_ascii_1,
+                     copy_basic_latin_to_ascii,
+                     1,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_ascii_1,
+                      bench_safe_mem_convert_utf16_to_str_ascii_1,
+                      convert_utf16_to_str,
+                      1,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_bmp_1,
+                      bench_safe_mem_convert_utf16_to_str_bmp_1,
+                      convert_utf16_to_str,
+                      1,
+                      "wikipedia/ar.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_latin1_to_utf8_1,
+                    bench_safe_mem_convert_latin1_to_utf8_1,
+                    convert_latin1_to_utf8,
+                    1,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_utf8_to_latin1_lossy_1,
+                    bench_safe_mem_convert_utf8_to_latin1_lossy_1,
+                    convert_utf8_to_latin1_lossy,
+                    1,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_copy_ascii_to_ascii_1,
+                    bench_safe_mem_copy_ascii_to_ascii_1,
+                    copy_ascii_to_ascii,
+                    1,
+                    "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u8_to_str!(bench_mem_convert_latin1_to_str_1,
+                     bench_safe_mem_convert_latin1_to_str_1,
+                     convert_latin1_to_str,
+                     1,
+                     "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_ascii_true_3,
+                 bench_safe_mem_is_ascii_true_3,
+                 is_ascii,
+                 3,
+                 "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u8!(bench_mem_is_ascii_false_3,
+                 bench_safe_mem_is_ascii_false_3,
+                 is_ascii,
+                 3,
+                 "wikipedia/de-edit.txt");
+
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_true_3,
+                 bench_safe_mem_is_utf8_latin1_true_3,
+                 is_utf8_latin1,
+                 3,
+                 "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_false_3,
+                 bench_safe_mem_is_utf8_latin1_false_3,
+                 is_utf8_latin1,
+                 3,
+                 "wikipedia/ar.txt");
+
+mem_bench_is_str!(bench_mem_is_str_latin1_true_3,
+                  bench_safe_mem_is_str_latin1_true_3,
+                  is_str_latin1,
+                  3,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_str!(bench_mem_is_str_latin1_false_3,
+                  bench_safe_mem_is_str_latin1_false_3,
+                  is_str_latin1,
+                  3,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_is_basic_latin_true_3,
+                  bench_safe_mem_is_basic_latin_true_3,
+                  is_basic_latin,
+                  3,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_is_basic_latin_false_3,
+                  bench_safe_mem_is_basic_latin_false_3,
+                  is_basic_latin,
+                  3,
+                  "wikipedia/de-edit.txt");
+
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_true_3,
+                  bench_safe_mem_is_utf16_latin1_true_3,
+                  is_utf16_latin1,
+                  3,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_false_3,
+                  bench_safe_mem_is_utf16_latin1_false_3,
+                  is_utf16_latin1,
+                  3,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_ascii_3,
+                  bench_safe_mem_utf16_valid_up_to_ascii_3,
+                  utf16_valid_up_to,
+                  3,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_latin1_3,
+                  bench_safe_mem_utf16_valid_up_to_latin1_3,
+                  utf16_valid_up_to,
+                  3,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_bmp_3,
+                  bench_safe_mem_utf16_valid_up_to_bmp_3,
+                  utf16_valid_up_to,
+                  3,
+                  "wikipedia/ar.txt");
+
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_ascii_3,
+                   bench_safe_mem_ensure_utf16_validity_ascii_3,
+                   ensure_utf16_validity,
+                   3,
+                   "jquery/jquery-3.1.1.min.js");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_latin1_3,
+                   bench_safe_mem_ensure_utf16_validity_latin1_3,
+                   ensure_utf16_validity,
+                   3,
+                   "wikipedia/de-edit.txt");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_bmp_3,
+                   bench_safe_mem_ensure_utf16_validity_bmp_3,
+                   ensure_utf16_validity,
+                   3,
+                   "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_ascii_3,
+                     bench_safe_mem_convert_utf8_to_utf16_ascii_3,
+                     convert_utf8_to_utf16,
+                     3,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_bmp_3,
+                     bench_safe_mem_convert_utf8_to_utf16_bmp_3,
+                     convert_utf8_to_utf16,
+                     3,
+                     "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16_3,
+                     bench_safe_mem_convert_latin1_to_utf16_3,
+                     convert_latin1_to_utf16,
+                     3,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin_3,
+                     bench_safe_mem_copy_ascii_to_basic_latin_3,
+                     copy_ascii_to_basic_latin,
+                     3,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_ascii_3,
+                      bench_safe_mem_convert_str_to_utf16_ascii_3,
+                      convert_str_to_utf16,
+                      3,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_bmp_3,
+                      bench_safe_mem_convert_str_to_utf16_bmp_3,
+                      convert_str_to_utf16,
+                      3,
+                      "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_ascii_3,
+                     bench_safe_mem_convert_utf16_to_utf8_ascii_3,
+                     convert_utf16_to_utf8,
+                     3,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_bmp_3,
+                     bench_safe_mem_convert_utf16_to_utf8_bmp_3,
+                     convert_utf16_to_utf8,
+                     3,
+                     "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_latin1_lossy_3,
+                     bench_safe_mem_convert_utf16_to_latin1_lossy_3,
+                     convert_utf16_to_latin1_lossy,
+                     3,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u16_to_u8!(bench_mem_copy_basic_latin_to_ascii_3,
+                     bench_safe_mem_copy_basic_latin_to_ascii_3,
+                     copy_basic_latin_to_ascii,
+                     3,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_ascii_3,
+                      bench_safe_mem_convert_utf16_to_str_ascii_3,
+                      convert_utf16_to_str,
+                      3,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_bmp_3,
+                      bench_safe_mem_convert_utf16_to_str_bmp_3,
+                      convert_utf16_to_str,
+                      3,
+                      "wikipedia/ar.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_latin1_to_utf8_3,
+                    bench_safe_mem_convert_latin1_to_utf8_3,
+                    convert_latin1_to_utf8,
+                    3,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_utf8_to_latin1_lossy_3,
+                    bench_safe_mem_convert_utf8_to_latin1_lossy_3,
+                    convert_utf8_to_latin1_lossy,
+                    3,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_copy_ascii_to_ascii_3,
+                    bench_safe_mem_copy_ascii_to_ascii_3,
+                    copy_ascii_to_ascii,
+                    3,
+                    "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u8_to_str!(bench_mem_convert_latin1_to_str_3,
+                     bench_safe_mem_convert_latin1_to_str_3,
+                     convert_latin1_to_str,
+                     3,
+                     "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_ascii_true_15,
+                 bench_safe_mem_is_ascii_true_15,
+                 is_ascii,
+                 15,
+                 "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u8!(bench_mem_is_ascii_false_15,
+                 bench_safe_mem_is_ascii_false_15,
+                 is_ascii,
+                 15,
+                 "wikipedia/de-edit.txt");
+
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_true_15,
+                 bench_safe_mem_is_utf8_latin1_true_15,
+                 is_utf8_latin1,
+                 15,
+                 "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_false_15,
+                 bench_safe_mem_is_utf8_latin1_false_15,
+                 is_utf8_latin1,
+                 15,
+                 "wikipedia/ar.txt");
+
+mem_bench_is_str!(bench_mem_is_str_latin1_true_15,
+                  bench_safe_mem_is_str_latin1_true_15,
+                  is_str_latin1,
+                  15,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_str!(bench_mem_is_str_latin1_false_15,
+                  bench_safe_mem_is_str_latin1_false_15,
+                  is_str_latin1,
+                  15,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_is_basic_latin_true_15,
+                  bench_safe_mem_is_basic_latin_true_15,
+                  is_basic_latin,
+                  15,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_is_basic_latin_false_15,
+                  bench_safe_mem_is_basic_latin_false_15,
+                  is_basic_latin,
+                  15,
+                  "wikipedia/de-edit.txt");
+
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_true_15,
+                  bench_safe_mem_is_utf16_latin1_true_15,
+                  is_utf16_latin1,
+                  15,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_false_15,
+                  bench_safe_mem_is_utf16_latin1_false_15,
+                  is_utf16_latin1,
+                  15,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_ascii_15,
+                  bench_safe_mem_utf16_valid_up_to_ascii_15,
+                  utf16_valid_up_to,
+                  15,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_latin1_15,
+                  bench_safe_mem_utf16_valid_up_to_latin1_15,
+                  utf16_valid_up_to,
+                  15,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_bmp_15,
+                  bench_safe_mem_utf16_valid_up_to_bmp_15,
+                  utf16_valid_up_to,
+                  15,
+                  "wikipedia/ar.txt");
+
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_ascii_15,
+                   bench_safe_mem_ensure_utf16_validity_ascii_15,
+                   ensure_utf16_validity,
+                   15,
+                   "jquery/jquery-3.1.1.min.js");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_latin1_15,
+                   bench_safe_mem_ensure_utf16_validity_latin1_15,
+                   ensure_utf16_validity,
+                   15,
+                   "wikipedia/de-edit.txt");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_bmp_15,
+                   bench_safe_mem_ensure_utf16_validity_bmp_15,
+                   ensure_utf16_validity,
+                   15,
+                   "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_ascii_15,
+                     bench_safe_mem_convert_utf8_to_utf16_ascii_15,
+                     convert_utf8_to_utf16,
+                     15,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_bmp_15,
+                     bench_safe_mem_convert_utf8_to_utf16_bmp_15,
+                     convert_utf8_to_utf16,
+                     15,
+                     "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16_15,
+                     bench_safe_mem_convert_latin1_to_utf16_15,
+                     convert_latin1_to_utf16,
+                     15,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin_15,
+                     bench_safe_mem_copy_ascii_to_basic_latin_15,
+                     copy_ascii_to_basic_latin,
+                     15,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_ascii_15,
+                      bench_safe_mem_convert_str_to_utf16_ascii_15,
+                      convert_str_to_utf16,
+                      15,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_bmp_15,
+                      bench_safe_mem_convert_str_to_utf16_bmp_15,
+                      convert_str_to_utf16,
+                      15,
+                      "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_ascii_15,
+                     bench_safe_mem_convert_utf16_to_utf8_ascii_15,
+                     convert_utf16_to_utf8,
+                     15,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_bmp_15,
+                     bench_safe_mem_convert_utf16_to_utf8_bmp_15,
+                     convert_utf16_to_utf8,
+                     15,
+                     "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_latin1_lossy_15,
+                     bench_safe_mem_convert_utf16_to_latin1_lossy_15,
+                     convert_utf16_to_latin1_lossy,
+                     15,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u16_to_u8!(bench_mem_copy_basic_latin_to_ascii_15,
+                     bench_safe_mem_copy_basic_latin_to_ascii_15,
+                     copy_basic_latin_to_ascii,
+                     15,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_ascii_15,
+                      bench_safe_mem_convert_utf16_to_str_ascii_15,
+                      convert_utf16_to_str,
+                      15,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_bmp_15,
+                      bench_safe_mem_convert_utf16_to_str_bmp_15,
+                      convert_utf16_to_str,
+                      15,
+                      "wikipedia/ar.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_latin1_to_utf8_15,
+                    bench_safe_mem_convert_latin1_to_utf8_15,
+                    convert_latin1_to_utf8,
+                    15,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_utf8_to_latin1_lossy_15,
+                    bench_safe_mem_convert_utf8_to_latin1_lossy_15,
+                    convert_utf8_to_latin1_lossy,
+                    15,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_copy_ascii_to_ascii_15,
+                    bench_safe_mem_copy_ascii_to_ascii_15,
+                    copy_ascii_to_ascii,
+                    15,
+                    "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u8_to_str!(bench_mem_convert_latin1_to_str_15,
+                     bench_safe_mem_convert_latin1_to_str_15,
+                     convert_latin1_to_str,
+                     15,
+                     "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_ascii_true_16,
+                 bench_safe_mem_is_ascii_true_16,
+                 is_ascii,
+                 16,
+                 "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u8!(bench_mem_is_ascii_false_16,
+                 bench_safe_mem_is_ascii_false_16,
+                 is_ascii,
+                 16,
+                 "wikipedia/de-edit.txt");
+
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_true_16,
+                 bench_safe_mem_is_utf8_latin1_true_16,
+                 is_utf8_latin1,
+                 16,
+                 "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_false_16,
+                 bench_safe_mem_is_utf8_latin1_false_16,
+                 is_utf8_latin1,
+                 16,
+                 "wikipedia/ar.txt");
+
+mem_bench_is_str!(bench_mem_is_str_latin1_true_16,
+                  bench_safe_mem_is_str_latin1_true_16,
+                  is_str_latin1,
+                  16,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_str!(bench_mem_is_str_latin1_false_16,
+                  bench_safe_mem_is_str_latin1_false_16,
+                  is_str_latin1,
+                  16,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_is_basic_latin_true_16,
+                  bench_safe_mem_is_basic_latin_true_16,
+                  is_basic_latin,
+                  16,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_is_basic_latin_false_16,
+                  bench_safe_mem_is_basic_latin_false_16,
+                  is_basic_latin,
+                  16,
+                  "wikipedia/de-edit.txt");
+
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_true_16,
+                  bench_safe_mem_is_utf16_latin1_true_16,
+                  is_utf16_latin1,
+                  16,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_false_16,
+                  bench_safe_mem_is_utf16_latin1_false_16,
+                  is_utf16_latin1,
+                  16,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_ascii_16,
+                  bench_safe_mem_utf16_valid_up_to_ascii_16,
+                  utf16_valid_up_to,
+                  16,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_latin1_16,
+                  bench_safe_mem_utf16_valid_up_to_latin1_16,
+                  utf16_valid_up_to,
+                  16,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_bmp_16,
+                  bench_safe_mem_utf16_valid_up_to_bmp_16,
+                  utf16_valid_up_to,
+                  16,
+                  "wikipedia/ar.txt");
+
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_ascii_16,
+                   bench_safe_mem_ensure_utf16_validity_ascii_16,
+                   ensure_utf16_validity,
+                   16,
+                   "jquery/jquery-3.1.1.min.js");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_latin1_16,
+                   bench_safe_mem_ensure_utf16_validity_latin1_16,
+                   ensure_utf16_validity,
+                   16,
+                   "wikipedia/de-edit.txt");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_bmp_16,
+                   bench_safe_mem_ensure_utf16_validity_bmp_16,
+                   ensure_utf16_validity,
+                   16,
+                   "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_ascii_16,
+                     bench_safe_mem_convert_utf8_to_utf16_ascii_16,
+                     convert_utf8_to_utf16,
+                     16,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_bmp_16,
+                     bench_safe_mem_convert_utf8_to_utf16_bmp_16,
+                     convert_utf8_to_utf16,
+                     16,
+                     "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16_16,
+                     bench_safe_mem_convert_latin1_to_utf16_16,
+                     convert_latin1_to_utf16,
+                     16,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin_16,
+                     bench_safe_mem_copy_ascii_to_basic_latin_16,
+                     copy_ascii_to_basic_latin,
+                     16,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_ascii_16,
+                      bench_safe_mem_convert_str_to_utf16_ascii_16,
+                      convert_str_to_utf16,
+                      16,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_bmp_16,
+                      bench_safe_mem_convert_str_to_utf16_bmp_16,
+                      convert_str_to_utf16,
+                      16,
+                      "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_ascii_16,
+                     bench_safe_mem_convert_utf16_to_utf8_ascii_16,
+                     convert_utf16_to_utf8,
+                     16,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_bmp_16,
+                     bench_safe_mem_convert_utf16_to_utf8_bmp_16,
+                     convert_utf16_to_utf8,
+                     16,
+                     "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_latin1_lossy_16,
+                     bench_safe_mem_convert_utf16_to_latin1_lossy_16,
+                     convert_utf16_to_latin1_lossy,
+                     16,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u16_to_u8!(bench_mem_copy_basic_latin_to_ascii_16,
+                     bench_safe_mem_copy_basic_latin_to_ascii_16,
+                     copy_basic_latin_to_ascii,
+                     16,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_ascii_16,
+                      bench_safe_mem_convert_utf16_to_str_ascii_16,
+                      convert_utf16_to_str,
+                      16,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_bmp_16,
+                      bench_safe_mem_convert_utf16_to_str_bmp_16,
+                      convert_utf16_to_str,
+                      16,
+                      "wikipedia/ar.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_latin1_to_utf8_16,
+                    bench_safe_mem_convert_latin1_to_utf8_16,
+                    convert_latin1_to_utf8,
+                    16,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_utf8_to_latin1_lossy_16,
+                    bench_safe_mem_convert_utf8_to_latin1_lossy_16,
+                    convert_utf8_to_latin1_lossy,
+                    16,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_copy_ascii_to_ascii_16,
+                    bench_safe_mem_copy_ascii_to_ascii_16,
+                    copy_ascii_to_ascii,
+                    16,
+                    "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u8_to_str!(bench_mem_convert_latin1_to_str_16,
+                     bench_safe_mem_convert_latin1_to_str_16,
+                     convert_latin1_to_str,
+                     16,
+                     "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_ascii_true_30,
+                 bench_safe_mem_is_ascii_true_30,
+                 is_ascii,
+                 30,
+                 "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u8!(bench_mem_is_ascii_false_30,
+                 bench_safe_mem_is_ascii_false_30,
+                 is_ascii,
+                 30,
+                 "wikipedia/de-edit.txt");
+
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_true_30,
+                 bench_safe_mem_is_utf8_latin1_true_30,
+                 is_utf8_latin1,
+                 30,
+                 "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_false_30,
+                 bench_safe_mem_is_utf8_latin1_false_30,
+                 is_utf8_latin1,
+                 30,
+                 "wikipedia/ar.txt");
+
+mem_bench_is_str!(bench_mem_is_str_latin1_true_30,
+                  bench_safe_mem_is_str_latin1_true_30,
+                  is_str_latin1,
+                  30,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_str!(bench_mem_is_str_latin1_false_30,
+                  bench_safe_mem_is_str_latin1_false_30,
+                  is_str_latin1,
+                  30,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_is_basic_latin_true_30,
+                  bench_safe_mem_is_basic_latin_true_30,
+                  is_basic_latin,
+                  30,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_is_basic_latin_false_30,
+                  bench_safe_mem_is_basic_latin_false_30,
+                  is_basic_latin,
+                  30,
+                  "wikipedia/de-edit.txt");
+
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_true_30,
+                  bench_safe_mem_is_utf16_latin1_true_30,
+                  is_utf16_latin1,
+                  30,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_false_30,
+                  bench_safe_mem_is_utf16_latin1_false_30,
+                  is_utf16_latin1,
+                  30,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_ascii_30,
+                  bench_safe_mem_utf16_valid_up_to_ascii_30,
+                  utf16_valid_up_to,
+                  30,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_latin1_30,
+                  bench_safe_mem_utf16_valid_up_to_latin1_30,
+                  utf16_valid_up_to,
+                  30,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_bmp_30,
+                  bench_safe_mem_utf16_valid_up_to_bmp_30,
+                  utf16_valid_up_to,
+                  30,
+                  "wikipedia/ar.txt");
+
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_ascii_30,
+                   bench_safe_mem_ensure_utf16_validity_ascii_30,
+                   ensure_utf16_validity,
+                   30,
+                   "jquery/jquery-3.1.1.min.js");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_latin1_30,
+                   bench_safe_mem_ensure_utf16_validity_latin1_30,
+                   ensure_utf16_validity,
+                   30,
+                   "wikipedia/de-edit.txt");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_bmp_30,
+                   bench_safe_mem_ensure_utf16_validity_bmp_30,
+                   ensure_utf16_validity,
+                   30,
+                   "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_ascii_30,
+                     bench_safe_mem_convert_utf8_to_utf16_ascii_30,
+                     convert_utf8_to_utf16,
+                     30,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_bmp_30,
+                     bench_safe_mem_convert_utf8_to_utf16_bmp_30,
+                     convert_utf8_to_utf16,
+                     30,
+                     "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16_30,
+                     bench_safe_mem_convert_latin1_to_utf16_30,
+                     convert_latin1_to_utf16,
+                     30,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin_30,
+                     bench_safe_mem_copy_ascii_to_basic_latin_30,
+                     copy_ascii_to_basic_latin,
+                     30,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_ascii_30,
+                      bench_safe_mem_convert_str_to_utf16_ascii_30,
+                      convert_str_to_utf16,
+                      30,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_bmp_30,
+                      bench_safe_mem_convert_str_to_utf16_bmp_30,
+                      convert_str_to_utf16,
+                      30,
+                      "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_ascii_30,
+                     bench_safe_mem_convert_utf16_to_utf8_ascii_30,
+                     convert_utf16_to_utf8,
+                     30,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_bmp_30,
+                     bench_safe_mem_convert_utf16_to_utf8_bmp_30,
+                     convert_utf16_to_utf8,
+                     30,
+                     "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_latin1_lossy_30,
+                     bench_safe_mem_convert_utf16_to_latin1_lossy_30,
+                     convert_utf16_to_latin1_lossy,
+                     30,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u16_to_u8!(bench_mem_copy_basic_latin_to_ascii_30,
+                     bench_safe_mem_copy_basic_latin_to_ascii_30,
+                     copy_basic_latin_to_ascii,
+                     30,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_ascii_30,
+                      bench_safe_mem_convert_utf16_to_str_ascii_30,
+                      convert_utf16_to_str,
+                      30,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_bmp_30,
+                      bench_safe_mem_convert_utf16_to_str_bmp_30,
+                      convert_utf16_to_str,
+                      30,
+                      "wikipedia/ar.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_latin1_to_utf8_30,
+                    bench_safe_mem_convert_latin1_to_utf8_30,
+                    convert_latin1_to_utf8,
+                    30,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_utf8_to_latin1_lossy_30,
+                    bench_safe_mem_convert_utf8_to_latin1_lossy_30,
+                    convert_utf8_to_latin1_lossy,
+                    30,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_copy_ascii_to_ascii_30,
+                    bench_safe_mem_copy_ascii_to_ascii_30,
+                    copy_ascii_to_ascii,
+                    30,
+                    "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u8_to_str!(bench_mem_convert_latin1_to_str_30,
+                     bench_safe_mem_convert_latin1_to_str_30,
+                     convert_latin1_to_str,
+                     30,
+                     "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_ascii_true_1000,
+                 bench_safe_mem_is_ascii_true_1000,
+                 is_ascii,
+                 1000,
+                 "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u8!(bench_mem_is_ascii_false_1000,
+                 bench_safe_mem_is_ascii_false_1000,
+                 is_ascii,
+                 1000,
+                 "wikipedia/de-edit.txt");
+
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_true_1000,
+                 bench_safe_mem_is_utf8_latin1_true_1000,
+                 is_utf8_latin1,
+                 1000,
+                 "wikipedia/de-edit.txt");
+mem_bench_is_u8!(bench_mem_is_utf8_latin1_false_1000,
+                 bench_safe_mem_is_utf8_latin1_false_1000,
+                 is_utf8_latin1,
+                 1000,
+                 "wikipedia/ar.txt");
+
+mem_bench_is_str!(bench_mem_is_str_latin1_true_1000,
+                  bench_safe_mem_is_str_latin1_true_1000,
+                  is_str_latin1,
+                  1000,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_str!(bench_mem_is_str_latin1_false_1000,
+                  bench_safe_mem_is_str_latin1_false_1000,
+                  is_str_latin1,
+                  1000,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_is_basic_latin_true_1000,
+                  bench_safe_mem_is_basic_latin_true_1000,
+                  is_basic_latin,
+                  1000,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_is_basic_latin_false_1000,
+                  bench_safe_mem_is_basic_latin_false_1000,
+                  is_basic_latin,
+                  1000,
+                  "wikipedia/de-edit.txt");
+
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_true_1000,
+                  bench_safe_mem_is_utf16_latin1_true_1000,
+                  is_utf16_latin1,
+                  1000,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_is_utf16_latin1_false_1000,
+                  bench_safe_mem_is_utf16_latin1_false_1000,
+                  is_utf16_latin1,
+                  1000,
+                  "wikipedia/ar.txt");
+
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_ascii_1000,
+                  bench_safe_mem_utf16_valid_up_to_ascii_1000,
+                  utf16_valid_up_to,
+                  1000,
+                  "jquery/jquery-3.1.1.min.js");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_latin1_1000,
+                  bench_safe_mem_utf16_valid_up_to_latin1_1000,
+                  utf16_valid_up_to,
+                  1000,
+                  "wikipedia/de-edit.txt");
+mem_bench_is_u16!(bench_mem_utf16_valid_up_to_bmp_1000,
+                  bench_safe_mem_utf16_valid_up_to_bmp_1000,
+                  utf16_valid_up_to,
+                  1000,
+                  "wikipedia/ar.txt");
+
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_ascii_1000,
+                   bench_safe_mem_ensure_utf16_validity_ascii_1000,
+                   ensure_utf16_validity,
+                   1000,
+                   "jquery/jquery-3.1.1.min.js");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_latin1_1000,
+                   bench_safe_mem_ensure_utf16_validity_latin1_1000,
+                   ensure_utf16_validity,
+                   1000,
+                   "wikipedia/de-edit.txt");
+mem_bench_mut_u16!(bench_mem_ensure_utf16_validity_bmp_1000,
+                   bench_safe_mem_ensure_utf16_validity_bmp_1000,
+                   ensure_utf16_validity,
+                   1000,
+                   "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_ascii_1000,
+                     bench_safe_mem_convert_utf8_to_utf16_ascii_1000,
+                     convert_utf8_to_utf16,
+                     1000,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u8_to_u16!(bench_mem_convert_utf8_to_utf16_bmp_1000,
+                     bench_safe_mem_convert_utf8_to_utf16_bmp_1000,
+                     convert_utf8_to_utf16,
+                     1000,
+                     "wikipedia/ar.txt");
+
+mem_bench_u8_to_u16!(bench_mem_convert_latin1_to_utf16_1000,
+                     bench_safe_mem_convert_latin1_to_utf16_1000,
+                     convert_latin1_to_utf16,
+                     1000,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u16!(bench_mem_copy_ascii_to_basic_latin_1000,
+                     bench_safe_mem_copy_ascii_to_basic_latin_1000,
+                     copy_ascii_to_basic_latin,
+                     1000,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_ascii_1000,
+                      bench_safe_mem_convert_str_to_utf16_ascii_1000,
+                      convert_str_to_utf16,
+                      1000,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_str_to_u16!(bench_mem_convert_str_to_utf16_bmp_1000,
+                      bench_safe_mem_convert_str_to_utf16_bmp_1000,
+                      convert_str_to_utf16,
+                      1000,
+                      "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_ascii_1000,
+                     bench_safe_mem_convert_utf16_to_utf8_ascii_1000,
+                     convert_utf16_to_utf8,
+                     1000,
+                     "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_utf8_bmp_1000,
+                     bench_safe_mem_convert_utf16_to_utf8_bmp_1000,
+                     convert_utf16_to_utf8,
+                     1000,
+                     "wikipedia/ar.txt");
+
+mem_bench_u16_to_u8!(bench_mem_convert_utf16_to_latin1_lossy_1000,
+                     bench_safe_mem_convert_utf16_to_latin1_lossy_1000,
+                     convert_utf16_to_latin1_lossy,
+                     1000,
+                     "wikipedia/de-edit.txt");
+
+mem_bench_u16_to_u8!(bench_mem_copy_basic_latin_to_ascii_1000,
+                     bench_safe_mem_copy_basic_latin_to_ascii_1000,
+                     copy_basic_latin_to_ascii,
+                     1000,
+                     "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_ascii_1000,
+                      bench_safe_mem_convert_utf16_to_str_ascii_1000,
+                      convert_utf16_to_str,
+                      1000,
+                      "jquery/jquery-3.1.1.min.js");
+mem_bench_u16_to_str!(bench_mem_convert_utf16_to_str_bmp_1000,
+                      bench_safe_mem_convert_utf16_to_str_bmp_1000,
+                      convert_utf16_to_str,
+                      1000,
+                      "wikipedia/ar.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_latin1_to_utf8_1000,
+                    bench_safe_mem_convert_latin1_to_utf8_1000,
+                    convert_latin1_to_utf8,
+                    1000,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_convert_utf8_to_latin1_lossy_1000,
+                    bench_safe_mem_convert_utf8_to_latin1_lossy_1000,
+                    convert_utf8_to_latin1_lossy,
+                    1000,
+                    "wikipedia/de-edit.txt");
+
+mem_bench_u8_to_u8!(bench_mem_copy_ascii_to_ascii_1000,
+                    bench_safe_mem_copy_ascii_to_ascii_1000,
+                    copy_ascii_to_ascii,
+                    1000,
+                    "jquery/jquery-3.1.1.min.js");
+
+mem_bench_u8_to_str!(bench_mem_convert_latin1_to_str_1000,
+                     bench_safe_mem_convert_latin1_to_str_1000,
+                     convert_latin1_to_str,
+                     1000,
+                     "wikipedia/de-edit.txt");
 // END GENERATED CODE
