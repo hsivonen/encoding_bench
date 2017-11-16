@@ -868,9 +868,11 @@ macro_rules! mem_bench_is_u8 {
         let mut v = Vec::with_capacity(bytes.len());
         v.extend_from_slice(bytes);
         let truncated = &v[..$len];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+            }
         });
     }
 
@@ -881,12 +883,16 @@ macro_rules! mem_bench_is_u8 {
         let mut v = Vec::with_capacity(bytes.len());
         v.extend_from_slice(bytes);
         let truncated = &v[..$len];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+            }
         });
     });
 }
+
+const MEM_INNER_LOOP: u64 = 500;
 
 macro_rules! mem_bench_is_str {
     ($name:ident,
@@ -901,9 +907,11 @@ macro_rules! mem_bench_is_str {
         let mut string = String::with_capacity(s.len());
         string.push_str(s);
         let truncated = &string[..round_str_index_up(&string[..], $len)];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+            }
         });
     }
 
@@ -914,9 +922,11 @@ macro_rules! mem_bench_is_str {
         let mut string = String::with_capacity(s.len());
         string.push_str(s);
         let truncated = &string[..round_str_index_up(&string[..], $len)];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+            }
         });
     });
 }
@@ -933,9 +943,11 @@ macro_rules! mem_bench_is_u16 {
         let s = include_str!($data);
         let u: Vec<u16> = s.encode_utf16().collect();
         let truncated = &u[..$len];
-        b.bytes = (truncated.len() * 2) as u64;
+        b.bytes = ((truncated.len() * 2) as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+            }
         });
     }
 
@@ -945,9 +957,11 @@ macro_rules! mem_bench_is_u16 {
         let s = include_str!($data);
         let u: Vec<u16> = s.encode_utf16().collect();
         let truncated = &u[..$len];
-        b.bytes = (truncated.len() * 2) as u64;
+        b.bytes = ((truncated.len() * 2) as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+            }
         });
     });
 }
@@ -964,9 +978,11 @@ macro_rules! mem_bench_mut_u16 {
         let s = include_str!($data);
         let mut u: Vec<u16> = s.encode_utf16().collect();
         let truncated = &mut u[..$len];
-        b.bytes = (truncated.len() * 2) as u64;
+        b.bytes = ((truncated.len() * 2) as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated)));
+            }
         });
     }
 
@@ -976,9 +992,11 @@ macro_rules! mem_bench_mut_u16 {
         let s = include_str!($data);
         let mut u: Vec<u16> = s.encode_utf16().collect();
         let truncated = &mut u[..$len];
-        b.bytes = (truncated.len() * 2) as u64;
+        b.bytes = ((truncated.len() * 2) as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated)));
+            }
         });
     });
 }
@@ -1000,9 +1018,11 @@ macro_rules! mem_bench_u8_to_u16 {
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
         let dst = &mut vec[..];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     }
 
@@ -1019,7 +1039,9 @@ macro_rules! mem_bench_u8_to_u16 {
         let dst = &mut vec[..];
         b.bytes = truncated.len() as u64;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     });
 }
@@ -1041,9 +1063,11 @@ macro_rules! mem_bench_str_to_u16 {
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
         let dst = &mut vec[..];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     }
 
@@ -1058,9 +1082,11 @@ macro_rules! mem_bench_str_to_u16 {
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u16);
         let dst = &mut vec[..];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     });
 }
@@ -1081,9 +1107,11 @@ macro_rules! mem_bench_u16_to_u8 {
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u8);
         let dst = &mut vec[..];
-        b.bytes = (truncated.len() * 2) as u64;
+        b.bytes = ((truncated.len() * 2) as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     }
 
@@ -1097,9 +1125,11 @@ macro_rules! mem_bench_u16_to_u8 {
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u8);
         let dst = &mut vec[..];
-        b.bytes = (truncated.len() * 2) as u64;
+        b.bytes = ((truncated.len() * 2) as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     });
 }
@@ -1122,9 +1152,11 @@ macro_rules! mem_bench_u16_to_str {
             string.push('\u{0000}');
         }
         let dst = &mut string[..];
-        b.bytes = (truncated.len() * 2) as u64;
+        b.bytes = ((truncated.len() * 2) as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     }
 
@@ -1140,9 +1172,11 @@ macro_rules! mem_bench_u16_to_str {
             string.push('\u{0000}');
         }
         let dst = &mut string[..];
-        b.bytes = (truncated.len() * 2) as u64;
+        b.bytes = ((truncated.len() * 2) as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     });
 }
@@ -1164,9 +1198,11 @@ macro_rules! mem_bench_u8_to_u8 {
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u8);
         let dst = &mut vec[..];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     }
 
@@ -1181,9 +1217,11 @@ macro_rules! mem_bench_u8_to_u8 {
         let mut vec = Vec::with_capacity(capacity);
         vec.resize(capacity, 0u8);
         let dst = &mut vec[..];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     });
 }
@@ -1207,9 +1245,11 @@ macro_rules! mem_bench_u8_to_str {
             string.push('\u{0000}');
         }
         let dst = &mut string[..];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(encoding_rs::mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     }
 
@@ -1226,9 +1266,11 @@ macro_rules! mem_bench_u8_to_str {
             string.push('\u{0000}');
         }
         let dst = &mut string[..];
-        b.bytes = truncated.len() as u64;
+        b.bytes = (truncated.len() as u64) * MEM_INNER_LOOP;
         b.iter(|| {
-            test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            for _ in 0..MEM_INNER_LOOP {
+                test::black_box(safe_encoding_rs_mem::$func(test::black_box(truncated), test::black_box(dst)));
+            }
         });
     });
 }
