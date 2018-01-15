@@ -1616,18 +1616,6 @@ mem_bench_is_u8!(bench_mem_is_utf8_bidi_ru_1000,
                  1000,
                  "wikipedia/ru.txt");
 
-mem_bench_is_u8!(bench_mem_is_utf8_bidi_ar_1000,
-                 bench_safe_mem_is_utf8_bidi_ar_1000,
-                 is_utf8_bidi,
-                 1000,
-                 "wikipedia/ar.txt");
-
-mem_bench_is_u8!(bench_mem_is_utf8_bidi_he_1000,
-                 bench_safe_mem_is_utf8_bidi_he_1000,
-                 is_utf8_bidi,
-                 1000,
-                 "wikipedia/he.txt");
-
 mem_bench_is_u8!(bench_mem_is_utf8_bidi_ja_1000,
                  bench_safe_mem_is_utf8_bidi_ja_1000,
                  is_utf8_bidi,
@@ -1652,18 +1640,6 @@ mem_bench_is_str!(bench_mem_is_str_bidi_ru_1000,
                  1000,
                  "wikipedia/ru.txt");
 
-mem_bench_is_str!(bench_mem_is_str_bidi_ar_1000,
-                 bench_safe_mem_is_str_bidi_ar_1000,
-                 is_str_bidi,
-                 1000,
-                 "wikipedia/ar.txt");
-
-mem_bench_is_str!(bench_mem_is_str_bidi_he_1000,
-                 bench_safe_mem_is_str_bidi_he_1000,
-                 is_str_bidi,
-                 1000,
-                 "wikipedia/he.txt");
-
 mem_bench_is_str!(bench_mem_is_str_bidi_ja_1000,
                  bench_safe_mem_is_str_bidi_ja_1000,
                  is_str_bidi,
@@ -1687,18 +1663,6 @@ mem_bench_is_u16!(bench_mem_is_utf16_bidi_ru_1000,
                  is_utf16_bidi,
                  1000,
                  "wikipedia/ru.txt");
-
-mem_bench_is_u16!(bench_mem_is_utf16_bidi_ar_1000,
-                 bench_safe_mem_is_utf16_bidi_ar_1000,
-                 is_utf16_bidi,
-                 1000,
-                 "wikipedia/ar.txt");
-
-mem_bench_is_u16!(bench_mem_is_utf16_bidi_he_1000,
-                 bench_safe_mem_is_utf16_bidi_he_1000,
-                 is_utf16_bidi,
-                 1000,
-                 "wikipedia/he.txt");
 
 mem_bench_is_u16!(bench_mem_is_utf16_bidi_ja_1000,
                  bench_safe_mem_is_utf16_bidi_ja_1000,
