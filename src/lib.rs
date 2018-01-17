@@ -1676,6 +1676,30 @@ mem_bench_is_u16!(bench_mem_is_utf16_bidi_th_1000,
                  1000,
                  "wikipedia/th.txt");
 
+mem_bench_is_u16!(bench_mem_check_utf16_for_latin1_and_bidi_de_1000,
+                 bench_safe_mem_check_utf16_for_latin1_and_bidi_de_1000,
+                 check_utf16_for_latin1_and_bidi,
+                 1000,
+                 "wikipedia/de-edit.txt");
+
+mem_bench_is_u16!(bench_mem_check_utf16_for_latin1_and_bidi_ru_1000,
+                 bench_safe_mem_check_utf16_for_latin1_and_bidi_ru_1000,
+                 check_utf16_for_latin1_and_bidi,
+                 1000,
+                 "wikipedia/ru.txt");
+
+mem_bench_is_u16!(bench_mem_check_utf16_for_latin1_and_bidi_ja_1000,
+                 bench_safe_mem_check_utf16_for_latin1_and_bidi_ja_1000,
+                 is_utf16_bidi,
+                 1000,
+                 "wikipedia/ja.txt");
+
+mem_bench_is_u16!(bench_mem_check_utf16_for_latin1_and_bidi_th_1000,
+                 bench_safe_mem_check_utf16_for_latin1_and_bidi_th_1000,
+                 is_utf16_bidi,
+                 1000,
+                 "wikipedia/th.txt");
+
 // BEGIN GENERATED CODE. PLEASE DO NOT EDIT.
 // Instead, please regenerate using generate-encoding-data.py
 
