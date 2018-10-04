@@ -15,6 +15,12 @@ self = []
 mem = []
 safe_mem = ["safe_encoding_rs_mem"]
 simd-accel = ["encoding_rs/simd-accel"]
+less-slow-kanji-encode = ["encoding_rs/less-slow-kanji-encode"]
+less-slow-big5-hanzi-encode = ["encoding_rs/less-slow-big5-hanzi-encode"]
+less-slow-gb-hanzi-encode = ["encoding_rs/less-slow-gb-hanzi-encode"]
+fast-hangul-encode = ["encoding_rs/fast-hangul-encode"]
+fast-kanji-encode = ["encoding_rs/fast-kanji-encode"]
+fast-gb-hanzi-encode = ["encoding_rs/fast-gb-hanzi-encode"]
 
 [dependencies]
 encoding_rs = { path = "../encoding_rs/" }
