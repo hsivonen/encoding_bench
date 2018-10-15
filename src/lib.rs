@@ -480,18 +480,18 @@ macro_rules! encode_bench_iconv {
 #[cfg(feature = "icu")]
 #[link(name = "icuuc")]
 extern "C" {
-    fn ucnv_open_55(label: *const std::os::raw::c_char,
+    fn ucnv_open_60(label: *const std::os::raw::c_char,
                     error: *mut libc::c_int)
                     -> *mut libc::c_void;
-    fn ucnv_close_55(cnv: *mut libc::c_void);
-    fn ucnv_toUChars_55(cnv: *mut libc::c_void,
+    fn ucnv_close_60(cnv: *mut libc::c_void);
+    fn ucnv_toUChars_60(cnv: *mut libc::c_void,
                         dst: *mut u16,
                         dst_len: i32,
                         src: *const u8,
                         src_len: i32,
                         error: *mut libc::c_int)
                         -> i32;
-    fn ucnv_fromUChars_55(cnv: *mut libc::c_void,
+    fn ucnv_fromUChars_60(cnv: *mut libc::c_void,
                           dst: *mut u8,
                           dst_len: i32,
                           src: *const u16,
@@ -529,16 +529,16 @@ macro_rules! decode_bench_icu {
         output.resize(out_len, 0);
         let label = CString::new(icu_name(encoding)).unwrap();
         let mut error: libc::c_int = 0;
-        let cnv = unsafe { ucnv_open_55(label.as_ptr(), &mut error) };
+        let cnv = unsafe { ucnv_open_60(label.as_ptr(), &mut error) };
         b.bytes = input.len() as u64;
         b.iter(|| {
             unsafe {
-                ucnv_toUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
+                ucnv_toUChars_60(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
             }
             test::black_box(&output);
         });
         unsafe {
-            ucnv_close_55(cnv);
+            ucnv_close_60(cnv);
         }
     });
 }
@@ -572,17 +572,17 @@ macro_rules! encode_bench_icu {
         output.resize(out_len, 0);
         let label = CString::new(icu_name(encoding)).unwrap();
         let mut error: libc::c_int = 0;
-        let cnv = unsafe { ucnv_open_55(label.as_ptr(), &mut error) };
+        let cnv = unsafe { ucnv_open_60(label.as_ptr(), &mut error) };
 // Use output length to have something that can be compared
         b.bytes = intermediate.len() as u64;
         b.iter(|| {
             unsafe {
-                ucnv_fromUChars_55(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
+                ucnv_fromUChars_60(cnv, output.as_mut_ptr(), output.len() as i32, input.as_ptr(), input.len() as i32, &mut error);
             }
             test::black_box(&output);
         });
         unsafe {
-            ucnv_close_55(cnv);
+            ucnv_close_60(cnv);
         }
     });
 }
