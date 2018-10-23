@@ -13,13 +13,14 @@ Please see the file named COPYRIGHT.
 
 ## Building
 
-Currently, this project is tested to build only on Ubuntu 16.04 and with a
-custom build of Gecko. Before building this project, make a Firefox optimized
-build with the patch `gecko.patch` (from this directory) applied and Rust
-enabled (`ac_add_options --enable-rust` in your `mozconfig`). The patch
-breaks the ability to run the resulting Firefox build normally and breaks
-the packaging that would happen on Mozilla's try server. For the latter reason,
-you need to build locally.
+Currently, this project is tested to build only on Ubuntu 18.04 and with a
+custom build of Gecko. Before building this project with the `uconv` cargo
+feature, make a Firefox optimized build at Mercurial revision
+`027ab974b5b531d134601b7a006fc0c173fbdfed` with the patch `gecko.patch`
+(from this directory) applied and Rust enabled (`ac_add_options --enable-rust`
+in your `mozconfig`). The patch breaks the ability to run the resulting
+Firefox build normally and breaks the packaging that would happen on
+Mozilla's try server. For the latter reason, you need to build locally.
 
 Once you have the custom Gecko build available, build this project with
 ```
@@ -28,6 +29,10 @@ LIBRARY_PATH=/path-to-gecko-obj-dir/dist/sdk/lib:/path-to-gecko-obj-dir/dist/bin
 
 If the build is successful, it's a good idea to append `2> /dev/null` for the
 actual benchmarking runs to hide noise from Gecko.
+
+To use the `kewb` cargo feature for Bob Steagall's SSE2-accelerated UTF-8
+to UTF-16 converter, clone `https://github.com/hsivonen/kewb`, build it
+and put that directory in `LIBRARY_PATH` when building encoding_bench.
 
 ## Selection of test data
 

@@ -587,6 +587,38 @@ macro_rules! encode_bench_icu {
     });
 }
 
+// kewb
+
+#[cfg(feature = "kewb")]
+#[link(name = "kewb_glue", kind = "static")]
+extern "C" {
+    fn kewb_sse2_utf8_to_utf16(src: *const u8, src_len: usize, dst: *mut u16) -> usize;
+}
+
+macro_rules! decode_bench_kewb {
+    ($name:ident,
+     $data:expr) => (
+    #[cfg(feature = "kewb")]
+    #[bench]
+    fn $name(b: &mut Bencher) {
+        let utf8 = include_str!($data);
+        let input = String::from(utf8);
+        let mut output: Vec<u16> = Vec::with_capacity(input.len());
+        output.resize(input.len(), 0);
+        b.bytes = input.len() as u64;
+        b.iter(|| {
+            let black_boxed_input = test::black_box(&input[..]);
+            let out_len = 
+            unsafe {
+                kewb_sse2_utf8_to_utf16(black_boxed_input.as_ptr(), black_boxed_input.len(), output.as_mut_ptr())
+            };
+            test::black_box(&output);
+            test::black_box(out_len);
+        });
+    }
+);
+}
+
 // uconv
 
 #[cfg(feature = "uconv")]
@@ -1295,6 +1327,7 @@ macro_rules! decode_bench {
      $string_name:ident,
      $rust_name:ident,
      $std_name:ident,
+     $kewb_name:ident,
      $iconv_name:ident,
      $icu_name:ident,
      $uconv_name:ident,
@@ -1316,6 +1349,7 @@ macro_rules! decode_bench {
     decode_bench_string!($string_name, UTF_8, $data);
     decode_bench_rust!($rust_name, UTF_8, $data);
     decode_bench_std!($std_name, $data);
+    decode_bench_kewb!($kewb_name, $data);
     decode_bench_iconv!($iconv_name, UTF_8, $data);
     decode_bench_icu!($icu_name, UTF_8, $data);
     decode_bench_uconv!($uconv_name, UTF_8, $data);
@@ -1457,6 +1491,7 @@ decode_bench_rust!(bench_rust_to_string_jquery,
                    UTF_8,
                    "jquery/jquery-3.1.1.min.js");
 decode_bench_std!(bench_std_validation_jquery, "jquery/jquery-3.1.1.min.js");
+decode_bench_kewb!(bench_kewb_to_utf16_jquery, "jquery/jquery-3.1.1.min.js");
 decode_bench_iconv!(bench_iconv_to_utf8_jquery,
                     UTF_8,
                     "jquery/jquery-3.1.1.min.js");
@@ -1709,6 +1744,7 @@ decode_bench!(bench_copy_ar,
               bench_decode_to_string_ar,
               bench_rust_to_string_ar,
               bench_std_validation_ar,
+              bench_kewb_to_utf16_ar,
               bench_iconv_to_utf8_ar,
               bench_icu_to_utf16_ar,
               bench_uconv_to_utf16_ar,
@@ -1771,6 +1807,7 @@ decode_bench!(bench_copy_cs,
               bench_decode_to_string_cs,
               bench_rust_to_string_cs,
               bench_std_validation_cs,
+              bench_kewb_to_utf16_cs,
               bench_iconv_to_utf8_cs,
               bench_icu_to_utf16_cs,
               bench_uconv_to_utf16_cs,
@@ -1833,6 +1870,7 @@ decode_bench!(bench_copy_de,
               bench_decode_to_string_de,
               bench_rust_to_string_de,
               bench_std_validation_de,
+              bench_kewb_to_utf16_de,
               bench_iconv_to_utf8_de,
               bench_icu_to_utf16_de,
               bench_uconv_to_utf16_de,
@@ -1895,6 +1933,7 @@ decode_bench!(bench_copy_el,
               bench_decode_to_string_el,
               bench_rust_to_string_el,
               bench_std_validation_el,
+              bench_kewb_to_utf16_el,
               bench_iconv_to_utf8_el,
               bench_icu_to_utf16_el,
               bench_uconv_to_utf16_el,
@@ -1957,6 +1996,7 @@ decode_bench!(bench_copy_en,
               bench_decode_to_string_en,
               bench_rust_to_string_en,
               bench_std_validation_en,
+              bench_kewb_to_utf16_en,
               bench_iconv_to_utf8_en,
               bench_icu_to_utf16_en,
               bench_uconv_to_utf16_en,
@@ -2019,6 +2059,7 @@ decode_bench!(bench_copy_fr,
               bench_decode_to_string_fr,
               bench_rust_to_string_fr,
               bench_std_validation_fr,
+              bench_kewb_to_utf16_fr,
               bench_iconv_to_utf8_fr,
               bench_icu_to_utf16_fr,
               bench_uconv_to_utf16_fr,
@@ -2081,6 +2122,7 @@ decode_bench!(bench_copy_he,
               bench_decode_to_string_he,
               bench_rust_to_string_he,
               bench_std_validation_he,
+              bench_kewb_to_utf16_he,
               bench_iconv_to_utf8_he,
               bench_icu_to_utf16_he,
               bench_uconv_to_utf16_he,
@@ -2143,6 +2185,7 @@ decode_bench!(bench_copy_ja,
               bench_decode_to_string_ja,
               bench_rust_to_string_ja,
               bench_std_validation_ja,
+              bench_kewb_to_utf16_ja,
               bench_iconv_to_utf8_ja,
               bench_icu_to_utf16_ja,
               bench_uconv_to_utf16_ja,
@@ -2205,6 +2248,7 @@ decode_bench!(bench_copy_ko,
               bench_decode_to_string_ko,
               bench_rust_to_string_ko,
               bench_std_validation_ko,
+              bench_kewb_to_utf16_ko,
               bench_iconv_to_utf8_ko,
               bench_icu_to_utf16_ko,
               bench_uconv_to_utf16_ko,
@@ -2267,6 +2311,7 @@ decode_bench!(bench_copy_pt,
               bench_decode_to_string_pt,
               bench_rust_to_string_pt,
               bench_std_validation_pt,
+              bench_kewb_to_utf16_pt,
               bench_iconv_to_utf8_pt,
               bench_icu_to_utf16_pt,
               bench_uconv_to_utf16_pt,
@@ -2329,6 +2374,7 @@ decode_bench!(bench_copy_ru,
               bench_decode_to_string_ru,
               bench_rust_to_string_ru,
               bench_std_validation_ru,
+              bench_kewb_to_utf16_ru,
               bench_iconv_to_utf8_ru,
               bench_icu_to_utf16_ru,
               bench_uconv_to_utf16_ru,
@@ -2391,6 +2437,7 @@ decode_bench!(bench_copy_th,
               bench_decode_to_string_th,
               bench_rust_to_string_th,
               bench_std_validation_th,
+              bench_kewb_to_utf16_th,
               bench_iconv_to_utf8_th,
               bench_icu_to_utf16_th,
               bench_uconv_to_utf16_th,
@@ -2453,6 +2500,7 @@ decode_bench!(bench_copy_tr,
               bench_decode_to_string_tr,
               bench_rust_to_string_tr,
               bench_std_validation_tr,
+              bench_kewb_to_utf16_tr,
               bench_iconv_to_utf8_tr,
               bench_icu_to_utf16_tr,
               bench_uconv_to_utf16_tr,
@@ -2515,6 +2563,7 @@ decode_bench!(bench_copy_vi,
               bench_decode_to_string_vi,
               bench_rust_to_string_vi,
               bench_std_validation_vi,
+              bench_kewb_to_utf16_vi,
               bench_iconv_to_utf8_vi,
               bench_icu_to_utf16_vi,
               bench_uconv_to_utf16_vi,
@@ -2577,6 +2626,7 @@ decode_bench!(bench_copy_zh_cn,
               bench_decode_to_string_zh_cn,
               bench_rust_to_string_zh_cn,
               bench_std_validation_zh_cn,
+              bench_kewb_to_utf16_zh_cn,
               bench_iconv_to_utf8_zh_cn,
               bench_icu_to_utf16_zh_cn,
               bench_uconv_to_utf16_zh_cn,
@@ -2639,6 +2689,7 @@ decode_bench!(bench_copy_zh_tw,
               bench_decode_to_string_zh_tw,
               bench_rust_to_string_zh_tw,
               bench_std_validation_zh_tw,
+              bench_kewb_to_utf16_zh_tw,
               bench_iconv_to_utf8_zh_tw,
               bench_icu_to_utf16_zh_tw,
               bench_uconv_to_utf16_zh_tw,
