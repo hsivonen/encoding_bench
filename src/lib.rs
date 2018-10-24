@@ -3338,6 +3338,147 @@ decode_bench_legacy!(
     "wikipedia/zh_tw.html"
 );
 
+decode_bench_webkit!(
+    bench_webkit_to_utf16_ar_utf_16le,
+    UTF_16LE,
+    "wikipedia/ar.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_ar_utf_16be,
+    UTF_16BE,
+    "wikipedia/ar.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_cs_utf_16le,
+    UTF_16LE,
+    "wikipedia/cs.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_cs_utf_16be,
+    UTF_16BE,
+    "wikipedia/cs.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_de_utf_16le,
+    UTF_16LE,
+    "wikipedia/de.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_de_utf_16be,
+    UTF_16BE,
+    "wikipedia/de.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_el_utf_16le,
+    UTF_16LE,
+    "wikipedia/el.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_el_utf_16be,
+    UTF_16BE,
+    "wikipedia/el.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_en_utf_16le,
+    UTF_16LE,
+    "wikipedia/en.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_en_utf_16be,
+    UTF_16BE,
+    "wikipedia/en.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_fr_utf_16le,
+    UTF_16LE,
+    "wikipedia/fr.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_fr_utf_16be,
+    UTF_16BE,
+    "wikipedia/fr.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_he_utf_16le,
+    UTF_16LE,
+    "wikipedia/he.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_he_utf_16be,
+    UTF_16BE,
+    "wikipedia/he.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_ja_utf_16le,
+    UTF_16LE,
+    "wikipedia/ja.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_ja_utf_16be,
+    UTF_16BE,
+    "wikipedia/ja.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_ko_utf_16le,
+    UTF_16LE,
+    "wikipedia/ko.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_ko_utf_16be,
+    UTF_16BE,
+    "wikipedia/ko.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_pt_utf_16le,
+    UTF_16LE,
+    "wikipedia/pt.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_pt_utf_16be,
+    UTF_16BE,
+    "wikipedia/pt.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_ru_utf_16le,
+    UTF_16LE,
+    "wikipedia/ru.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_ru_utf_16be,
+    UTF_16BE,
+    "wikipedia/ru.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_th_utf_16le,
+    UTF_16LE,
+    "wikipedia/th.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_th_utf_16be,
+    UTF_16BE,
+    "wikipedia/th.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_tr_utf_16le,
+    UTF_16LE,
+    "wikipedia/tr.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_tr_utf_16be,
+    UTF_16BE,
+    "wikipedia/tr.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_vi_utf_16le,
+    UTF_16LE,
+    "wikipedia/vi.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_vi_utf_16be,
+    UTF_16BE,
+    "wikipedia/vi.html"
+);
+
 mem_bench_is_u8!(
     bench_mem_is_ascii_true_1,
     bench_safe_mem_is_ascii_true_1,
