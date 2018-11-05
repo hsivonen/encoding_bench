@@ -1,0 +1,79 @@
+diff -r -U 8 a/webkitgtk-2.22.2/Source/WebCore/platform/text/TextEncoding.cpp b/webkitgtk-2.22.2/Source/WebCore/platform/text/TextEncoding.cpp
+--- a/webkitgtk-2.22.2/Source/WebCore/platform/text/TextEncoding.cpp	2018-09-21 22:59:48.000000000 +0300
++++ b/webkitgtk-2.22.2/Source/WebCore/platform/text/TextEncoding.cpp	2018-11-05 10:07:58.199654612 +0200
+@@ -217,9 +217,75 @@
+ }
+ 
+ const TextEncoding& WindowsLatin1Encoding()
+ {
+     static TextEncoding globalWindowsLatin1Encoding("WinLatin-1");
+     return globalWindowsLatin1Encoding;
+ }
+ 
++const TextEncoding& UserDefinedEncoding()
++{
++    static TextEncoding globalUserDefinedEncoding("x-user-defined");
++    return globalUserDefinedEncoding;
++}
++
++class StringHolder {
++public:
++    StringHolder(String&& aString)
++     : mString(std::move(aString))
++     {}
++private:
++    String mString;
++};
++
++class VectorHolder {
++public:
++    VectorHolder(Vector<uint8_t>&& aVector)
++     : mVector(std::move(aVector))
++     {}
++private:
++    Vector<uint8_t> mVector;
++};
++
+ } // namespace WebCore
++
++extern "C" {
++    WebCore::TextCodec* webkit_new_text_codec(const char* canonicalEncodingName) {
++        if (strcmp(canonicalEncodingName, "UTF-8") == 0) {
++            return WebCore::newTextCodec(WebCore::UTF8Encoding()).release();
++        }
++        if (strcmp(canonicalEncodingName, "windows-1252") == 0) {
++            return WebCore::newTextCodec(WebCore::WindowsLatin1Encoding()).release();
++        }
++        if (strcmp(canonicalEncodingName, "UTF-16LE") == 0) {
++            return WebCore::newTextCodec(WebCore::UTF16LittleEndianEncoding()).release();
++        }
++        if (strcmp(canonicalEncodingName, "UTF-16BE") == 0) {
++            return WebCore::newTextCodec(WebCore::UTF16BigEndianEncoding()).release();
++        }
++        if (strcmp(canonicalEncodingName, "x-user-defined") == 0) {
++            return WebCore::newTextCodec(WebCore::UserDefinedEncoding()).release();
++        }
++        return nullptr;
++    }
++
++    WebCore::StringHolder* webkit_text_codec_decode( WebCore::TextCodec* codec, const char* src, size_t src_len) {
++        bool had_errors = false;
++        return new WebCore::StringHolder(codec->decode(src, src_len, true, false, had_errors));
++    }
++
++    WebCore::VectorHolder* webkit_text_codec_encode( WebCore::TextCodec* codec, const UChar* src, size_t src_len) {
++        return new WebCore::VectorHolder(codec->encode(StringView(src, src_len), WebCore::UnencodableHandling::Entities));
++    }
++
++    void webkit_delete_string_holder(WebCore::StringHolder* holder) {
++        delete holder;
++    }
++
++    void webkit_delete_vector_holder(WebCore::VectorHolder* holder) {
++        delete holder;
++    }
++
++    void webkit_delete_text_codec(WebCore::TextCodec* codec) {
++        delete codec;
++    }
++}
