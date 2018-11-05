@@ -461,7 +461,7 @@ macro_rules! decode_bench_iconv {
                 unsafe {
                     // Black boxing input doesn't work, but iconv isn't in the
                     // view of the optimizer anyway.
-                    let mut input_ptr = input.as_ptr() as *mut u8;
+                    let mut input_ptr = test::black_box(input.as_ptr()) as *mut u8;
                     let mut output_ptr = output.as_mut_ptr();
                     let input_ptr_ptr = &mut input_ptr as *mut *mut u8;
                     let output_ptr_ptr = &mut output_ptr as *mut *mut u8;
@@ -513,7 +513,7 @@ macro_rules! encode_bench_iconv {
                 unsafe {
                     // Black boxing input doesn't work, but iconv isn't in the
                     // view of the optimizer anyway.
-                    let mut input_ptr = input.as_ptr() as *mut u8;
+                    let mut input_ptr = test::black_box(input.as_ptr()) as *mut u8;
                     let mut output_ptr = output.as_mut_ptr();
                     let input_ptr_ptr = &mut input_ptr as *mut *mut u8;
                     let output_ptr_ptr = &mut output_ptr as *mut *mut u8;
@@ -604,7 +604,7 @@ macro_rules! decode_bench_icu {
                         cnv,
                         output.as_mut_ptr(),
                         output.len() as i32,
-                        input.as_ptr(),
+                        test::black_box(input.as_ptr()),
                         input.len() as i32,
                         &mut error,
                     );
@@ -658,7 +658,7 @@ macro_rules! encode_bench_icu {
                         cnv,
                         output.as_mut_ptr(),
                         output.len() as i32,
-                        input.as_ptr(),
+                        test::black_box(input.as_ptr()),
                         input.len() as i32,
                         &mut error,
                     );
@@ -1052,7 +1052,7 @@ macro_rules! decode_bench_windows {
                         MultiByteToWideChar(
                             $cp,
                             0,
-                            input.as_ptr(),
+                            test::black_box(input.as_ptr()),
                             input.len() as libc::c_int,
                             output.as_mut_ptr(),
                             output.len() as libc::c_int
@@ -1103,7 +1103,7 @@ macro_rules! encode_bench_windows {
                         WideCharToMultiByte(
                             $cp,
                             0,
-                            input.as_ptr(),
+                            test::black_box(input.as_ptr()),
                             input.len() as libc::c_int,
                             output.as_mut_ptr(),
                             output.len() as libc::c_int,
