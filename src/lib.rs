@@ -3494,6 +3494,26 @@ decode_bench_webkit!(
     UTF_16BE,
     "wikipedia/vi.html"
 );
+decode_bench_webkit!(
+    bench_webkit_to_utf16_zh_cn_utf_16le,
+    UTF_16LE,
+    "wikipedia/vi.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_zh_cn_utf_16be,
+    UTF_16BE,
+    "wikipedia/vi.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_zh_tw_utf_16le,
+    UTF_16LE,
+    "wikipedia/vi.html"
+);
+decode_bench_webkit!(
+    bench_webkit_to_utf16_zh_tw_utf_16be,
+    UTF_16BE,
+    "wikipedia/vi.html"
+);
 
 mem_bench_is_u8!(
     bench_mem_is_ascii_true_1,
