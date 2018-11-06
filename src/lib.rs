@@ -1950,9 +1950,9 @@ encode_bench_uconv!(
     UTF_8,
     "jquery/jquery-3.1.1.min.js"
 );
-// encode_bench_webkit!(bench_webkit_from_utf16_jquery,
-//                     UTF_8,
-//                     "jquery/jquery-3.1.1.min.js");
+encode_bench_webkit!(bench_webkit_from_utf16_jquery,
+                    UTF_8,
+                    "jquery/jquery-3.1.1.min.js");
 encode_bench_windows!(
     bench_windows_from_utf16_jquery,
     UTF_8,
