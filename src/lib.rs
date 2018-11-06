@@ -351,6 +351,22 @@ macro_rules! encode_bench_rust {
     };
 }
 
+#[cfg(feature = "rust-encoding")]
+#[bench]
+fn bench_rust_to_string_user_defined(b: &mut Bencher) {
+    let bytes = include_bytes!("wikipedia/binary.jpg");
+    let mut input = Vec::with_capacity(bytes.len());
+    input.extend_from_slice(bytes);
+    let rust_encoding =
+        encoding::label::encoding_from_whatwg_label("x-user-defined").unwrap();
+    b.bytes = input.len() as u64;
+    b.iter(|| {
+        let output = rust_encoding
+            .decode(test::black_box(&input[..]), encoding::DecoderTrap::Replace);
+        test::black_box(&output);
+    });
+}
+
 macro_rules! label_bench_rust {
     ($name:ident,
      $label:expr) => {
