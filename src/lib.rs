@@ -85,12 +85,12 @@ macro_rules! decode_bench_user_defined {
             b.iter(|| {
                 let (result, _, _, _) =
                     decoder.$decode(test::black_box(&input[..]), &mut output[..], false);
-                match result {
-                    encoding_rs::CoderResult::InputEmpty => {}
-                    encoding_rs::CoderResult::OutputFull => {
-                        unreachable!("Output buffer too short.");
-                    }
-                }
+                // match result {
+                //     encoding_rs::CoderResult::InputEmpty => {}
+                //     encoding_rs::CoderResult::OutputFull => {
+                //         unreachable!("Output buffer too short.");
+                //     }
+                // }
                 test::black_box(&output);
             });
         }
@@ -117,12 +117,12 @@ macro_rules! decode_bench_impl {
             b.iter(|| {
                 let (result, _, _, _) =
                     decoder.$decode(test::black_box(&input[..]), &mut output[..], false);
-                match result {
-                    encoding_rs::CoderResult::InputEmpty => {}
-                    encoding_rs::CoderResult::OutputFull => {
-                        unreachable!("Output buffer too short.");
-                    }
-                }
+                // match result {
+                //     encoding_rs::CoderResult::InputEmpty => {}
+                //     encoding_rs::CoderResult::OutputFull => {
+                //         unreachable!("Output buffer too short.");
+                //     }
+                // }
                 test::black_box(&output);
             });
         }
@@ -180,12 +180,12 @@ macro_rules! encode_bench_utf8 {
             b.iter(|| {
                 let (result, _, _, _) =
                     encoder.encode_from_utf8(test::black_box(&input[..]), &mut output[..], false);
-                match result {
-                    encoding_rs::CoderResult::InputEmpty => {}
-                    encoding_rs::CoderResult::OutputFull => {
-                        unreachable!("Output buffer too short.");
-                    }
-                }
+                // match result {
+                //     encoding_rs::CoderResult::InputEmpty => {}
+                //     encoding_rs::CoderResult::OutputFull => {
+                //         unreachable!("Output buffer too short.");
+                //     }
+                // }
                 test::black_box(&output);
             });
         }
@@ -227,12 +227,12 @@ macro_rules! encode_bench_utf16 {
             b.iter(|| {
                 let (result, _, _, _) =
                     encoder.encode_from_utf16(test::black_box(&input[..]), &mut output[..], false);
-                match result {
-                    encoding_rs::CoderResult::InputEmpty => {}
-                    encoding_rs::CoderResult::OutputFull => {
-                        unreachable!("Output buffer too short.");
-                    }
-                }
+                // match result {
+                //     encoding_rs::CoderResult::InputEmpty => {}
+                //     encoding_rs::CoderResult::OutputFull => {
+                //         unreachable!("Output buffer too short.");
+                //     }
+                // }
                 test::black_box(&output);
             });
         }
@@ -252,15 +252,33 @@ macro_rules! decode_bench_string {
             b.bytes = input.len() as u64;
             b.iter(|| {
                 let (output, _) = encoding.decode_without_bom_handling(test::black_box(&input[..]));
-                if encoding == encoding_rs::UTF_8 {
-                    if let Cow::Owned(_) = output {
-                        unreachable!();
-                    }
-                }
+                // if encoding == encoding_rs::UTF_8 {
+                //     if let Cow::Owned(_) = output {
+                //         unreachable!();
+                //     }
+                // }
                 test::black_box(&output);
             });
         }
     };
+}
+
+#[cfg(feature = "self")]
+#[bench]
+fn bench_decode_to_string_user_defined(b: &mut Bencher) {
+    let bytes = include_bytes!("wikipedia/binary.jpg");
+    let mut input = Vec::with_capacity(bytes.len());
+    input.extend_from_slice(bytes);
+    b.bytes = input.len() as u64;
+    b.iter(|| {
+        let (output, _) = encoding_rs::X_USER_DEFINED.decode_without_bom_handling(test::black_box(&input[..]));
+        // if encoding == encoding_rs::UTF_8 {
+        //     if let Cow::Owned(_) = output {
+        //         unreachable!();
+        //     }
+        // }
+        test::black_box(&output);
+    });
 }
 
 macro_rules! encode_bench_vec {
